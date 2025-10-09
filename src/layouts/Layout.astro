@@ -5,14 +5,19 @@
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
+		<title>Daniel Tunjano | Portafolio</title>
+		<meta name="description" content="Portafolio de Daniel Tunjano, desarrollador web y diseñador industrial." />
+		<meta name="keywords" content="Daniel Tunjano, portafolio, desarrollador web, diseñador industrial, proyectos, habilidades" />
+		<meta name="author" content="Daniel Tunjano" />
+		<meta name="robots" content="index, follow" />				
 	<body>
 		<slot />
 	</body>
 </html>
 
-<style>
+<style is:global>
+	@import "tailwindcss";
+
 	html,
 	body {
 		margin: 0;
