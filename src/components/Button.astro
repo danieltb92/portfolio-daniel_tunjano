@@ -1,0 +1,78 @@
+---
+export interface Props {
+    variant?: 'primary' | 'secondary' | 'outline';
+    size?: 'sm' | 'md' | 'lg';
+    class?: string;
+    type?: 'button' | 'submit' | 'reset';
+    disabled?: boolean;
+    href?: string;
+    target?: '_blank' | '_self';
+    ariaLabel?: string;
+    fullWidth?: boolean;
+}
+
+const {
+    variant = 'primary',
+    size = 'md',
+    class: className = '',
+    type = 'button',
+    disabled = false,
+    href,
+    target,
+    ariaLabel,
+    fullWidth = false,
+} = Astro.props;
+
+// Definimos los estilos base
+const baseStyles = 'inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50';
+
+// Estilos para cada variante
+const variants = {
+    primary: 'bg-blue-600 text-white hover:bg-blue-700 focus-visible:ring-blue-500',
+    secondary: 'bg-gray-200 text-gray-900 hover:bg-gray-300 focus-visible:ring-gray-500',
+    outline: 'border-2 border-blue-600 text-blue-600 hover:bg-blue-50 focus-visible:ring-blue-500'
+};
+
+// Estilos para cada tamaño
+const sizes = {
+    sm: 'text-sm px-3 py-1.5',
+    md: 'text-base px-4 py-2',
+    lg: 'text-lg px-6 py-3'
+};
+
+// Combinamos todos los estilos
+const classes = [
+    baseStyles,
+    variants[variant],
+    sizes[size],
+    fullWidth ? 'w-full' : '',
+    className
+].join(' ');
+---
+
+{
+    href ? (
+        <a
+            href={href}
+            target={target}
+            rel={target === '_blank' ? 'noopener noreferrer' : undefined}
+            class={classes}
+            aria-label={ariaLabel}
+        >
+            <slot name="icon-left" />
+            <slot />
+            <slot name="icon-right" />
+        </a>
+    ) : (
+        <button
+            type={type}
+            disabled={disabled}
+            class={classes}
+            aria-label={ariaLabel}
+        >
+            <slot name="icon-left" />
+            <slot />
+            <slot name="icon-right" />
+        </button>
+    )
+}

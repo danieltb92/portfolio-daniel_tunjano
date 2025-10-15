@@ -1,0 +1,20 @@
+---
+import ProjectCard from '../components/Card.astro';
+---
+
+<div class="flex justify-center flex-col items-center ">
+    <h2 class="text-3xl font-bold mb-6 text-center">PROYECTOS</h2>
+    <div class="grid grid-cols-1 gap-6 max-w-7xl w-[90%]">
+      
+        <ProjectCard
+            class="w-full"
+            title="Project Three"
+            description="A brief description of Project Three."
+            image={{ src: '/images/project-three.jpg', alt: 'Project Three Image' }}
+            tags={['HTML', 'Design']}
+            link={{ href: 'https://example.com/project-three', text: 'View Project', external: true }}
+            variant="minimal"
+        />
+        <!-- Add more ProjectCard components as needed -->
+    </div>
+</div>

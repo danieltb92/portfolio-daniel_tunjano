@@ -1,1 +1,28 @@
 @import "tailwindcss";
+/* @import "tailwindcss/typography"; */
+
+@theme {
+    --color-bg: #ffffff;
+    --color-text: #000000;
+    --color-primary: #1e40af;
+    --color-secondary: #9333ea;
+    --color-accent: #f59e0b;
+}
+
+@font-face {
+    font-family: "Kufam";
+    src: url("/fonts/Kufam-VariableFont_wght.ttf") format("truetype");
+    font-weight: normal, 100 900;
+    font-style: normal; 
+    font-display: swap;
+}
+
+h1
+{
+    font-family: "Kufam", sans-serif;
+    font-weight: bold;
+    letter-spacing: -2px;
+}
+ h2, h3, h4, h5, h6 {
+    font-family: "Kufam", sans-serif;
+}   
