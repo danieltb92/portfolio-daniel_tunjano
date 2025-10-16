@@ -1,20 +1,36 @@
 ---
 import ProjectCard from '../components/Card.astro';
+import projectsData from '../data/projects.json';
+
+interface ProjectData {
+    title: string;
+    image: {
+        src: string;
+        alt: string;
+    };
+    tags: string[];
+    link: {
+        href: string;
+        text: string;
+        external: boolean;
+    };
+}
+
+const projects: ProjectData[] = projectsData;
 ---
 
-<div class="flex justify-center flex-col items-center ">
+<div class="flex justify-center flex-col items-center">
     <h2 class="text-3xl font-bold mb-6 text-center">PROYECTOS</h2>
     <div class="grid grid-cols-1 gap-6 max-w-7xl w-[90%]">
-      
-        <ProjectCard
-            class="w-full"
-            title="Project Three"
-            description="A brief description of Project Three."
-            image={{ src: '/images/project-three.jpg', alt: 'Project Three Image' }}
-            tags={['HTML', 'Design']}
-            link={{ href: 'https://example.com/project-three', text: 'View Project', external: true }}
-            variant="minimal"
-        />
-        <!-- Add more ProjectCard components as needed -->
+        {projects.map((project) => (
+            <ProjectCard
+                class="w-full"
+                title={project.title}
+                image={project.image}
+                tags={project.tags}
+                link={project.link}
+                variant="minimal"
+            />
+        ))}
     </div>
 </div>

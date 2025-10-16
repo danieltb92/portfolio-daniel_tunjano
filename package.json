@@ -4,17 +4,21 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "generate": "tsx src/utils/generate-projectsData.ts",
+    "build": "pnpm run generate && astro build"
   },
   "dependencies": {
     "@notionhq/client": "^5.2.0",
     "@tailwindcss/vite": "^4.1.14",
     "astro": "^5.14.3",
+    "dotenv": "^17.2.3",
     "tailwindcss": "^4.1.14"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.19"
+    "@tailwindcss/typography": "^0.5.19",
+    "@types/node": "24.7.2",
+    "tsx": "4.20.6"
   }
 }

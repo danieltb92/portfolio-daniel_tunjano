@@ -1,0 +1,57 @@
+[
+  {
+    "id": "mercado-pago-pos",
+    "name": "Mercado Pago POS",
+    "cover": "https://prod-files-secure.s3.us-west-2.amazonaws.com/9da76ef5-4bc0-404e-9700-92e39c0a129d/e2ba9a89-1c30-41e6-962b-654ed87e543d/Example_3.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB4667ZDY3UJB%2F20251016%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20251016T173955Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEOn%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJIMEYCIQCeR84Z1OVnibChajcQqXJGlQ7PXsf9CyR2cRIKRg5pBAIhAIQvGg%2Fx%2BEGfZgsGaqrpjQSpflgEUdz%2Bvu7XpPCYeH%2FoKogECJL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQABoMNjM3NDIzMTgzODA1IgzMi8xFF%2FpGN3zjOR8q3AOOBH096igik6uj6hAiOgVM32A2zdWu7vMV9O2kn%2BIy3h4AHjRqZ4P0KtusbaX22RqfxrAmfJPuNlI32t76X6Hsc2IQntE6DGDgGRcYC2%2Bj8xQ7UScBgBzHj2AOrDtECCAEs6xeH5h0yLvDusnmw2FnYD5lTyvKmGoawz4POPtpcktOl7TM%2BM7mPJ0Su7vh6I7x1CE2XqQ4tAAINh%2B5pE8bI8tv4P%2FJZaezU6u9%2B2nJob4J3jQTIdpNf1FGBEXKou3914%2B9NMvh7fu1qMMnkJT7TWDbBf1Vexd0BM9wsi9sZOgAI%2BF06%2BPWdBHp7PZeNHZIKn1H2WpEzTqpBrui9L0c7zlWmDxjCANjd0YMk1fGGznCWDGlABCKwIrWGG6L1YP8FFxgxKuwMQygLMjvfDS0K9J9ncAcYnYMsnlHhelDMwQYRHxBeDYv1U9Eudx7cDawhCU1t0o3IWHC0czrI0lkfZGDy3sF5NjRwLegAEbRn5oeO4JYEMz6e3SRKgZ9DRwwMQT59%2FumxDC8CXF8c9jWr5LFTQm9Lg6FtzJeIr2XjwBx%2Frv5b3rcfz7nrJWSdJ7lNopdrJLXqkD7qG%2BAUAk6qAMkWdhEgMU1LJToNyFEzV9ZiW6X5EOH0vwlxzDexcTHBjqkAW%2F48u4gQwQSjMiRNjA8T33CKM7e9LWQGw2vNCO6ZPOTxjM6T2zfIjm0sOn8928tHRC6BXCCtqOXSM7ZNwZPOtcGKjhS02PAScgeg54NPPD6gF74YP4ajyC02G5UmJMf%2FMspoFz4ETb4gcDsEGhkrvegk1OxtVvERnpHr4RnxorgpXiR0UpxO3y6G2v8mNv1lufCVCPlxbyrqBNCFr6nUzLCcuvM&X-Amz-Signature=eb43d5355fd3c64777948408272fdd61bb5d009e486e1040794d76da0c746fcd&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject",
+    "title": "Mercado Pago POS",
+    "type": "Case Study",
+    "url": null,
+    "idPage": "bda88ad2-89a3-448c-aceb-6d16ee85d4b9",
+    "tags": [
+      "Case Study",
+      "UX/UI"
+    ]
+  },
+  {
+    "id": "wtingelec",
+    "name": "WT Ingelc sas",
+    "cover": "https://prod-files-secure.s3.us-west-2.amazonaws.com/9da76ef5-4bc0-404e-9700-92e39c0a129d/bd7f8d0f-fd0b-4d02-9830-b83bc4e4d9cf/Formato4_3.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB4667ZDY3UJB%2F20251016%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20251016T173955Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEOn%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJIMEYCIQCeR84Z1OVnibChajcQqXJGlQ7PXsf9CyR2cRIKRg5pBAIhAIQvGg%2Fx%2BEGfZgsGaqrpjQSpflgEUdz%2Bvu7XpPCYeH%2FoKogECJL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQABoMNjM3NDIzMTgzODA1IgzMi8xFF%2FpGN3zjOR8q3AOOBH096igik6uj6hAiOgVM32A2zdWu7vMV9O2kn%2BIy3h4AHjRqZ4P0KtusbaX22RqfxrAmfJPuNlI32t76X6Hsc2IQntE6DGDgGRcYC2%2Bj8xQ7UScBgBzHj2AOrDtECCAEs6xeH5h0yLvDusnmw2FnYD5lTyvKmGoawz4POPtpcktOl7TM%2BM7mPJ0Su7vh6I7x1CE2XqQ4tAAINh%2B5pE8bI8tv4P%2FJZaezU6u9%2B2nJob4J3jQTIdpNf1FGBEXKou3914%2B9NMvh7fu1qMMnkJT7TWDbBf1Vexd0BM9wsi9sZOgAI%2BF06%2BPWdBHp7PZeNHZIKn1H2WpEzTqpBrui9L0c7zlWmDxjCANjd0YMk1fGGznCWDGlABCKwIrWGG6L1YP8FFxgxKuwMQygLMjvfDS0K9J9ncAcYnYMsnlHhelDMwQYRHxBeDYv1U9Eudx7cDawhCU1t0o3IWHC0czrI0lkfZGDy3sF5NjRwLegAEbRn5oeO4JYEMz6e3SRKgZ9DRwwMQT59%2FumxDC8CXF8c9jWr5LFTQm9Lg6FtzJeIr2XjwBx%2Frv5b3rcfz7nrJWSdJ7lNopdrJLXqkD7qG%2BAUAk6qAMkWdhEgMU1LJToNyFEzV9ZiW6X5EOH0vwlxzDexcTHBjqkAW%2F48u4gQwQSjMiRNjA8T33CKM7e9LWQGw2vNCO6ZPOTxjM6T2zfIjm0sOn8928tHRC6BXCCtqOXSM7ZNwZPOtcGKjhS02PAScgeg54NPPD6gF74YP4ajyC02G5UmJMf%2FMspoFz4ETb4gcDsEGhkrvegk1OxtVvERnpHr4RnxorgpXiR0UpxO3y6G2v8mNv1lufCVCPlxbyrqBNCFr6nUzLCcuvM&X-Amz-Signature=c24d70ae10b40ba9b75805ae0ef79de2addc0094dfa4b905b953188e72839d7f&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject",
+    "title": "WT Ingelec sas",
+    "type": "LandingPage - Branding ",
+    "url": null,
+    "idPage": "261c2589-b304-807e-be47-cc091ff5158f",
+    "tags": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "Tailwind",
+      "Astro"
+    ]
+  },
+  {
+    "id": "rockTicket-app",
+    "name": "RockTicket App",
+    "cover": "https://prod-files-secure.s3.us-west-2.amazonaws.com/9da76ef5-4bc0-404e-9700-92e39c0a129d/c0355d6e-96e5-47da-b0be-3ae86cadd4e8/Cover_%281%29.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB4667ZDY3UJB%2F20251016%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20251016T173955Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEOn%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJIMEYCIQCeR84Z1OVnibChajcQqXJGlQ7PXsf9CyR2cRIKRg5pBAIhAIQvGg%2Fx%2BEGfZgsGaqrpjQSpflgEUdz%2Bvu7XpPCYeH%2FoKogECJL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQABoMNjM3NDIzMTgzODA1IgzMi8xFF%2FpGN3zjOR8q3AOOBH096igik6uj6hAiOgVM32A2zdWu7vMV9O2kn%2BIy3h4AHjRqZ4P0KtusbaX22RqfxrAmfJPuNlI32t76X6Hsc2IQntE6DGDgGRcYC2%2Bj8xQ7UScBgBzHj2AOrDtECCAEs6xeH5h0yLvDusnmw2FnYD5lTyvKmGoawz4POPtpcktOl7TM%2BM7mPJ0Su7vh6I7x1CE2XqQ4tAAINh%2B5pE8bI8tv4P%2FJZaezU6u9%2B2nJob4J3jQTIdpNf1FGBEXKou3914%2B9NMvh7fu1qMMnkJT7TWDbBf1Vexd0BM9wsi9sZOgAI%2BF06%2BPWdBHp7PZeNHZIKn1H2WpEzTqpBrui9L0c7zlWmDxjCANjd0YMk1fGGznCWDGlABCKwIrWGG6L1YP8FFxgxKuwMQygLMjvfDS0K9J9ncAcYnYMsnlHhelDMwQYRHxBeDYv1U9Eudx7cDawhCU1t0o3IWHC0czrI0lkfZGDy3sF5NjRwLegAEbRn5oeO4JYEMz6e3SRKgZ9DRwwMQT59%2FumxDC8CXF8c9jWr5LFTQm9Lg6FtzJeIr2XjwBx%2Frv5b3rcfz7nrJWSdJ7lNopdrJLXqkD7qG%2BAUAk6qAMkWdhEgMU1LJToNyFEzV9ZiW6X5EOH0vwlxzDexcTHBjqkAW%2F48u4gQwQSjMiRNjA8T33CKM7e9LWQGw2vNCO6ZPOTxjM6T2zfIjm0sOn8928tHRC6BXCCtqOXSM7ZNwZPOtcGKjhS02PAScgeg54NPPD6gF74YP4ajyC02G5UmJMf%2FMspoFz4ETb4gcDsEGhkrvegk1OxtVvERnpHr4RnxorgpXiR0UpxO3y6G2v8mNv1lufCVCPlxbyrqBNCFr6nUzLCcuvM&X-Amz-Signature=afa52ef3b8cc82d1e9fd54275f86e74e60465575328ab24d3b167011edc09a3d&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject",
+    "title": "RockTicket app                            ",
+    "type": "UX/UI Case Study",
+    "url": null,
+    "idPage": "111c2589-b304-8068-9cf8-f80bdc0fe309",
+    "tags": [
+      "UX/UI",
+      "Case Study"
+    ]
+  },
+  {
+    "id": "rockTicket-app-web",
+    "name": "RockTicket app Website",
+    "cover": "https://prod-files-secure.s3.us-west-2.amazonaws.com/9da76ef5-4bc0-404e-9700-92e39c0a129d/e4514668-d4d0-4af0-bd25-15bbd64e3699/Cover.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB4667ZDY3UJB%2F20251016%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20251016T173955Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEOn%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJIMEYCIQCeR84Z1OVnibChajcQqXJGlQ7PXsf9CyR2cRIKRg5pBAIhAIQvGg%2Fx%2BEGfZgsGaqrpjQSpflgEUdz%2Bvu7XpPCYeH%2FoKogECJL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQABoMNjM3NDIzMTgzODA1IgzMi8xFF%2FpGN3zjOR8q3AOOBH096igik6uj6hAiOgVM32A2zdWu7vMV9O2kn%2BIy3h4AHjRqZ4P0KtusbaX22RqfxrAmfJPuNlI32t76X6Hsc2IQntE6DGDgGRcYC2%2Bj8xQ7UScBgBzHj2AOrDtECCAEs6xeH5h0yLvDusnmw2FnYD5lTyvKmGoawz4POPtpcktOl7TM%2BM7mPJ0Su7vh6I7x1CE2XqQ4tAAINh%2B5pE8bI8tv4P%2FJZaezU6u9%2B2nJob4J3jQTIdpNf1FGBEXKou3914%2B9NMvh7fu1qMMnkJT7TWDbBf1Vexd0BM9wsi9sZOgAI%2BF06%2BPWdBHp7PZeNHZIKn1H2WpEzTqpBrui9L0c7zlWmDxjCANjd0YMk1fGGznCWDGlABCKwIrWGG6L1YP8FFxgxKuwMQygLMjvfDS0K9J9ncAcYnYMsnlHhelDMwQYRHxBeDYv1U9Eudx7cDawhCU1t0o3IWHC0czrI0lkfZGDy3sF5NjRwLegAEbRn5oeO4JYEMz6e3SRKgZ9DRwwMQT59%2FumxDC8CXF8c9jWr5LFTQm9Lg6FtzJeIr2XjwBx%2Frv5b3rcfz7nrJWSdJ7lNopdrJLXqkD7qG%2BAUAk6qAMkWdhEgMU1LJToNyFEzV9ZiW6X5EOH0vwlxzDexcTHBjqkAW%2F48u4gQwQSjMiRNjA8T33CKM7e9LWQGw2vNCO6ZPOTxjM6T2zfIjm0sOn8928tHRC6BXCCtqOXSM7ZNwZPOtcGKjhS02PAScgeg54NPPD6gF74YP4ajyC02G5UmJMf%2FMspoFz4ETb4gcDsEGhkrvegk1OxtVvERnpHr4RnxorgpXiR0UpxO3y6G2v8mNv1lufCVCPlxbyrqBNCFr6nUzLCcuvM&X-Amz-Signature=8f2265754b6666b4ef707faebd5d66e2f4695e910941024dc0a8334ff5a388a6&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject",
+    "title": "RockTicket app Website",
+    "type": "Website",
+    "url": null,
+    "idPage": "edc6ad16-10b4-4a47-a22d-cad0e23d473a",
+    "tags": [
+      "React",
+      "Tailwind"
+    ]
+  }
+]

@@ -1,5 +1,6 @@
 import { Client } from '@notionhq/client';
+import 'dotenv/config';
 
 export const notion = new Client({
-  auth: import.meta.env.NOTION_TOKEN,
+  auth: process.env.NOTION_TOKEN,
 });
