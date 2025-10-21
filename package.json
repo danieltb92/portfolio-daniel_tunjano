@@ -7,12 +7,14 @@
     "preview": "astro preview",
     "astro": "astro",
     "generate": "tsx src/utils/generate-projectsData.ts",
-    "build": "pnpm run generate && astro build"
+    "build": "tsx src/utils/generate-projectsData.ts && astro build",
+    "start": "tsx src/scripts/start.ts",
+    "start:prod": "tsx src/scripts/start.ts build"
   },
   "dependencies": {
-    "@notionhq/client": "^5.2.0",
+    "@notionhq/client": "^5.2.1",
     "@tailwindcss/vite": "^4.1.14",
-    "astro": "^5.14.3",
+    "astro": "^5.14.5",
     "dotenv": "^17.2.3",
     "tailwindcss": "^4.1.14"
   },

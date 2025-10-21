@@ -12,17 +12,37 @@
 @font-face {
     font-family: "Kufam";
     src: url("/fonts/Kufam-VariableFont_wght.ttf") format("truetype");
-    font-weight: normal, 100 900;
+    font-weight: bold, 100 900;
     font-style: normal; 
     font-display: swap;
+}
+
+@font-face {
+    font-family: "Inter";
+    src: url("/fonts/Inter-VariableFont_opsz,wght.ttf") format("truetype");
+    font-weight: bold, 100 900;
+    font-style: normal; 
+    font-display: swap ;
 }
 
 h1
 {
     font-family: "Kufam", sans-serif;
-    font-weight: bold;
     letter-spacing: -2px;
+    font-weight: bold;
 }
- h2, h3, h4, h5, h6 {
+ h2{
     font-family: "Kufam", sans-serif;
+    letter-spacing: -2px;
+    font-weight: bold;
+    font-size: 3rem ;
+ }
+  h3{
+    font-family: "Inter", sans-serif;
+    letter-spacing: -1px;
+    font-weight: bold;
+    font-size: 1.5rem ;
+  } h4, h5, h6 {
+    font-family: "Inter", sans-serif;
+    font-weight: bold;
 }   

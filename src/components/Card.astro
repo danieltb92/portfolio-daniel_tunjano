@@ -3,7 +3,7 @@ import Button from './Button.astro';
 
 export interface Props {
     title: string;
-    description?: string;
+    slug?: string;
     image?: {
         src: string;
         alt: string;
@@ -20,7 +20,7 @@ export interface Props {
 
 const {
     title,
-    description,
+    slug,
     image,
     tags,
     link,
@@ -29,13 +29,13 @@ const {
 } = Astro.props;
 
 // Estilos base para la tarjeta
-const baseStyles = 'rounded-lg overflow-hidden transition-transform hover:scale-[1.02] focus-within:scale-[1.02]';
+const baseStyles = 'rounded-lg overflow-hidden ';
 
 // Variantes de la tarjeta
 const variants = {
     default: 'bg-white dark:bg-gray-800 shadow-md',
     featured: 'bg-blue-50 dark:bg-blue-900 shadow-xl border-2 border-blue-200 dark:border-blue-700',
-    minimal: 'bg-transparent hover:bg-gray-50 dark:hover:bg-gray-900'
+    minimal: 'bg-transparent'
 };
 
 const cardClasses = [
@@ -45,27 +45,29 @@ const cardClasses = [
 ].join(' ');
 ---
 
-<article class={cardClasses}>
+<article class={`${cardClasses} flex flex-col`}>
     {image && (
-        <div class="relative aspect-video overflow-hidden">
+        <div class="aspect-video overflow-hidden rounded-4xl border-2 border-gray-300 ">
+            <a href={slug ? `/${slug}` : '#'} class="cursor-pointer">
             <img
                 src={image.src}
                 alt={image.alt}
-                class="object-cover w-full h-full"
+                class="object-cover w-full h-full transition-transform hover:scale-[1.1] focus-within:scale-[1.02]"
                 loading="lazy"
             />
+            </a>
         </div>
     )}
     
-    <div class="p-6">
-        <header>
-            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
-                {title}
+    <div class="p-6 px-0">
+        <header class="flex flex-col md:flex-row justify-between">
+            <h3 class="text-xl md:text-3xl font-bold text-gray-900  mb-2">
+                {title} <span> --></span>
             </h3>
             {tags && tags.length > 0 && (
-                <div class="flex flex-wrap gap-2 mb-4">
+                <div class="hidden flex-wrap gap-2 mb-4">
                     {tags.map(tag => (
-                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+                        <span class="inline-flex items-center px-2.5 py-2 rounded-xl text-xs font-medium bg-blue-100 border ">
                             {tag}
                         </span>
                     ))}
@@ -73,14 +75,14 @@ const cardClasses = [
             )}
         </header>
 
-        {description && (
+        <!-- {description && (
             <p class="text-gray-600 dark:text-gray-300 mb-4">
                 {description}
             </p>
-        )}
+        )} -->
 
         {link && (
-            <footer class="mt-auto">
+            <footer class="hidden mt-auto">
                 <Button
                     href={link.href}
                     target={link.external ? '_blank' : undefined}
