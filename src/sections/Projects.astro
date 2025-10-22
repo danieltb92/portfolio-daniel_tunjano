@@ -30,7 +30,11 @@ const projects: ProjectData[] = projectsData;
                 slug={project.slug}
                 image={project.image}
                 tags={project.tags}
-                link={project.link}
+                link={{
+                    href: `/projects/${project.slug}`,  // Corregido aquí
+                    text: "Ver Proyecto",
+                    external: false
+                }}
                 variant="minimal"
             />
         ))}

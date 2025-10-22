@@ -48,7 +48,7 @@ const cardClasses = [
 <article class={`${cardClasses} flex flex-col`}>
     {image && (
         <div class="aspect-video overflow-hidden rounded-4xl border-2 border-gray-300 ">
-            <a href={slug ? `/${slug}` : '#'} class="cursor-pointer">
+            <a href={slug ? `projects/${slug}` : '#'} class="cursor-pointer">
             <img
                 src={image.src}
                 alt={image.alt}
