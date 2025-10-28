@@ -1,114 +1,85 @@
 ---
-import Button from './Button.astro';
+import Button from "./Button.astro";
+import ArrowIcon from "../assets/Icons/MaterialSymbolsArrowOutwardRounded.svg";
 
 export interface Props {
-    title: string;
-    slug?: string;
-    image?: {
-        src: string;
-        alt: string;
-    };
-    tags?: string[];
-    link?: {
-        href: string;
-        text: string;
-        external?: boolean;
-    };
-    class?: string;
-    variant?: 'default' | 'featured' | 'minimal';
+  title: string;
+  slug?: string;
+  image?: {
+    src: string;
+    alt: string;
+  };
+  tags?: string[];
+  link?: {
+    href: string;
+    text: string;
+    external?: boolean;
+  };
+  class?: string;
+  variant?: "default" | "featured" | "minimal";
 }
 
 const {
-    title,
-    slug,
-    image,
-    tags,
-    link,
-    class: className = '',
-    variant = 'default'
+  title,
+  slug,
+  image,
+  tags,
+  link,
+  class: className = "",
+  variant = "default",
 } = Astro.props;
 
 // Estilos base para la tarjeta
-const baseStyles = 'rounded-lg overflow-hidden ';
+const baseStyles = "rounded-lg overflow-hidden ";
 
 // Variantes de la tarjeta
 const variants = {
-    default: 'bg-white dark:bg-gray-800 shadow-md',
-    featured: 'bg-blue-50 dark:bg-blue-900 shadow-xl border-2 border-blue-200 dark:border-blue-700',
-    minimal: 'bg-transparent'
+  default: "bg-white dark:bg-gray-800 shadow-md",
+  featured:
+    "bg-blue-50 dark:bg-blue-900 shadow-xl border-2 border-blue-200 dark:border-blue-700",
+  minimal: "bg-transparent",
 };
 
-const cardClasses = [
-    baseStyles,
-    variants[variant],
-    className
-].join(' ');
+const cardClasses = [baseStyles, variants[variant], className].join(" ");
 ---
 
 <article class={`${cardClasses} flex flex-col`}>
+  <a href={slug ? `projects/${slug}` : "#"} class="group cursor-pointer">
     {image && (
-        <div class="aspect-video overflow-hidden rounded-4xl border-2 border-gray-300 ">
-            <a href={slug ? `projects/${slug}` : '#'} class="cursor-pointer">
-            <img
-                src={image.src}
-                alt={image.alt}
-                class="object-cover w-full h-full transition-transform hover:scale-[1.1] focus-within:scale-[1.02]"
-                loading="lazy"
-            />
-            </a>
-        </div>
+      <div class="aspect-video overflow-hidden rounded-2xl border-2 border-gray-300">
+        <img
+          src={image.src}
+          alt={image.alt}
+          loading="lazy"
+          class="object-cover w-full h-full transition-transform duration-500 ease-in-out group-hover:scale-[1.05]"
+        />
+      </div>
     )}
-    
+
     <div class="p-6 px-0">
-        <header class="flex flex-col md:flex-row justify-between">
-            <h3 class="text-xl md:text-3xl font-bold text-gray-900  mb-2">
-                {title} <span> --></span>
-            </h3>
-            {tags && tags.length > 0 && (
-                <div class="hidden flex-wrap gap-2 mb-4">
-                    {tags.map(tag => (
-                        <span class="inline-flex items-center px-2.5 py-2 rounded-xl text-xs font-medium bg-blue-100 border ">
-                            {tag}
-                        </span>
-                    ))}
-                </div>
-            )}
-        </header>
+      <header class="flex flex-col md:flex-row justify-between h-fit">
+        <h3 class="flex gap-2 text-xl md:text-3xl font-bold text-gray-900 mb-2">
+          {title}
+          <span class="h-fit flex items-center">
+            <ArrowIcon
+              class="w-7 h-7 transition-transform duration-500 ease-in-out group-hover:translate-x-1 group-hover:scale-110"
+            />
+          </span>
+        </h3>
 
-        <!-- {description && (
-            <p class="text-gray-600 dark:text-gray-300 mb-4">
-                {description}
-            </p>
-        )} -->
-
-        {link && (
-            <footer class="hidden mt-auto">
-                <Button
-                    href={link.href}
-                    target={link.external ? '_blank' : undefined}
-                    variant={variant === 'featured' ? 'primary' : 'secondary'}
-                    size="sm"
-                >
-                    {link.text}
-                    {link.external && (
-                        <svg
-                            slot="icon-right"
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="h-4 w-4 ml-1"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                        >
-                            <path
-                                fill-rule="evenodd"
-                                d="M5.293 6.707a1 1 0 0 1 0-1.414l8-8a1 1 0 0 1 1.414 0l4 4a1 1 0 0 1 0 1.414l-8 8a1 1 0 0 1-1.414 0l-4-4zM7 14l-.707.707a1 1 0 0 0 1.414 1.414L7 14zm-2-2l-4 4v2h2l4-4-2-2z"
-                                clip-rule="evenodd"
-                            />
-                        </svg>
-                    )}
-                </Button>
-            </footer>
+        {tags && tags.length > 0 && (
+          <div class="hidden flex-wrap gap-2 mb-4">
+            {tags.map((tag) => (
+              <span class="inline-flex items-center px-2.5 py-2 rounded-xl text-xs font-medium bg-blue-100 border">
+                {tag}
+              </span>
+            ))}
+          </div>
         )}
+      </header>
 
-        <slot />
+      <slot />
     </div>
+  </a>
 </article>
+

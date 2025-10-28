@@ -1,6 +1,6 @@
 ---
-import ProjectCard from '../components/Card.astro';
-import projectsData from '../data/projects.json';
+import ProjectCard from '../Card.astro';
+import projectsData from '../../data/projects.json';
 
 interface ProjectData {
     title: string;
@@ -22,10 +22,10 @@ const projects: ProjectData[] = projectsData;
 
 <div class="flex justify-center flex-col items-center p-0 md:p-16">
     <h2 class="text-3xl font-bold mb-20 text-center">Proyectos</h2>
-    <div class="grid grid-cols-1 gap-6 max-w-6xl w-[80%]">
+    <div class="grid grid-cols-1 gap-2 md:gap-6 max-w-6xl w-[90%]">
         {projects.map((project) => (
             <ProjectCard
-                class="w-full mb-10"
+                class="w-full last:mb-10"
                 title={project.title}
                 slug={project.slug}
                 image={project.image}

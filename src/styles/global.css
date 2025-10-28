@@ -30,12 +30,15 @@ h1
     font-family: "Kufam", sans-serif;
     letter-spacing: -2px;
     font-weight: bold;
+    line-height: normal;
 }
  h2{
     font-family: "Kufam", sans-serif;
     letter-spacing: -2px;
     font-weight: bold;
     font-size: 3rem ;
+    line-height: normal;
+
  }
   h3{
     font-family: "Inter", sans-serif;

@@ -1,0 +1,124 @@
+{
+  "profile": {
+    "name": "Daniel Tunjano",
+    "title": "Desarrollador Frontend",
+    "description": "Apasionado por crear experiencias web excepcionales y soluciones innovadoras.",
+    "image": "/profile-image.jpg",
+    "location": "Bogotá, Colombia",
+    "email": "danieltb92@hotmail.com",
+    "phone": "+57 320 219 0255",
+    "availability": "Disponible para proyectos",
+    "social": {
+      "github": "https://github.com/danieltb92",
+      "linkedin": "https://linkedin.com/in/danieltb922",
+      "twitter": "https://twitter.com/danieltunjano",
+      "instagram": "https://instagram.com/danieltb92"
+    }
+  },
+  "skills": {
+    "technical": [
+      {
+        "category": "Frontend",
+        "items": ["HTML", "CSS", "JavaScript", "TypeScript", "React", "Astro", "Next.js", "TailwindCSS"]
+      },
+      {
+        "category": "Backend",
+        "items": ["Node.js", "Express", "PostgreSQL", "MongoDB"]
+      },
+      {
+        "category": "Herramientas",
+        "items": ["Git", "VS Code", "Docker", "Figma", "Adobe XD"]
+      }
+    ],
+    "soft": [
+      "Trabajo en equipo",
+      "Comunicación efectiva",
+      "Resolución de problemas",
+      "Gestión del tiempo",
+      "Adaptabilidad"
+    ]
+  },
+  "experience": [
+    {
+      "title": "Desarrollador Frontend Senior",
+      "company": "Empresa Tecnológica",
+      "location": "Bogotá, Colombia",
+      "startDate": "2023-01",
+      "endDate": "Presente",
+      "description": "Desarrollo de aplicaciones web con React y Next.js",
+      "achievements": [
+        "Mejora del rendimiento en un 40%",
+        "Implementación de nuevas características",
+        "Liderazgo de equipo de 5 desarrolladores"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "degree": "Ingeniería de Sistemas",
+      "institution": "Universidad Nacional",
+      "location": "Bogotá, Colombia",
+      "startDate": "2015",
+      "endDate": "2020",
+      "description": "Especialización en desarrollo de software y sistemas distribuidos"
+    }
+  ],
+  "languages": [
+    {
+      "name": "Español",
+      "level": "Nativo"
+    },
+    {
+      "name": "Inglés",
+      "level": "Avanzado"
+    }
+  ],
+  "certifications": [
+    {
+      "name": "AWS Certified Developer",
+      "issuer": "Amazon Web Services",
+      "date": "2024",
+      "url": "https://aws.amazon.com/certification"
+    }
+  ],
+  "interests": [
+    "Desarrollo Web",
+    "UX/UI Design",
+    "Tecnologías Emergentes",
+    "Inteligencia Artificial",
+    "Open Source"
+  ],
+  "portfolio": {
+    "featuredProjects": [
+      {
+        "id": 1,
+        "title": "E-commerce Platform",
+        "description": "Plataforma de comercio electrónico con React y Node.js",
+        "image": "/projects/ecommerce.jpg",
+        "technologies": ["React", "Node.js", "MongoDB"],
+        "liveUrl": "https://proyecto.com",
+        "githubUrl": "https://github.com/usuario/proyecto"
+      }
+    ]
+  },
+  "achievements": [
+    {
+      "title": "Mejor Desarrollador del Año",
+      "organization": "Tech Awards 2024",
+      "date": "2024",
+      "description": "Reconocimiento por contribuciones excepcionales"
+    }
+  ],
+  "contact": {
+    "email": "contacto@danieltunjano.com",
+    "phone": "+57 300 123 4567",
+    "location": {
+      "city": "Bogotá",
+      "country": "Colombia"
+    },
+    "availability": {
+      "status": "Disponible",
+      "type": "Full-time / Freelance"
+    }
+  }
+}

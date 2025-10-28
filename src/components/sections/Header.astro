@@ -1,0 +1,156 @@
+---
+import MenuIcon from '../../assets/icons/AntDesignMenuOutlined.svg';
+import Logo from '../../assets/logo.svg';
+---
+
+<header class="fixed top-0 left-0 w-full bg-white/80 backdrop-blur-md z-50">
+  <nav class="max-w-7xl mx-auto px-4">
+    <div class="flex items-center justify-between md:justify-center h-16 gap-8">
+      <!-- Logo o Nombre -->
+      <a href="/" class="text-xl font-bold"><Logo class="w-8" /></a>
+
+      <!-- Menú Desktop -->
+      <ul class="hidden md:flex items-center gap-8">
+        <li><a href="#about" class="text-lg hover:text-blue-500 transition-colors">About</a></li>
+        <li><a href="#projects" class="text-lg hover:text-blue-500 transition-colors">Projects</a></li>
+        <li><a href="#contact" class="text-lg hover:text-blue-500 transition-colors">Contact</a></li>
+      </ul>
+
+      <!-- Botón Menú Móvil -->
+      <button 
+        id="menu-toggle" 
+        class="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+        aria-label="Toggle menu"
+      >
+      <MenuIcon class="w-6 h-6" />
+        <!-- <svg 
+          class="w-6 h-6" 
+          fill="none" 
+          stroke="currentColor" 
+          viewBox="0 0 24 24"
+        >
+          <path 
+            stroke-linecap="round" 
+            stroke-linejoin="round" 
+            stroke-width="2" 
+            d="M4 6h16M4 12h16M4 18h16"
+          />
+        </svg> -->
+      </button>
+    </div>
+
+    <!-- Menú Móvil -->
+    <div 
+      id="mobile-menu" 
+      class="hidden md:hidden absolute top-16 left-0 w-full bg-white/80 backdrop-blur-md shadow-lg"
+    >
+      <ul class="flex flex-col py-4">
+        <li>
+          <a 
+            href="#about" 
+            class="block px-4 py-2 text-lg hover:bg-gray-100 transition-colors"
+          >
+            About
+          </a>
+        </li>
+        <li>
+          <a 
+            href="#projects" 
+            class="block px-4 py-2 text-lg hover:bg-gray-100 transition-colors"
+          >
+            Projects
+          </a>
+        </li>
+        <li>
+          <a 
+            href="#contact" 
+            class="block px-4 py-2 text-lg hover:bg-gray-100 transition-colors"
+          >
+            Contact
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<script>
+  // Manejo del menú móvil
+  const menuToggle = document.getElementById('menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  let isMenuOpen = false;
+
+  if (menuToggle && mobileMenu) {
+    menuToggle.addEventListener('click', () => {
+      isMenuOpen = !isMenuOpen;
+      mobileMenu.classList.toggle('hidden');
+      
+      // Opcional: Animar el ícono del menú
+      const icon = menuToggle.querySelector('svg');
+      if (icon) {
+        icon.style.transform = isMenuOpen ? 'rotate(90deg)' : '';
+        icon.style.transition = 'transform 0.3s ease';
+      }
+    });
+
+    // Cerrar menú al hacer click en un enlace
+    const menuLinks = mobileMenu.querySelectorAll('a');
+    menuLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        isMenuOpen = false;
+      });
+    });
+  }
+
+  // Ocultar/mostrar header al hacer scroll
+  let lastScroll = 0;
+  const header = document.querySelector('header');
+
+  window.addEventListener('scroll', () => {
+    if (!header) return;
+    
+    const currentScroll = window.pageYOffset;
+    
+    if (currentScroll <= 0) {
+      header.classList.remove('-translate-y-full');
+      return;
+    }
+    
+    if (currentScroll > lastScroll && !isMenuOpen) {
+      header.classList.add('-translate-y-full');
+    } else {
+      header.classList.remove('-translate-y-full');
+    }
+    
+    lastScroll = currentScroll;
+  });
+</script>
+
+<style>
+  header {
+    transition: transform 0.3s ease;
+  }
+
+  .mobile-menu-enter {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  .mobile-menu-enter-active {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .mobile-menu-exit {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .mobile-menu-exit-active {
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+</style>
