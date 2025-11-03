@@ -13,7 +13,27 @@
       "linkedin": "https://linkedin.com/in/danieltb922",
       "twitter": "https://twitter.com/danieltunjano",
       "instagram": "https://instagram.com/danieltb92"
-    }
+    },
+    "keywords": [
+      "Desarrollador Frontend",
+      "React",
+      "Next.js",
+      "Astro",
+      "JavaScript",
+      "TypeScript",
+      "Diseño Web",
+      "UX/UI",
+      "Desarrollo Web",
+      "Tecnologías Web"
+    ],
+    "profileWords" : [
+      "Diseñador",
+      "Desarrollador",
+      "UX/UI",
+      "Creador",
+      "Innovador",
+      "Creativo"
+    ]
   },
   "skills": {
     "technical": [

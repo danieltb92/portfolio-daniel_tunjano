@@ -2,13 +2,13 @@
 import {profile} from '../../data/data.json'
 ---
 <footer class="relative w-full overflow-hidden min-h-[300px] sm:min-h-[300px] md:min-h-[250px] flex justify-items-start  items-center flex-col p-10 ">
-    <div class="max-w-5xl w-full flex flex-col md:flex-row justify-between items-center px-8 gap-5">
-         <div>Let’s work together</div>
+    <div class="max-w-7xl w-full flex flex-col md:flex-row justify-between items-center px-8 gap-5">
+         <div><b>Let’s work together</b></div>
          <ul class="flex flex-col md:flex-row list-none gap-2 md:gap-7 items-center">
-            <li><a href={`mailto:${profile.email}`}>Email</a></li>
-            <li><a href={profile.social.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-            <li><a href={`tel:${profile.phone}`}>WhatsApp</a></li>
-            <li><a href={profile.social.github} target="_blank" rel="noopener noreferrer">GitHub</a></li>
+            <li><a href={`mailto:${profile.email}`} class="hover:border-b">Email</a></li>
+            <li><a href={profile.social.linkedin} target="_blank" rel="noopener noreferrer" class="hover:border-b">LinkedIn</a></li>
+            <li><a href={`tel:${profile.phone}`} class="hover:border-b">WhatsApp</a></li>
+            <li><a href={profile.social.github} target="_blank" rel="noopener noreferrer" class="hover:border-b">GitHub</a></li>
         </ul>
     </div>
     <div class="absolute bottom-[0px] flex justify-center flex-col items-center p-8 pb-0 z-10">

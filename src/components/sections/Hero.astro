@@ -1,7 +1,60 @@
-<div 
-    class="md:max-w-5xl mx-auto h-[100dvh] flex flex-col items-center justify-center px-4 ">
-  <h1 class="text-7xl md:text-[10rem] font-bold text-center">DANIELTB</h1>
-  <p class="mt-4 text-center text-gray-600">
-    I'm Daniel Tunjano, a web developer specializing in Astro and Tailwind CSS.
+---
+import LinkedinIcon from "../../assets/socials/RiLinkedinBoxLine.svg";
+import GithubIcon from "../../assets/socials/RiGithubFill.svg";
+import WhatsappIcon from "../../assets/socials/RiWhatsappLine.svg";
+import EmailIcon from "../../assets/socials/RiMailLine.svg";
+import { profile } from '../../data/data.json'; 
+
+const profileWords = profile.profileWords;
+const roles = profileWords;
+---
+
+<section
+  class="md:max-w-5xl mx-auto h-[100dvh] flex flex-col items-center justify-center px-4 pt-16"
+>
+  <h1
+    class="text-[18vw] sm:text-6xl md:text-[8rem] lg:text-[12vw] font-bold text-center leading-[-50px]"
+  >
+    <span
+      id="changing-word"
+      class="block text-[11vw] sm:text-6xl md:text-[6rem] lg:text-[8vw] !text-gray-800/20 dark:text-white/50 transition-all duration-500 ease-in-out"
+    >
+      {roles[0]}
+    </span>
+    <span
+      class="block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-[var(--color-accent)]"
+    >
+      DANIELTB
+    </span>
+  </h1>
+
+  <p class="text-center text-gray-600 dark:text-gray-400 text-lg">
+    Soy Daniel Tunjano | diseñador industrial | diseñador UX/UI | desarrollador
+    web.
   </p>
-</div>
+  <ul class="flex flex-row gap-6 mt-6 text-gray-400">
+    <li><a href="#" class="hover:text-black"><LinkedinIcon /></a></li>
+    <li><a href="#" class="hover:text-black"><GithubIcon /></a></li>
+    <li><a href="#" class="hover:text-black"><WhatsappIcon /></a></li>
+    <li>
+      <a href="#" class="hover:text-black"><EmailIcon /></a><li></li>
+
+      <script define:vars={{ profileWords }}>
+        const roles = profileWords;
+        let current = 0;
+        const textElement = document.getElementById("changing-word");
+
+        if (textElement) {
+          setInterval(() => {
+            textElement.classList.add("opacity-0", "translate-y-2");
+            setTimeout(() => {
+              current = (current + 1) % roles.length;
+              textElement.textContent = roles[current];
+              textElement.classList.remove("opacity-0", "translate-y-2");
+            }, 400);
+          }, 2500);
+        }
+      </script>
+    </li>
+  </ul>
+</section>
