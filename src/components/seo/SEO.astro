@@ -1,0 +1,93 @@
+---
+// src/components/SEO.astro
+import SEO_DATA from '@/data/seo.json';
+
+// Definir las props que recibe el componente
+export interface Props {
+  title: string; // Ahora es obligatorio recibirlo desde fuera
+  description: string; // Ahora es obligatorio recibirlo desde fuera
+  keywords?: string[];
+  author?: string;
+  image?: { src: string; alt: string };
+  siteName?: string;
+  locale?: string;
+  type?: string;
+  robots?: 'index, follow' | 'noindex, nofollow';
+}
+
+// Obtener las props
+const props = Astro.props;
+
+// Datos por defecto del JSON (solo siteUrl por ahora)
+const { siteUrl } = SEO_DATA.default;
+
+// Usar los valores recibidos por props, o valores por defecto si no se pasan
+const finalTitle = props.title;
+const finalDescription = props.description;
+const finalKeywords = props.keywords || SEO_DATA.default.keywords;
+const finalAuthor = props.author || SEO_DATA.default.author;
+const finalImage = props.image || SEO_DATA.default.image;
+const finalSiteName = props.siteName || SEO_DATA.default.siteName;
+const finalLocale = props.locale || SEO_DATA.default.locale;
+const finalType = props.type || SEO_DATA.default.type;
+const finalRobots = props.robots || 'index, follow';
+
+// URL canónica basada en la URL actual de Astro
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
+---
+
+<!-- Metadatos Básicos -->
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="generator" content={Astro.generator} />
+
+<!-- Metadatos SEO -->
+<title>{finalTitle}</title>
+<meta name="description" content={finalDescription} />
+<meta name="keywords" content={finalKeywords?.join(', ') || ''} />
+<meta name="author" content={finalAuthor} />
+<meta name="robots" content={finalRobots} />
+
+<!-- Canonical URL -->
+<link rel="canonical" href={canonicalUrl} />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content={finalType} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:title" content={finalTitle} />
+<meta property="og:description" content={finalDescription} />
+<meta property="og:image" content={new URL(finalImage.src, siteUrl).href} />
+<meta property="og:image:url" content={new URL(finalImage.src, siteUrl).href} />
+<meta property="og:image:secure_url" content={new URL(finalImage.src, siteUrl).href} />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="600" />
+<meta property="og:image:alt" content={finalImage.alt || finalTitle} />
+<meta property="og:site_name" content={finalSiteName} />
+<meta property="og:locale" content={finalLocale} />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={finalTitle} />
+<meta name="twitter:description" content={finalDescription} />
+<meta name="twitter:image" content={new URL(finalImage.src, siteUrl).href} />
+<meta name="twitter:image:alt" content={finalTitle} />
+<meta name="twitter:domain" content={siteUrl} />
+
+<!-- Datos Estructurados JSON-LD -->
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": finalType === "website" ? "WebSite" : "WebPage",
+    "name": finalTitle,
+    "description": finalDescription,
+    "url": canonicalUrl,
+    "image": {
+      "@type": "ImageObject",
+      "url": new URL(finalImage.src, siteUrl).href,
+      "width": 1200,
+      "height": 600
+    }
+  })}
+/>
