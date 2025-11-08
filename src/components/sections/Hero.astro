@@ -17,7 +17,7 @@ const roles = profileWords;
   >
     <span
       id="changing-word"
-      class="block text-[11vw] sm:text-6xl md:text-[6rem] lg:text-[8vw] !text-gray-800/20 dark:text-white/50 transition-all duration-500 ease-in-out"
+      class="block text-[11vw] sm:text-6xl md:text-[6rem] lg:text-[8vw] opacity-10 transition-all duration-500 ease-in-out"
     >
       {roles[0]}
     </span>
@@ -33,28 +33,26 @@ const roles = profileWords;
     web.
   </p>
   <ul class="flex flex-row gap-6 mt-6 text-gray-400">
-    <li><a href="#" class="hover:text-black"><LinkedinIcon /></a></li>
-    <li><a href="#" class="hover:text-black"><GithubIcon /></a></li>
-    <li><a href="#" class="hover:text-black"><WhatsappIcon /></a></li>
-    <li>
-      <a href="#" class="hover:text-black"><EmailIcon /></a><li></li>
+    <li><a href="#" class="hover:text-[var(--color-primary)]"><LinkedinIcon /></a></li>
+    <li><a href="#" class="hover:text-[var(--color-primary)]"><GithubIcon /></a></li>
+    <li><a href="#" class="hover:text-[var(--color-primary)]"><WhatsappIcon /></a></li>
+    <li><a href="#" class="hover:text-[var(--color-primary)]"><EmailIcon /></a></li>
 
-      <script define:vars={{ profileWords }}>
-        const roles = profileWords;
-        let current = 0;
-        const textElement = document.getElementById("changing-word");
+    <script define:vars={{ profileWords }}>
+      const roles = profileWords;
+      let current = 0;
+      const textElement = document.getElementById("changing-word");
 
-        if (textElement) {
-          setInterval(() => {
-            textElement.classList.add("opacity-0", "translate-y-2");
-            setTimeout(() => {
-              current = (current + 1) % roles.length;
-              textElement.textContent = roles[current];
-              textElement.classList.remove("opacity-0", "translate-y-2");
-            }, 400);
-          }, 2500);
-        }
-      </script>
-    </li>
+      if (textElement) {
+        setInterval(() => {
+          textElement.classList.add("opacity-0", "translate-y-2");
+          setTimeout(() => {
+            current = (current + 1) % roles.length;
+            textElement.textContent = roles[current];
+            textElement.classList.remove("opacity-0", "translate-y-2");
+          }, 400);
+        }, 2500);
+      }
+    </script>
   </ul>
 </section>

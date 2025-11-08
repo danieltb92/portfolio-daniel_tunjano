@@ -1,0 +1,96 @@
+---
+import type { ImageMetadata } from 'astro';
+
+export interface Props {
+  logos: {
+    src: string | ImageMetadata;
+    alt: string;
+  }[];
+  speed?: 'slow' | 'normal' | 'fast';
+  height?: string;
+  showMask?: boolean;
+  grayscale?: boolean;
+}
+
+const { 
+  logos = [], 
+  speed = 'normal', 
+  height = 'h-8 md:h-12 lg:h-12',
+  showMask = true,
+  grayscale = true
+} = Astro.props;
+
+const speedValues = {
+  slow: 35,
+  normal: 25,
+  fast: 15
+};
+
+const animationDuration = speedValues[speed];
+---
+
+<div class={`justify-center w-full inline-flex flex-nowrap overflow-hidden py-10 ${showMask ? '[mask-image:_linear-gradient(to_right,transparent_0,_black_428px,_black_calc(100%-428px),transparent_100%)]' : ''}`}>
+  <div class={`flex items-center justify-center md:justify-start [&_div]:mx-8 [&_img]:max-w-none animate-marquee-${speed} whitespace-nowrap`}>
+    {logos.map((logo) => (
+      <div>
+        <img
+          src={typeof logo.src === 'string' ? logo.src : logo.src.src}
+          alt={logo.alt}
+          class={`${height} ${grayscale ? 'opacity-70 grayscale' : 'opacity-100'} transition-opacity duration-300 hover:opacity-100 ${grayscale ? 'hover:grayscale-0' : ''}`}
+          loading="lazy"
+        />
+      </div>
+    ))}
+    {logos.map((logo) => (
+      <div>
+        <img
+          src={typeof logo.src === 'string' ? logo.src : logo.src.src}
+          alt={logo.alt}
+          class={`${height} ${grayscale ? 'opacity-70 grayscale' : 'opacity-100'} transition-opacity duration-300 hover:opacity-100 ${grayscale ? 'hover:grayscale-0' : ''}`}
+          loading="lazy"
+        />
+      </div>
+    ))}
+  </div>
+</div>
+
+<!-- <style>
+  @keyframes marquee-slow {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes marquee-normal {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes marquee-fast {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-marquee-slow {
+    animation: marquee-slow 35s linear infinite;
+  }
+
+  .animate-marquee-normal {
+    animation: marquee-normal 25s linear infinite;
+  }
+
+  .animate-marquee-fast {
+    animation: marquee-fast 15s linear infinite;
+  }
+</style> -->
