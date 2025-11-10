@@ -1,19 +1,27 @@
 ---
+import { getRelativeLocaleUrl } from 'astro:i18n';
 import MenuIcon from '../../assets/icons/AntDesignMenuOutlined.svg';
 import Logo from '../../assets/logo.svg';
+import { useTranslations } from '@/i18n/utils';
+import { languageList } from '@/i18n/ui';
+
+// i18n Obtener el idioma actual y la función de traducción
+const currentLang = Astro.currentLocale || 'es';
+const translateLabels = useTranslations(currentLang as keyof typeof languageList);
+
 ---
 
-<header class="fixed top-0 left-0 w-full bg-[var(--color-bg)]/50 backdrop-blur-md z-50">
-  <nav class="max-w-7xl mx-auto px-4">
-    <div class="flex items-center justify-between md:justify-center h-16 gap-8">
+<header class="fixed top-0 left-0 w-full z-50">
+  <nav class="max-w-lg mx-auto mt-4 mb-10 px-4 bg-[var(--color-bg)]/50 backdrop-blur-md rounded-4xl shadow-md">
+    <div class="flex items-center justify-between md:justify-center h-16 gap-18">
       <!-- Logo o Nombre -->
-      <a href="/"><Logo class="w-8" /></a>
+      <a href={getRelativeLocaleUrl(currentLang, "/")}><Logo class="w-10" /></a>
 
       <!-- Menú Desktop -->
       <ul class="hidden md:flex items-center gap-8">
-        <li><a href="/about" class="text-md hover:border-b transition-colors">About</a></li>
-        <li><a href="#projects" class="text-md hover:border-b transition-colors">Projects</a></li>
-        <li><a href="#contact" class="text-md hover:border-b transition-colors">Contact</a></li>
+        <li><a href={getRelativeLocaleUrl(currentLang, "about")} class="text-md hover:border-b transition-colors">{translateLabels("nav.about")}</a></li>
+        <li><a href="#projects" class="text-md hover:border-b transition-colors">{translateLabels("nav.projects")}</a></li>
+        <li><a href="#contact" class="text-md hover:border-b transition-colors">{translateLabels("nav.contact")}</a></li>
       </ul>
 
       <!-- Botón Menú Móvil -->
@@ -23,19 +31,6 @@ import Logo from '../../assets/logo.svg';
         aria-label="Toggle menu"
       >
       <MenuIcon class="w-6 h-6" />
-        <!-- <svg 
-          class="w-6 h-6" 
-          fill="none" 
-          stroke="currentColor" 
-          viewBox="0 0 24 24"
-        >
-          <path 
-            stroke-linecap="round" 
-            stroke-linejoin="round" 
-            stroke-width="2" 
-            d="M4 6h16M4 12h16M4 18h16"
-          />
-        </svg> -->
       </button>
     </div>
 
