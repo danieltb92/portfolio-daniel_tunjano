@@ -1,0 +1,54 @@
+{
+  "es": {
+    "nav.about": "Sobre mi",
+    "nav.projects": "Proyectos",
+    "nav.contact": "Contacto",
+
+    "hero.profileWords": [
+      "Diseñador",
+      "Desarrollador",
+      "UX/UI",
+      "Creador",
+      "Innovador",
+      "Creativo"
+    ],
+    "hero.title": "DANIELTB",
+    "hero.subtitle": "Daniel Tunjano | Diseñador industrial & UX/UI | Desarrollador web.",
+
+    "cta.title": "¿Listo para colaborar?",
+    "cta.subtitle": "¿Interesado en colaborar o simplemente charlar? ¡No dudes en ponerte en contacto!",
+
+    "projects.tittle": "Proyectos",
+
+    "footer.title": "Trabajemos juntos",
+
+    "page.about.title": "Sobre Mí",
+    "page.about.paragraph": "Hola, soy Daniel Tunjano, un desarrollador web y diseñador industrial apasionado por crear experiencias digitales innovadoras y funcionales. Con una sólida formación en diseño y desarrollo, me especializo en construir sitios web atractivos y fáciles de usar que cumplen con los objetivos de mis clientes. Mi enfoque combina creatividad y tecnología para ofrecer soluciones personalizadas que destacan en el competitivo mundo digital. Siempre estoy buscando nuevas formas de mejorar mis habilidades y mantenerme al día con las últimas tendencias en diseño y desarrollo web."
+  },
+  "en": {
+    "nav.about": "Sobre mi",
+    "nav.projects": "Proyectos",
+    "nav.contact": "Contacto",
+
+    "hero.profileWords": [
+      "Diseñador",
+      "Desarrollador",
+      "UX/UI",
+      "Creador",
+      "Innovador",
+      "Creativo"
+    ],
+    "hero.title": "DANIELTB",
+    "hero.subtitle": "Daniel Tunjano | Diseñador industrial & UX/UI | Desarrollador web.",
+
+    "cta.title": "¿Listo para colaborar?",
+    "cta.subtitle": "¿Interesado en colaborar o simplemente charlar? ¡No dudes en ponerte en contacto!",
+
+    "projects.tittle": "Proyectos",
+
+    "footer.title": "Trabajemos juntos",
+
+    "page.about.title": "Sobre Mí",
+    "page.about.paragraph": "Hola, soy Daniel Tunjano, un desarrollador web y diseñador industrial apasionado por crear experiencias digitales innovadoras y funcionales. Con una sólida formación en diseño y desarrollo, me especializo en construir sitios web atractivos y fáciles de usar que cumplen con los objetivos de mis clientes. Mi enfoque combina creatividad y tecnología para ofrecer soluciones personalizadas que destacan en el competitivo mundo digital. Siempre estoy buscando nuevas formas de mejorar mis habilidades y mantenerme al día con las últimas tendencias en diseño y desarrollo web."
+  }
+}

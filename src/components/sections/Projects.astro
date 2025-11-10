@@ -20,12 +20,12 @@ interface ProjectData {
 const projects: ProjectData[] = projectsData;
 ---
 
-<section id="projects" class="flex justify-center flex-col items-center mt-10 p-0 md:p-16">
+<section id="projects" class="max-w-[2560px] flex justify-center m-auto flex-col items-center mt-10 p-4 md:p-10 lg:p-16">
     <h2 class="text-3xl font-bold mb-4 md:mb-20 text-center">Proyectos</h2>
-    <div class="grid grid-cols-1 gap-2 md:gap-6 max-w-6xl w-[90%]">
+    <div class="grid justify-items-center grid-cols-1 lg:grid-cols-2 gap-2 md:gap-6 w-full">
         {projects.map((project) => (
             <ProjectCard
-                class="w-full last:mb-10"
+                class="w-[100%] last:mb-10"
                 title={project.title}
                 slug={project.slug}
                 image={project.image}
