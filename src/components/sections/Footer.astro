@@ -1,9 +1,15 @@
 ---
 import {profile} from '../../data/data.json'
+import { useTranslations } from '@/i18n/utils';
+import { languageList } from '@/i18n/ui';
+
+// i18n Obtener el idioma actual y la función de traducción
+const currentLang = Astro.currentLocale || 'es';
+const translateLabels = useTranslations(currentLang as keyof typeof languageList);
 ---
 <footer id="contact" class="relative w-full overflow-hidden min-h-[300px] sm:min-h-[300px] md:min-h-[250px] flex justify-items-start  items-center flex-col p-10 ">
     <div class="max-w-7xl w-full flex flex-col md:flex-row justify-between items-center px-8 gap-5">
-         <div><b>Let’s work together</b></div>
+         <div><b>{translateLabels("footer.titleList")}</b></div>
          <ul class="flex flex-col md:flex-row list-none gap-2 md:gap-7 items-center">
             <li><a href={`mailto:${profile.email}`} class="hover:border-b">Email</a></li>
             <li><a href={profile.social.linkedin} target="_blank" rel="noopener noreferrer" class="hover:border-b">LinkedIn</a></li>
@@ -13,7 +19,7 @@ import {profile} from '../../data/data.json'
     </div>
     <div class="absolute bottom-[0px] flex justify-center flex-col items-center p-8 pb-0 z-10">
         <div class="md:max-w-5xl text-center py-4 text-gray-400 text-sm">
-            &copy; {new Date().getFullYear()} Create by <span class="underline"><a href={profile.social.linkedin}>Daniel Tunjano</a></span>. All rights reserved.
+            &copy; {new Date().getFullYear()} {translateLabels("footer.text")} <span class="underline"><a href={profile.social.linkedin}>{profile.name}</a></span>. {translateLabels("footer.textRight")}
         </div>
     </div>
     <h1 class="absolute bottom-[-4rem] sm:bottom-[-6rem] md:bottom-[-8rem] lg:bottom-[-12rem] left-1/2 transform -translate-x-1/2 
@@ -22,6 +28,6 @@ import {profile} from '../../data/data.json'
                text-gray-200 dark:text-gray-400
                select-none pointer-events-none
                tracking-tighter">
-        DANIELTB
+        {translateLabels("footer.title")}
     </h1>
 </footer>

@@ -1,11 +1,18 @@
 ---
 import "@/styles/global.css";
+import seo from "@/data/seo.json";
 import Header from "@/components/sections/Header.astro";
 import Footer from "@/components/sections/Footer.astro";
+import { useTranslations } from '@/i18n/utils';
+import { languageList } from '@/i18n/ui';
+
+// i18n Obtener el idioma actual y la función de traducción
+const currentLang = Astro.currentLocale || 'es';
+const translateLabels = useTranslations(currentLang as keyof typeof languageList);
 
 ---
 <!doctype html>
-<html lang="es" data-theme="light">
+<html lang={currentLang} data-theme="dark">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />

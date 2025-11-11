@@ -1,15 +1,22 @@
 ---
 import Button from '../ui/Button.astro';
+import { useTranslations } from '@/i18n/utils';
+import { languageList } from '@/i18n/ui';
+
+// i18n Obtener el idioma actual y la función de traducción
+const currentLang = Astro.currentLocale || 'es';
+const translateLabels = useTranslations(currentLang as keyof typeof languageList);
+
 ---
 
-<section class="flex flex-col justify-center items-center h-auto md:h-[80dvh] my-28 px-4 lg:px-10 mt-16">
-    <h2 class="!text-4xl md:!text-[3rem] font-bold mb-6 text-center">“A large, heavily bolded quote for emphasis and breaking up content.”</h2>
+<section class="flex flex-col justify-center items-center h-dvh md:h-[500px] my-28 px-4 lg:px-10 mt-16">
+    <h2 class="!text-4xl md:!text-[3rem] font-bold mb-6 text-center">{translateLabels("cta.title")}</h2>
     <p class="text-center max-w-2xl mb-4">
-        ¿Interesado en colaborar o simplemente charlar? ¡No dudes en ponerte en contacto!
+       {translateLabels("cta.subtitle")}
     </p>
     <Button
     variant='primary'
     size='lg'>
-    Contáctame</Button>
+    {translateLabels("cta.buttonText")}</Button>
     
 </section> 

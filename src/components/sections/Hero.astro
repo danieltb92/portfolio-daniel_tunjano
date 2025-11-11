@@ -5,7 +5,6 @@ import WhatsappIcon from "../../assets/socials/RiWhatsappLine.svg";
 import EmailIcon from "../../assets/socials/RiMailLine.svg";
 import { profile } from '../../data/data.json'; 
 import AvailableBagde from '../ui/Bagde.astro';
-
 import { useTranslations } from '@/i18n/utils';
 import { languageList } from '@/i18n/ui';
 
@@ -20,7 +19,7 @@ const roles = profileWords;
 <section
   class="md:max-w-5xl mx-auto h-[100dvh] flex flex-col items-center justify-center px-4 pt-16"
 >
-  <AvailableBagde text="Disponible para trabajar" status="available" />
+  <AvailableBagde text={translateLabels("hero.textStatus")} status="available" />
   <h1
     class="text-[18vw] sm:text-6xl md:text-[8rem] lg:text-[12vw] font-bold text-center leading-[-50px]"
   >
@@ -41,10 +40,10 @@ const roles = profileWords;
     {translateLabels("hero.subtitle")}
   </p>
   <ul class="flex flex-row gap-6 mt-6 text-gray-400">
-    <li><a href="#" class="hover:text-[var(--color-primary)]"><LinkedinIcon /></a></li>
-    <li><a href="#" class="hover:text-[var(--color-primary)]"><GithubIcon /></a></li>
-    <li><a href="#" class="hover:text-[var(--color-primary)]"><WhatsappIcon /></a></li>
-    <li><a href="#" class="hover:text-[var(--color-primary)]"><EmailIcon /></a></li>
+    <li><a href={profile.social.linkedin} class="hover:text-[var(--color-primary)]"><LinkedinIcon /></a></li>
+    <li><a href={profile.social.github} class="hover:text-[var(--color-primary)]"><GithubIcon /></a></li>
+    <li><a href={profile.phone} class="hover:text-[var(--color-primary)]"><WhatsappIcon /></a></li>
+    <li><a href={profile.email} class="hover:text-[var(--color-primary)]"><EmailIcon /></a></li>
 
     <script define:vars={{ profileWords }}>
       const roles = profileWords;
