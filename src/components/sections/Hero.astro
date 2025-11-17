@@ -7,6 +7,9 @@ import { profile } from '../../data/data.json';
 import AvailableBagde from '../ui/Bagde.astro';
 import { useTranslations } from '@/i18n/utils';
 import { languageList } from '@/i18n/ui';
+import Background from "@/components/ui/Background.astro";
+import BackgroundAura  from "@/components/ui/BackgraoundAura.astro";
+import type { ImageMetadata } from 'astro';
 
 // i18n Obtener el idioma actual y la función de traducción
 const currentLang = Astro.currentLocale || 'es';
@@ -16,16 +19,19 @@ const profileWords = translateLabels("hero.profileWords");
 const roles = profileWords;
 ---
 
-<section
-  class="md:max-w-5xl mx-auto h-[100dvh] flex flex-col items-center justify-center px-4 pt-16"
+<section id="hero"
+  class="relative z-20 md:max-w-5xl mx-auto h-[100dvh] flex flex-col items-center justify-center px-4 pt-16 "
 >
+  <!-- <Background /> -->
+   <BackgroundAura />
+
   <AvailableBagde text={translateLabels("hero.textStatus")} status="available" />
   <h1
-    class="text-[18vw] sm:text-6xl md:text-[8rem] lg:text-[12vw] font-bold text-center leading-[-50px]"
+    class="text-[18vw] sm:text-6xl md:text-[8vw] lg:text-[12vw] font-bold text-center leading-[-50px]"
   >
     <span
       id="changing-word"
-      class="block text-[11vw] sm:text-6xl md:text-[6rem] lg:text-[8vw] opacity-10 transition-all duration-500 ease-in-out"
+      class="block text-[11vw] sm:text-6xl md:text-[4vw] lg:text-[6vw] opacity-30 transition-all duration-500 ease-in-out"
     >
       {roles[0]}
     </span>
@@ -44,6 +50,7 @@ const roles = profileWords;
     <li><a href={profile.social.github} class="hover:text-[var(--color-primary)]"><GithubIcon /></a></li>
     <li><a href={profile.phone} class="hover:text-[var(--color-primary)]"><WhatsappIcon /></a></li>
     <li><a href={profile.email} class="hover:text-[var(--color-primary)]"><EmailIcon /></a></li>
+  </ul>
 
     <script define:vars={{ profileWords }}>
       const roles = profileWords;
@@ -61,5 +68,4 @@ const roles = profileWords;
         }, 2500);
       }
     </script>
-  </ul>
 </section>

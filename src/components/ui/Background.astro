@@ -1,0 +1,36 @@
+<div
+  class="pointer-events-none absolute inset-0 -z-10 overflow-y-visible flex items-center justify-center"
+>
+  <div class="gradient"></div>
+
+  <style>
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .gradient {
+      --size: 750px;
+      --speed: 10s;
+      --easing: cubic-bezier(0.8, 0.2, 0.2, 0.8);
+
+      width: var(--size);
+      height: var(--size);
+      filter: blur(calc(var(--size) / 5));
+      background-image: linear-gradient(hsl(222, 84%, 60%), hsl(164, 79%, 71%));
+      animation: rotate var(--speed) var(--easing) alternate infinite;
+      border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+      opacity: 0.4;
+    }
+    
+    @media (max-width: 450px) {
+      .gradient { --size: 200px; }
+    }
+    @media (min-width: 720px) {
+      .gradient { --size: 300px; }
+    }
+    @media (min-width: 1024px) {
+      .gradient { --size: 350px; }
+    }
+  </style>
+</div>
