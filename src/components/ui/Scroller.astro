@@ -30,7 +30,7 @@ const animationDuration = speedValues[speed];
 ---
 
 <div class={`justify-center w-full inline-flex flex-nowrap overflow-hidden py-10 ${showMask ? '[mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]' : ''}`}>
-  <div class={`flex items-center justify-center md:justify-start [&_div]:mx-8 [&_img]:max-w-none animate-marquee-${speed} whitespace-nowrap`}>
+  <div class={`flex items-center justify-center md:justify-start [&_div]:md:mx-7 [&_div]:mx-3 [&_img]:max-w-none animate-marquee-${speed} whitespace-nowrap`}>
     {logos.map((logo) => (
       <div>
         <img
