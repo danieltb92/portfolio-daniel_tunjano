@@ -4,6 +4,8 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 
+import react from '@astrojs/react';
+
 // https://astro.build/config
 export default defineConfig({
   i18n: {
@@ -14,7 +16,7 @@ export default defineConfig({
     }
   },
   //site: 'https://your-domain.com',
-  integrations: [sitemap()],
+  integrations: [sitemap(), react()],
   output: 'static',
   vite: {
     plugins: [tailwindcss()],
