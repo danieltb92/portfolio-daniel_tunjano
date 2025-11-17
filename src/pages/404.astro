@@ -1,12 +1,21 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Button from '../components/ui/Button.astro';
+import Backgroun from "@/components/ui/React/Background"
+import Background from "@/components/ui/Background.astro";
+import Img404 from "public/404.svg";
 ---
 
-<Layout title="404 - Página no encontrada">
-  <main class="flex flex-col items-center justify-center min-h-screen text-center px-4">
-    <h1 class="text-6xl font-bold mb-4">404</h1>
-    <p class="text-xl mb-8">Pagina no encontrada</p>
+<Layout title="404 - Página no encontrada ">
+  <main class="flex flex-col items-center justify-center min-h-screen text-center px-4 relative z-20 mt-[150px]">
+    <!-- <Background /> -->
+    <!-- <h1 class="text-6xl font-bold mb-4">404</h1>-->
+    <!-- <p class="text-4xl">Pagina no encontrada</p>  -->
+        <!-- <video width="150" height="150" preload="auto" src=""><source src={Img404} type="video/webm"/></video> -->
+    <img src={Img404.src} alt="Página no encontrada" class="max-w-3xl mb-8"/>
+    <!-- <EnergyOrbs/> -->
+
+
     <Button href="/" variant="primary" >
       Volver al inicio  
     </Button>

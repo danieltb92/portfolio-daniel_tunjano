@@ -56,7 +56,8 @@
 
   /* ✅ Tema Dark */
   [data-theme="dark"] {
-    --color-bg: var(--neutrals-950);
+    /* --color-bg: var(--neutrals-950); */
+    --color-bg: var(--color-black);
     --color-text: var(--neutrals-white);
     --color-primary: var(--primary-blue-300);
     --color-secondary: var(--primary-blue-500);
