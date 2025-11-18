@@ -1,3 +1,55 @@
+<!-- ---
+interface Props {
+  text: string | string[]
+  status?: "available" | "busy" | "offline"
+  pulse?: boolean
+}
+
+const { text, status = "available", pulse = true } = Astro.props
+const gradients = {
+  available: `
+    bg-gradient-to-br from-emerald-400/20 to-emerald-600/20 
+    dark:from-emerald-500/15 dark:to-emerald-700/20
+  `,
+  busy: `
+    bg-gradient-to-br from-amber-400/20 to-amber-600/20 
+    dark:from-amber-500/15 dark:to-amber-700/20
+  `,
+  offline: `
+    bg-gradient-to-br from-neutral-400/15 to-neutral-600/20 
+    dark:from-neutral-600/20 dark:to-neutral-800/30
+  `,
+}
+
+const dotColors = {
+  available: "bg-emerald-400 dark:bg-emerald-300",
+  busy: "bg-amber-400 dark:bg-amber-300",
+  offline: "bg-neutral-500 dark:bg-neutral-400",
+}
+---
+<span
+  class={`
+    inline-flex items-center gap-2 px-5 py-2 rounded-full 
+    backdrop-blur-md border border-white/10
+    shadow-[0_4px_20px_-5px_rgba(0,0,0,0.25)]
+    text-xs md:text-sm font-light transition-all duration-300 m-8
+    ${gradients[status]}
+  `}
+>
+  <span class="relative flex h-2.5 w-2.5">
+    <span
+      class={`absolute h-full w-full rounded-full opacity-75 ${dotColors[status]} ${pulse ? "animate-ping" : ""}`}
+    ></span>
+    <span
+      class={`relative h-2.5 w-2.5 rounded-full ${dotColors[status]}`}
+    ></span>
+  </span>
+
+  {text}
+</span> -->
+
+
+
 ---
 interface Props {
   text: string | string[]
@@ -5,14 +57,61 @@ interface Props {
   pulse?: boolean
 }
 
-//   <Badge text="Disponible para trabajar" status="available" />
-//   <Badge text="Ocupado actualmente" status="busy" />
-//   <Badge text="No disponible" status="offline" pulse={false} />
+const { text, status = "available", pulse = true } = Astro.props
+
+const statusColors = {
+  available: `
+    bg-neutral-100 text-neutral-900 border-neutral-300
+    dark:bg-neutral-900 dark:text-neutral-100 dark:border-neutral-600
+  `,
+  busy: `
+    bg-amber-500/15 text-amber-700 border-amber-500/30
+    dark:bg-amber-500/20 dark:text-amber-300 dark:border-amber-400
+  `,
+  offline: `
+    bg-neutral-500/10 text-neutral-600 border-neutral-500/30
+    dark:bg-neutral-700/20 dark:text-neutral-300 dark:border-neutral-500/50
+  `,
+}
+
+const dotColors = {
+  available: "bg-emerald-500 dark:bg-emerald-400",
+  busy: "bg-amber-500 dark:bg-amber-400",
+  offline: "bg-neutral-500 dark:bg-neutral-400",
+}
+---
+<span
+  class={`inline-flex items-center gap-4 px-4 py-1.5 rounded-full border text-[10px] sm:text-[12px] md:text-sm font-light m-8 backdrop-blur-sm transition-all duration-300 ${statusColors[status]}`}
+>
+  <span class="relative flex h-2.5 w-2.5">
+    <span
+      class={`absolute inline-flex h-full w-full rounded-full opacity-75 ${dotColors[status]} ${pulse ? "animate-ping" : ""}`}
+    ></span>
+    <span
+      class={`relative inline-flex h-2.5 w-2.5 rounded-full ${dotColors[status]}`}
+    ></span>
+  </span>
+
+  {text}
+</span>
+
+
+
+<!-- ---
+interface Props {
+  text: string | string[]
+  status?: "available" | "busy" | "offline"
+  pulse?: boolean
+}
+
+//<Badge text="Disponible para trabajar" status="available" />
+//<Badge text="Ocupado actualmente" status="busy" />
+//<Badge text="No disponible" status="offline" pulse={false} />
 
 const { text, status = "available", pulse = true } = Astro.props
 
 const statusColors = {
-  available: "bg-emerald-500/20 text-emerald-600 border-emerald-500/40",
+  available: "bg-black text-black dark:bg-neutral-100 dark:text-dark dark:border-white ",
   busy: "bg-amber-500/20 text-amber-600 border-amber-500/40",
   offline: "bg-neutral-500/20 text-neutral-600 border-neutral-500/40",
 }
@@ -25,7 +124,7 @@ const dotColors = {
 ---
 
 <span
-  class={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border text-[10px] sm:text-[12px] md:text-sm font-normal m-8 backdrop-blur-sm transition-all duration-300 ${statusColors[status]}`}
+  class={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full border text-[10px] sm:text-[12px] md:text-sm font-light m-8 backdrop-blur-sm transition-all duration-300 ${statusColors[status]}`}
 >
   <span class={`relative flex h-2.5 w-2.5`}>
     <span
@@ -38,4 +137,4 @@ const dotColors = {
     ></span>
   </span>
   {text}
-</span>
+</span> -->
