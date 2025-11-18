@@ -12,7 +12,7 @@ const translateLabels = useTranslations(currentLang as keyof typeof languageList
 
 ---
 <!doctype html>
-<html lang={currentLang} data-theme="dark">
+<html lang={currentLang} class="dark">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
@@ -24,12 +24,36 @@ const translateLabels = useTranslations(currentLang as keyof typeof languageList
 		<meta name="description" content="Portafolio de Daniel Tunjano, desarrollador web y diseñador industrial." />
 		<meta name="keywords" content="Daniel Tunjano, portafolio, desarrollador web, diseñador industrial, proyectos, habilidades" />
 		<meta name="author" content="Daniel Tunjano" />
-		<meta name="robots" content="index, follow" />				
+		<meta name="robots" content="index, follow" />
+		<!-- PREVENT FLASH + MANEJO REAL DEL THEME -->
+    <script>
+      (function () {
+        const saved = localStorage.getItem('theme');
+        if (saved === 'dark' || saved === 'light') {
+          document.documentElement.setAttribute('data-theme', saved);
+          return;
+        }
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+      })();
+    </script>
+		</head>				
 	<body >
 		<Header/>
 		<slot />
 		<Footer/>
+		 <!-- Botón para alternar -->
+    <!-- <script>
+      window.toggleTheme = () => {
+        const html = document.documentElement;
+        const current = html.getAttribute("data-theme");
+        const next = current === "dark" ? "light" : "dark";
+        html.setAttribute("data-theme", next);
+        localStorage.setItem("theme", next);
+      }
+    </script> -->
 	</body>
+	
 </html>
 
 

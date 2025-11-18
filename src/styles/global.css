@@ -1,6 +1,8 @@
 @import "tailwindcss";
 /* Modo dark usando data-theme */
-@custom-variants dark (&:where([data-theme=dark], [data-theme=dark] *));
+@custom-variants dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+/* Define a custom variant for dark mode */
+@custom-variant dark (&:where(.dark, .dark *));
 /* @import "tailwindcss/typography"; */
 
 /* Tailwind base layer */
@@ -57,7 +59,7 @@
   /* ✅ Tema Dark */
   [data-theme="dark"] {
     /* --color-bg: var(--neutrals-950); */
-    --color-bg: var(--color-black);
+    --color-bg: var(--neutrals-black);
     --color-text: var(--neutrals-white);
     --color-primary: var(--primary-blue-300);
     --color-secondary: var(--primary-blue-500);
