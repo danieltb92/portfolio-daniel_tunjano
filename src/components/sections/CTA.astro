@@ -1,35 +1,59 @@
 ---
-import Button from '../ui/Button.astro';
-import { useTranslations } from '@/i18n/utils';
-import { languageList } from '@/i18n/ui';
+import Button from "../ui/Button.astro";
+import { useTranslations } from "@/i18n/utils";
+import { languageList } from "@/i18n/ui";
 import Background from "@/components/ui/Background.astro";
-
+import Form from "@/assets/form.svg";
 
 // i18n Obtener el idioma actual y la función de traducción
-const currentLang = Astro.currentLocale || 'es';
-const translateLabels = useTranslations(currentLang as keyof typeof languageList);
-
+const currentLang = Astro.currentLocale || "es";
+const translateLabels = useTranslations(
+  currentLang as keyof typeof languageList
+);
 ---
-<section class="relative z-20 flex flex-col justify-center items-center h-dvh md:h-[500px] my-28 px-4 lg:px-10 mt-16 max-w-5xl justify-self-center ">
-      <Background />
-    <h2 class="!text-4xl md:!text-[3rem] font-bold mb-6 text-center">{translateLabels("cta.title")}</h2>
-     <p class="text-center max-w-2xl mb-4">
-       {translateLabels("cta.subtitle")}
-    </p>
-    <!--<Button
+
+<section
+  class="relative z-20 flex flex-col justify-center items-center min-h-dvh md:h-[500px] my-28 px-4 lg:px-10 mt-16 max-w-5xl justify-self-center"
+>
+  <Background />
+  <h2 class="!text-4xl md:!text-[3rem] font-bold mb-6 text-center">
+    {translateLabels("cta.title")}
+  </h2>
+  <p class="text-center max-w-2xl mb-4">
+    {translateLabels("cta.subtitle")}
+  </p>
+  <Button variant="primary" size="lg">
+    {translateLabels("cta.buttonText")}</Button
+  >
+</section>
+
+<div class="relative overflow-hidden">
+  <picture class="absolute inset-0 flex justify-center items-center -z-90"
+    ><img class="min-w-[120%] md:min-w-[110%] lg:min-w-full object-cover hue-rotate-10" src={Form.src} alt="" /></picture
+  >
+</div>
+
+<section
+  class="flex flex-col justify-center items-center h-auto md:h-[400px] my-0 px-4 lg:px-10 mt-16 max-w-5xl justify-self-center"
+>
+  <h2 class="!text-4xl md:!text-[3rem] font-bold mb-6 text-center">
+    {translateLabels("cta.title2")}
+  </h2>
+  <!-- <p class="text-center max-w-2xl mb-4">
+       {translateLabels("cta.subtitle2")}
+    </p> -->
+  <!-- <Button
     variant='primary'
     size='lg'>
-    {translateLabels("cta.buttonText")}</Button> -->
-    
-</section> 
-<section class="flex flex-col justify-center items-center h-dvh md:h-[500px] my-28 px-4 lg:px-10 mt-16 max-w-5xl justify-self-center">
-    <h2 class="!text-4xl md:!text-[3rem] font-bold mb-6 text-center">{translateLabels("cta.title")}</h2>
-    <p class="text-center max-w-2xl mb-4">
-       {translateLabels("cta.subtitle")}
-    </p>
-    <Button
-    variant='primary'
-    size='lg'>
-    {translateLabels("cta.buttonText")}</Button>
-    
-</section> 
+    {translateLabels("cta.buttonText2")}</Button> -->
+</section>
+
+<!-- <div class="relative overflow-hidden h-[300px] md:h-[500px]">
+  <picture class="absolute inset-0 flex justify-center items-center -z-90">
+    <img
+      class="min-w-[120%] md:min-w-[110%] lg:min-w-full object-cover hue-rotate-10"
+      src={Form.src}
+      alt=""
+    />
+  </picture>
+</div> -->
