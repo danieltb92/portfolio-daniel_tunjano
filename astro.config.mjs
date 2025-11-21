@@ -5,6 +5,8 @@ import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 
 import react from '@astrojs/react';
+// Import /static for a static site
+import vercelStatic from '@astrojs/vercel/static';
 
 // https://astro.build/config
 export default defineConfig({
@@ -15,9 +17,16 @@ export default defineConfig({
       prefixDefaultLocale: false,
     }
   },
+
   site: 'https://your-domain.com',
   integrations: [sitemap(), react()],
   output: 'static',
+  adapter: vercelStatic({
+    webAnalytics: {
+      enabled: true,
+    },
+    maxDuration: 8,
+  }),
   vite: {
     plugins: [tailwindcss()],
      resolve: {
@@ -25,5 +34,7 @@ export default defineConfig({
         '@': path.resolve('./src'),
       },
     },
-  }
+  },
+
+  
 });
