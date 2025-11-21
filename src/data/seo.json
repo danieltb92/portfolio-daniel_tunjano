@@ -2,7 +2,24 @@
   "default": {
     "title": "Daniel Tunjano | Portafolio",
     "description": "Portafolio de Daniel Tunjano, desarrollador web y diseñador industrial & UX/UI.",
-    "keywords": ["Daniel Tunjano", "portafolio", "desarrollador web", "diseñador industrial", "proyectos", "habilidades"],
+    "keywords": [
+      "Daniel Tunjano",
+      "portafolio",
+      "desarrollador web",
+      "diseñador industrial",
+      "proyectos",
+      "habilidades",
+      "Desarrollador Frontend",
+      "React",
+      "Next.js",
+      "Astro",
+      "JavaScript",
+      "TypeScript",
+      "Diseño Web",
+      "UX/UI",
+      "Desarrollo Web",
+      "Tecnologías Web"
+    ],
     "author": "Daniel Tunjano",
     "image": {
       "src": "/images/default-og-image.jpg",
@@ -11,20 +28,23 @@
     "siteName": "Daniel Tunjano",
     "locale": "es_ES",
     "type": "website",
-    "siteUrl": "https://midominio.com" 
+    "siteUrl": "https://midominio.com"
   },
-  "pages": {
-    "/": {
-      "title": "Inicio - Daniel Tunjano",
-      "description": "Bienvenido a mi portafolio. Soy Daniel Tunjano, desarrollador web y diseñador industrial."
+  "pages": [
+    {
+      "path": "/",
+      "title": "Portfolio | Daniel Tunjano",
+      "description": "Portafolio de Daniel Tunjano, desarrollador web y diseñador industrial & UX/UI."
     },
-    "/proyectos": {
-      "title": "Proyectos - Daniel Tunjano",
-      "description": "Explora los proyectos de desarrollo web y diseño industrial de Daniel Tunjano."
+    {
+      "path": "/projects/*",
+      "title": "Proyecto - Daniel Tunjano",
+      "description": "Detalle del proyecto de Daniel Tunjano."
     },
-    "/sobre-mi": {
+    {
+      "path": "/about/",
       "title": "Sobre Mí - Daniel Tunjano",
       "description": "Conoce más sobre Daniel Tunjano, su trayectoria como desarrollador web y diseñador industrial."
     }
-  }
+  ]
 }

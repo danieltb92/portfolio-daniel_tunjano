@@ -13,6 +13,7 @@ export interface ProjectContent {
   content: string;
   metadata: {
     title: string;
+    // desription?: string;
   };
 }
 

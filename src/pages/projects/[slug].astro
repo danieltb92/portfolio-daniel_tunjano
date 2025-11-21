@@ -46,7 +46,10 @@ export const getStaticPaths = (async () => {
 const { project, content } = Astro.props;
 ---
 
-<Layout title={project.title}>
+<Layout
+  title={project.title}
+  description={typeof project.description === 'string' ? project.description : undefined}
+>
   <article class="max-w-4xl mx-auto mt-10 md:mt-20 px-4 py-8">
     <!-- <h1 class="text-4xl font-bold mb-4">{project.title}</h1> -->
     

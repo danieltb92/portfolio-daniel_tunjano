@@ -11,6 +11,7 @@ export interface Project {
   url: string | null;
   idPage: string | null;
   title: string;
+  description: string | null;
   image: {
     src: string;
     alt: string;
@@ -63,6 +64,7 @@ export async function getProjectCard(): Promise<Project[]> {
     slug: page?.properties?.Slug.rich_text?.[0]?.plain_text || null,
     cover: page?.properties?.Cover?.files?.[0]?.file.url || null,
     title: page?.properties?.TitleProject?.rich_text?.[0]?.plain_text || null,
+    description: page?.properties?.Description?.rich_text?.[0]?.plain_text || null,
     type: page?.properties?.Type?.rich_text?.[0]?.plain_text || null,
     url: page?.public_url || null,
     idPage: page?.id || null,

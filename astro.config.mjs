@@ -15,7 +15,7 @@ export default defineConfig({
       prefixDefaultLocale: false,
     }
   },
-  //site: 'https://your-domain.com',
+  site: 'https://your-domain.com',
   integrations: [sitemap(), react()],
   output: 'static',
   vite: {
