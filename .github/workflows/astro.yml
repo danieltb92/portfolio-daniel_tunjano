@@ -13,7 +13,7 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      # Instala pnpm globalmente (simple y fiable)
+      # Instala pnpm globalmente 
       - name: Install pnpm
         run: npm install -g pnpm
 
@@ -26,6 +26,11 @@ jobs:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
           NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
         run: pnpm run build
+      - name: Debug env
+        run: |
+          echo "Token length: ${#NOTION_TOKEN}"
+          echo "DB id length: ${#NOTION_DATABASE_ID}"
+
 
       - name: Verify build output
         run: |
