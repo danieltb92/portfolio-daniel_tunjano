@@ -1,28 +1,39 @@
-name: CI
+name: CI (pnpm) - Build
+
 on:
   push:
     branches: ["main"]
+  pull_request:
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
+      # Instala pnpm globalmente (simple y fiable)
+      - name: Install pnpm
+        run: npm install -g pnpm
 
       - name: Install dependencies
-        run: npm install
+        run: pnpm install
 
-      - name: Build
+      # Inyecta secrets en el entorno del step de build
+      - name: Build (with Notion secrets)
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
           NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
-        run: npm run build
+        run: pnpm run build
+
+      - name: Verify build output
+        run: |
+          if [ ! -d "dist" ]; then
+            echo "❌ Build failed: dist folder not found"
+            exit 1
+          fi
+          echo "✔ Build OK"
+
 
 
