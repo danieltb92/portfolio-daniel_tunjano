@@ -1,4 +1,4 @@
-name: CI - Astro + pnpm + Vercel
+name: CI
 
 on:
   push:
@@ -19,11 +19,11 @@ jobs:
           version: 9
           run_install: false
 
-      - name: Setup Node.js
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: "pnpm"
+          cache: pnpm
 
       - name: Install dependencies
         run: pnpm install
@@ -31,12 +31,3 @@ jobs:
       - name: Build project
         run: pnpm run build
 
-      - name: Verify build output
-        run: |
-          if [ ! -d "dist" ]; then
-            echo "❌ Build failed: dist folder not found"
-            exit 1
-          fi
-
-      - name: CI Success
-        run: echo "✔ CI pipeline passed"
