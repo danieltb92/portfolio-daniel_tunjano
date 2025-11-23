@@ -11,7 +11,7 @@ jobs:
 
     env: 
       NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
-      NOTION_DATABASE_PROJECTS: ${{ secrets.NOTION_DATABASE_ID }}
+      NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
 
     steps:
       - name: Checkout repo
