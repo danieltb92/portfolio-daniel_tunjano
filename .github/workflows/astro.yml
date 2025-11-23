@@ -9,6 +9,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    env: 
+      NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+      NOTION_DATABASE_PROJECTS: ${{ secrets.NOTION_DATABASE_ID }}
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -21,3 +25,4 @@ jobs:
 
       - name: Build
         run: pnpm run build
+
