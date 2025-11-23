@@ -10,15 +10,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Setup PNPM
         uses: pnpm/action-setup@v4
         with:
           version: 9
+          run_install: false
 
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -37,6 +38,5 @@ jobs:
             exit 1
           fi
 
-      - name: Success
-        run: echo "✔ Build OK"
-
+      - name: CI Success
+        run: echo "✔ CI pipeline passed"
