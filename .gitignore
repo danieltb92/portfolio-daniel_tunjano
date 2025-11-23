@@ -25,3 +25,6 @@ pnpm-debug.log*
 
 src/data/projects.json
 src/content/project/*
+
+# vercel files
+.vercel/

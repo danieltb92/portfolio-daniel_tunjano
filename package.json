@@ -6,8 +6,11 @@
     "dev": "astro dev",
     "preview": "astro preview",
     "astro": "astro",
+
     "generate": "tsx src/utils/generate-projectsData.ts",
-    "build": "tsx src/utils/generate-projectsData.ts && astro build",
+
+    "build": "pnpm generate && astro build",
+    
     "start": "tsx src/scripts/start.ts",
     "start:prod": "tsx src/scripts/start.ts build"
   },

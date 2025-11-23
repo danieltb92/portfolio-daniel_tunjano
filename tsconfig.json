@@ -16,8 +16,8 @@
     },
     "jsx": "react-jsx",
     "jsxImportSource": "react",
-    "types": ["react", "react-dom"],
-    "moduleResolution": "bundler",
+    "types": ["astro/client","react", "react-dom"],
+    "moduleResolution": "node",
     "isolatedModules": true,
     "module": "ESNext",
     "target": "ESNext"
