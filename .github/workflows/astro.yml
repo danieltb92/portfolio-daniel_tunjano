@@ -4,6 +4,7 @@ on:
   push:
     branches: ["main"]
   pull_request:
+  workflow_dispatch:
 
 jobs:
   build:
@@ -13,32 +14,25 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      # Instala pnpm globalmente 
       - name: Install pnpm
-        run: npm install -g pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
 
       - name: Install dependencies
         run: pnpm install
 
-      # Inyecta secrets en el entorno del step de build
       - name: Build (with Notion secrets)
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
           NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
         run: pnpm run build
-      - name: Debug env
-        run: |
-          echo "Token length: ${#NOTION_TOKEN}"
-          echo "DB id length: ${#NOTION_DATABASE_ID}"
-
-
-      - name: Verify build output
-        run: |
-          if [ ! -d "dist" ]; then
-            echo "❌ Build failed: dist folder not found"
-            exit 1
-          fi
-          echo "✔ Build OK"
 
 
 
