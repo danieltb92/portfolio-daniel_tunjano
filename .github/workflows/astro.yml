@@ -22,6 +22,7 @@ jobs:
 
       # Inyecta secrets en el entorno del step de build
       - name: Build (with Notion secrets)
+        run: pnpm build
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
           NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
