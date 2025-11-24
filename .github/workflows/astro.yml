@@ -6,6 +6,10 @@ on:
   pull_request:
   workflow_dispatch:
 
+env:
+    NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+    NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -29,10 +33,24 @@ jobs:
         run: pnpm install
 
       - name: Build (with Notion secrets)
+        run: pnpm build
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
           NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
         run: pnpm run build
+      - name: Debug env
+        run: |
+          echo "Token length: ${#NOTION_TOKEN}"
+          echo "DB id length: ${#NOTION_DATABASE_ID}"
+
+
+      - name: Verify build output
+        run: |
+          if [ ! -d "dist" ]; then
+            echo "❌ Build failed: dist folder not found"
+            exit 1
+          fi
+          echo "✔ Build OK"
 
 
 
