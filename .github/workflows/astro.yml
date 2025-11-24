@@ -30,10 +30,6 @@ jobs:
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
           NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
-      - name: Debug env
-        run: |
-          echo "Token length: ${#NOTION_TOKEN}"
-          echo "DB id length: ${#NOTION_DATABASE_ID}"
 
 
       - name: Verify build output
