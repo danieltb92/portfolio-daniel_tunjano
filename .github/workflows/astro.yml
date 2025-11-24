@@ -25,7 +25,7 @@ jobs:
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
           NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
-        run: pnpm run build
+        run: pnpm build
       - name: Debug env
         run: |
           echo "Token length: ${#NOTION_TOKEN}"
