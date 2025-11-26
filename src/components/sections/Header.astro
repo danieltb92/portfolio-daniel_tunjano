@@ -1,65 +1,84 @@
 ---
-import { getRelativeLocaleUrl } from 'astro:i18n';
-import MenuIcon from '@/assets/icons/AntDesignMenuOutlined.svg';
-import Logo from '@/assets/logo.svg';
-import { useTranslations } from '@/i18n/utils';
-import { languageList } from '@/i18n/ui';
+import { getRelativeLocaleUrl } from "astro:i18n";
+import MenuIcon from "@/assets/icons/AntDesignMenuOutlined.svg";
+import Logo from "@/assets/logo.svg";
+import { useTranslations } from "@/i18n/utils";
+import { languageList } from "@/i18n/ui";
 
 // i18n Obtener el idioma actual y la función de traducción
-const currentLang = Astro.currentLocale || 'es';
-const translateLabels = useTranslations(currentLang as keyof typeof languageList);
-
+const currentLang = Astro.currentLocale || "es";
+const translateLabels = useTranslations(
+  currentLang as keyof typeof languageList
+);
 ---
 
-<header class="fixed top-0 left-0 w-full z-50">
-  <nav class="max-w-lg mx-auto mt-4 mb-10 px-4 bg-[var(--color-bg)]/50 backdrop-blur-md rounded-4xl shadow-md">
-    <div class="flex items-center justify-between md:justify-center h-16 gap-18">
+<header class="fixed top-0 left-0 w-full z-50 px-2">
+  <nav
+    class="max-w-lg mx-auto mt-2 mb-10 px-4 bg-[var(--color-bg)]/50 backdrop-blur-md rounded-4xl shadow-md"
+  >
+    <div
+      class="flex items-center justify-between md:justify-center h-16 gap-18"
+    >
       <!-- Logo o Nombre -->
       <a href={getRelativeLocaleUrl(currentLang, "/")}><Logo class="w-10" /></a>
 
       <!-- Menú Desktop -->
       <ul class="hidden md:flex items-center gap-8">
-        <li><a href={getRelativeLocaleUrl(currentLang, "about")} class="text-md hover:border-b transition-colors">{translateLabels("nav.about")}</a></li>
-        <li><a href="#projects" class="text-md hover:border-b transition-colors">{translateLabels("nav.projects")}</a></li>
-        <li><a href="#contact" class="text-md hover:border-b transition-colors">{translateLabels("nav.contact")}</a></li>
+        <li>
+          <a
+            href={getRelativeLocaleUrl(currentLang, "about")}
+            class="text-md hover:border-b transition-colors"
+            >{translateLabels("nav.about")}</a
+          >
+        </li>
+        <li>
+          <a href="#projects" class="text-md hover:border-b transition-colors"
+            >{translateLabels("nav.projects")}</a
+          >
+        </li>
+        <li>
+          <a href="#contact" class="text-md hover:border-b transition-colors"
+            >{translateLabels("nav.contact")}</a
+          >
+        </li>
       </ul>
 
       <!-- Botón Menú Móvil -->
-      <button 
-        id="menu-toggle" 
-        class="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+      <button
+        id="menu-toggle"
+        class="md:hidden p-2 rounded-lg hover:bg-[var(--color-text)]/10 transition-colors"
         aria-label="Toggle menu"
       >
-      <MenuIcon class="w-6 h-6" />
+        <MenuIcon class="w-6 h-6" />
       </button>
     </div>
 
     <!-- Menú Móvil -->
-    <div 
-      id="mobile-menu" 
-      class="hidden md:hidden absolute top-16 left-0 w-full bg-[var(--color-bg)]/70 backdrop-blur-md shadow-lg z-50"
+    <div
+      id="mobile-menu"
+      class="hidden md:hidden relative top-0 m-0 w-full h-screen bg-[var(--color-bg)]/80 backdrop-blur-md shadow-lg z-40 rounded-4xl"
     >
-      <ul class="flex flex-col py-4 bg-[var(--color-bg)]/70 backdrop-blur-md shadow-lg">
+      <ul class="flex flex-col py-4">
         <li>
-          <a 
-            href="/about" 
-            class="block px-4 py-2 text-lg hover:bg-gray-100 transition-colors"
+          <a
+            href="/about"
+            class="block content-center pl-8 px-2 py-2 text-2xl h-20 border-b-1 border-[var(--color-text)] hover:border-b-[var(--color-primary)] transition-colors"
           >
             About
           </a>
         </li>
         <li>
-          <a 
-            href="#projects" 
-            class="block px-4 py-2 text-lg hover:bg-gray-100 transition-colors"
+          <a
+            href="#projects"
+            class="block content-center pl-8 px-2 py-2 text-2xl h-20 border-b-1 border-[var(--color-text)] hover:border-b-[var(--color-primary)] transition-colors"
           >
             Projects
           </a>
         </li>
         <li>
-          <a 
-            href="#contact" 
-            class="block px-4 py-2 text-lg hover:bg-gray-100 transition-colors"
+          <a
+            href="#contact"
+            class="block content-center pl-8 px-2 py-2 text-2xl h-20 border-b-1 border-[var(--color-text)] hover:border-b-[var(--color-primary)] transition-colors"
           >
             Contact
           </a>
@@ -71,28 +90,28 @@ const translateLabels = useTranslations(currentLang as keyof typeof languageList
 
 <script>
   // Manejo del menú móvil
-  const menuToggle = document.getElementById('menu-toggle');
-  const mobileMenu = document.getElementById('mobile-menu');
+  const menuToggle = document.getElementById("menu-toggle");
+  const mobileMenu = document.getElementById("mobile-menu");
   let isMenuOpen = false;
 
   if (menuToggle && mobileMenu) {
-    menuToggle.addEventListener('click', () => {
+    menuToggle.addEventListener("click", () => {
       isMenuOpen = !isMenuOpen;
-      mobileMenu.classList.toggle('hidden');
-      
+      mobileMenu.classList.toggle("hidden");
+
       // Opcional: Animar el ícono del menú
-      const icon = menuToggle.querySelector('svg');
+      const icon = menuToggle.querySelector("svg");
       if (icon) {
-        icon.style.transform = isMenuOpen ? 'rotate(90deg)' : '';
-        icon.style.transition = 'transform 0.3s ease';
+        icon.style.transform = isMenuOpen ? "rotate(90deg)" : "";
+        icon.style.transition = "transform 0.3s ease";
       }
     });
 
     // Cerrar menú al hacer click en un enlace
-    const menuLinks = mobileMenu.querySelectorAll('a');
-    menuLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        mobileMenu.classList.add('hidden');
+    const menuLinks = mobileMenu.querySelectorAll("a");
+    menuLinks.forEach((link) => {
+      link.addEventListener("click", () => {
+        mobileMenu.classList.add("hidden");
         isMenuOpen = false;
       });
     });
@@ -100,24 +119,24 @@ const translateLabels = useTranslations(currentLang as keyof typeof languageList
 
   // Ocultar/mostrar header al hacer scroll
   let lastScroll = 0;
-  const header = document.querySelector('header');
+  const header = document.querySelector("header");
 
-  window.addEventListener('scroll', () => {
+  window.addEventListener("scroll", () => {
     if (!header) return;
-    
+
     const currentScroll = window.pageYOffset;
-    
+
     if (currentScroll <= 0) {
-      header.classList.remove('-translate-y-full');
+      header.classList.remove("-translate-y-full");
       return;
     }
-    
+
     if (currentScroll > lastScroll && !isMenuOpen) {
-      header.classList.add('-translate-y-full');
+      header.classList.add("-translate-y-full");
     } else {
-      header.classList.remove('-translate-y-full');
+      header.classList.remove("-translate-y-full");
     }
-    
+
     lastScroll = currentScroll;
   });
 </script>
@@ -135,7 +154,9 @@ const translateLabels = useTranslations(currentLang as keyof typeof languageList
   .mobile-menu-enter-active {
     opacity: 1;
     transform: scale(1);
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease;
   }
 
   .mobile-menu-exit {
@@ -146,6 +167,8 @@ const translateLabels = useTranslations(currentLang as keyof typeof languageList
   .mobile-menu-exit-active {
     opacity: 0;
     transform: scale(0.95);
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease;
   }
 </style>
