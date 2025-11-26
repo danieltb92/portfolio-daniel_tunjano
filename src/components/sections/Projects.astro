@@ -1,12 +1,14 @@
 ---
-import ProjectCard from '@/components/ui/Card.astro';
-import projectsData from '@/data/projects.json';
-import { useTranslations } from '@/i18n/utils';
-import { languageList } from '@/i18n/ui';
+import ProjectCard from "@/components/ui/Card.astro";
+import projectsData from "@/data/projects.json";
+import { useTranslations } from "@/i18n/utils";
+import { languageList } from "@/i18n/ui";
 
 // i18n Obtener el idioma actual y la función de traducción
-const currentLang = Astro.currentLocale || 'es';
-const translateLabels = useTranslations(currentLang as keyof typeof languageList);
+const currentLang = Astro.currentLocale || "es";
+const translateLabels = useTranslations(
+    currentLang as keyof typeof languageList,
+);
 
 interface ProjectData {
     title: string;
@@ -26,23 +28,32 @@ interface ProjectData {
 const projects: ProjectData[] = projectsData;
 ---
 
-<section id="projects" class="max-w-[2560px] flex justify-center m-auto flex-col items-center mt-10 p-4 md:p-10 lg:p-16">
-    <h2 class="text-3xl font-bold mb-4 md:mb-20 text-center">{translateLabels("projects.tittle")}</h2>
-    <div class="grid justify-items-center grid-cols-1 lg:grid-cols-2 gap-2 md:gap-6 w-full">
-        {projects.map((project) => (
-            <ProjectCard
-                class="w-[100%] last:mb-10"
-                title={project.title}
-                slug={project.slug}
-                image={project.image}
-                tags={project.tags}
-                link={{
-                    href: `/projects/${project.slug}`,  // Corregido aquí
-                    text: "Ver Proyecto",
-                    external: false
-                }}
-                variant="minimal"
-            />
-        ))}
+<section
+    id="projects"
+    class="max-w-[1728px] flex justify-center m-auto flex-col items-center mt-10 p-4 md:p-10 lg:p-16"
+>
+    <h2 class="text-3xl font-bold mb-4 md:mb-20 text-center">
+        {translateLabels("projects.tittle")}
+    </h2>
+    <div
+        class="grid justify-items-center grid-cols-1 lg:grid-cols-2 gap-2 md:gap-6 w-full"
+    >
+        {
+            projects.map((project) => (
+                <ProjectCard
+                    class="w-[100%] last:mb-10"
+                    title={project.title}
+                    slug={project.slug}
+                    image={project.image}
+                    tags={project.tags}
+                    link={{
+                        href: `/projects/${project.slug}`, // Corregido aquí
+                        text: "Ver Proyecto",
+                        external: false,
+                    }}
+                    variant="minimal"
+                />
+            ))
+        }
     </div>
 </section>
