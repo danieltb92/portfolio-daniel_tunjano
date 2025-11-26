@@ -1,0 +1,86 @@
+name: CI (pnpm) - Build
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    # Definir las variables de entorno a nivel de job para que estén disponibles en todos los pasos
+    env:
+      NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+      NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Verify Notion secrets
+        run: |
+          if [ -z "$NOTION_TOKEN" ]; then
+            echo "❌ Error: NOTION_TOKEN no está definido"
+            exit 1
+          fi
+          if [ -z "$NOTION_DATABASE_ID" ]; then
+            echo "❌ Error: NOTION_DATABASE_ID no está definido"
+            exit 1
+          fi
+          echo "✅ Secrets verificados correctamente"
+          echo "Token length: ${#NOTION_TOKEN}"
+          echo "DB ID length: ${#NOTION_DATABASE_ID}"
+
+      - name: Generate project data from Notion
+        run: pnpm generate
+        
+      - name: Verify generated files
+        run: |
+          if [ ! -f "src/data/projects.json" ]; then
+            echo "❌ Error: projects.json no se generó"
+            exit 1
+          fi
+          
+          PROJECT_COUNT=$(ls -1 src/content/project/*.md 2>/dev/null | wc -l)
+          if [ "$PROJECT_COUNT" -eq 0 ]; then
+            echo "❌ Error: No se generaron archivos markdown de proyectos"
+            exit 1
+          fi
+          
+          echo "✅ Archivos generados correctamente:"
+          echo "   - projects.json: $(wc -l < src/data/projects.json) líneas"
+          echo "   - $PROJECT_COUNT archivos markdown de proyectos"
+          ls -lh src/content/project/
+
+      - name: Build Astro site
+        run: pnpm astro build
+
+      - name: Verify build output
+        run: |
+          if [ ! -d "dist" ]; then
+            echo "❌ Build failed: dist folder not found"
+            exit 1
+          fi
+          
+          echo "✅ Build completado exitosamente"
+          echo "Contenido de dist:"
+          ls -lh dist/
+
+
+
