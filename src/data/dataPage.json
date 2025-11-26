@@ -26,7 +26,7 @@
 
     "projects.tittle": "Proyectos",
 
-    "footer.titleList": "Trabajemos juntos",
+    "footer.titleList": "Trabajemos Juntos",
     "footer.text": "Creado por",
     "footer.textRight": "Todos los derechos reservados.",
     "footer.title": "DANIELTB",
@@ -52,18 +52,22 @@
     "hero.title": "DANIELTB",
     "hero.subtitle": "Daniel Tunjano | Industrial Designer & UX/UI | Web Developer.",
 
-    "cta.title": "Ready to collaborate?",
-    "cta.subtitle": "Interested in collaborating or just want to chat? Don’t hesitate to get in touch!",
+    "cta.title": "I am a multidisciplinary designer navigating between forms, interfaces, and emotions, building stories through design.",
+    "cta.subtitle": "Interested in collaborating or just want to chat? Don't hesitate to get in touch!",
     "cta.buttonText": "Contact Me",
+
+    "cta.title2": "I move between the tangible and the digital, exploring how design can improve the way we interact with the world.",
+    "cta.subtitle2": "Interested in collaborating or just want to chat? Don't hesitate to get in touch!",
+    "cta.buttonText2": "Contact Me",
 
     "projects.tittle": "Projects",
 
-    "footer.titleList": "Let’s work together",
+    "footer.titleList": "Let's Work Together",
     "footer.text": "Created by",
     "footer.textRight": "All rights reserved.",
     "footer.title": "DANIELTB",
 
     "page.about.title": "About Me",
-    "page.about.paragraph": "Hola, soy Daniel Tunjano, un desarrollador web y diseñador industrial apasionado por crear experiencias digitales innovadoras y funcionales. Con una sólida formación en diseño y desarrollo, me especializo en construir sitios web atractivos y fáciles de usar que cumplen con los objetivos de mis clientes. Mi enfoque combina creatividad y tecnología para ofrecer soluciones personalizadas que destacan en el competitivo mundo digital. Siempre estoy buscando nuevas formas de mejorar mis habilidades y mantenerme al día con las últimas tendencias en diseño y desarrollo web."
+    "page.about.paragraph": "Hello, I'm Daniel Tunjano, a web developer and industrial designer passionate about creating innovative and functional digital experiences. With a solid background in design and development, I specialize in building attractive and user-friendly websites that meet my clients' goals. My approach combines creativity and technology to deliver customized solutions that stand out in the competitive digital world. I'm always looking for new ways to improve my skills and stay up to date with the latest trends in web design and development."
   }
 }
