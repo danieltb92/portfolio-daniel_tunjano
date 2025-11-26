@@ -13,7 +13,7 @@ const translateLabels = useTranslations(
 ---
 
 <section
-  class="relative z-20 flex flex-col justify-center items-center min-h-dvh md:h-[500px] my-28 px-4 lg:px-10 mt-16 max-w-5xl justify-self-center"
+  class="relative z-20 flex flex-col justify-center items-center lg:min-h-[90dvh] h-[500px] my-28 px-4 lg:px-10 mt-16 max-w-5xl justify-self-center"
 >
   <Background />
   <h2 class="!text-4xl md:!text-[3rem] font-bold mb-6 text-center">
@@ -29,7 +29,11 @@ const translateLabels = useTranslations(
 
 <div class="relative overflow-hidden">
   <picture class="absolute inset-0 flex justify-center items-center -z-90"
-    ><img class="min-w-[120%] md:min-w-[110%] lg:min-w-full object-cover hue-rotate-10" src={Form.src} alt="" /></picture
+    ><img
+      class="min-w-[120%] md:min-w-[110%] lg:min-w-full object-cover hue-rotate-10"
+      src={Form.src}
+      alt=""
+    /></picture
   >
 </div>
 
