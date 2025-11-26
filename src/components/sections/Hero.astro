@@ -3,40 +3,44 @@ import LinkedinIcon from "@/assets/socials/RiLinkedinBoxLine.svg";
 import GithubIcon from "@/assets/socials/RiGithubFill.svg";
 import WhatsappIcon from "@/assets/socials/RiWhatsappLine.svg";
 import EmailIcon from "@/assets/socials/RiMailLine.svg";
-import { profile } from '@/data/data.json'; 
-import AvailableBagde from '@/components/ui/Bagde.astro';
-import { useTranslations } from '@/i18n/utils';
-import { languageList } from '@/i18n/ui';
+import { profile } from "@/data/data.json";
+import AvailableBagde from "@/components/ui/Bagde.astro";
+import { useTranslations } from "@/i18n/utils";
+import { languageList } from "@/i18n/ui";
 import Background from "@/components/ui/Background.astro";
-import BackgroundAura  from "@/components/ui/BackgraoundAura.astro";
-import type { ImageMetadata } from 'astro';
+import BackgroundAura from "@/components/ui/BackgraoundAura.astro";
+import type { ImageMetadata } from "astro";
 
 // i18n Obtener el idioma actual y la función de traducción
-const currentLang = Astro.currentLocale || 'es';
-const translateLabels = useTranslations(currentLang as keyof typeof languageList);
+const currentLang = Astro.currentLocale || "es";
+const translateLabels = useTranslations(
+  currentLang as keyof typeof languageList
+);
 
 const profileWords = translateLabels("hero.profileWords");
 const roles = profileWords;
 ---
 
-<section id="hero"
-  class="relative z-20 md:max-w-5xl mx-auto h-[100dvh] flex flex-col items-center justify-center px-4 pt-16 "
+<section
+  id="hero"
+  class="relative z-20 md:max-w-5xl mx-auto h-[100dvh] flex flex-col items-center justify-center px-4 pt-16"
 >
   <!-- <Background /> -->
-   <!-- <BackgroundAura /> -->
+  <!-- <BackgroundAura /> -->
 
-  <AvailableBagde text={translateLabels("hero.textStatus")} status="available" />
-  <h1
-    class="text-[18vw] sm:text-6xl md:text-[8vw] lg:text-[12vw] font-bold text-center leading-[-50px]"
-  >
+  <AvailableBagde
+    text={translateLabels("hero.textStatus")}
+    status="available"
+  />
+  <h1 class="text-[14vw] font-bold text-center leading-none">
     <span
       id="changing-word"
-      class="block text-[11vw] sm:text-6xl md:text-[4vw] lg:text-[6vw] opacity-30 transition-all duration-500 ease-in-out"
+      class="block text-[8vw] opacity-30 transition-all duration-500 ease-in-out"
     >
       {roles[0]}
     </span>
     <span
-      class="block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-[var(--color-accent)]"
+      class="block text-transparent leading-none bg-clip-text bg-gradient-to-r from-blue-600 to-[var(--color-accent)]"
     >
       {translateLabels("hero.title")}
     </span>
@@ -46,26 +50,43 @@ const roles = profileWords;
     {translateLabels("hero.subtitle")}
   </p>
   <ul class="flex flex-row gap-6 mt-6 text-gray-400">
-    <li><a href={profile.social.linkedin} class="hover:text-[var(--color-primary)]"><LinkedinIcon /></a></li>
-    <li><a href={profile.social.github} class="hover:text-[var(--color-primary)]"><GithubIcon /></a></li>
-    <li><a href={profile.phone} class="hover:text-[var(--color-primary)]"><WhatsappIcon /></a></li>
-    <li><a href={profile.email} class="hover:text-[var(--color-primary)]"><EmailIcon /></a></li>
+    <li>
+      <a
+        href={profile.social.linkedin}
+        class="hover:text-[var(--color-primary)]"><LinkedinIcon /></a
+      >
+    </li>
+    <li>
+      <a href={profile.social.github} class="hover:text-[var(--color-primary)]"
+        ><GithubIcon /></a
+      >
+    </li>
+    <li>
+      <a href={profile.phone} class="hover:text-[var(--color-primary)]"
+        ><WhatsappIcon /></a
+      >
+    </li>
+    <li>
+      <a href={profile.email} class="hover:text-[var(--color-primary)]"
+        ><EmailIcon /></a
+      >
+    </li>
   </ul>
 
-    <script define:vars={{ profileWords }}>
-      const roles = profileWords;
-      let current = 0;
-      const textElement = document.getElementById("changing-word");
+  <script define:vars={{ profileWords }}>
+    const roles = profileWords;
+    let current = 0;
+    const textElement = document.getElementById("changing-word");
 
-      if (textElement) {
-        setInterval(() => {
-          textElement.classList.add("opacity-0", "translate-y-2");
-          setTimeout(() => {
-            current = (current + 1) % roles.length;
-            textElement.textContent = roles[current];
-            textElement.classList.remove("opacity-0", "translate-y-2");
-          }, 400);
-        }, 2500);
-      }
-    </script>
+    if (textElement) {
+      setInterval(() => {
+        textElement.classList.add("opacity-0", "translate-y-2");
+        setTimeout(() => {
+          current = (current + 1) % roles.length;
+          textElement.textContent = roles[current];
+          textElement.classList.remove("opacity-0", "translate-y-2");
+        }, 400);
+      }, 2500);
+    }
+  </script>
 </section>

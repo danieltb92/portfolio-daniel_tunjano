@@ -14,16 +14,16 @@ const translateLabels = useTranslations(
 
 <header class="fixed top-0 left-0 w-full z-50 px-2">
   <nav
-    class="max-w-lg mx-auto mt-2 mb-10 px-4 bg-[var(--color-bg)]/50 backdrop-blur-md rounded-4xl shadow-md"
+    class="max-w-lg md:max-w-4xl mx-auto mt-2 mb-10 px-4 bg-[var(--color-bg)]/50 backdrop-blur-md rounded-4xl shadow-md"
   >
     <div
-      class="flex items-center justify-between md:justify-center h-16 gap-18"
+      class="flex items-center justify-between lg:justify-center h-13 gap-18"
     >
       <!-- Logo o Nombre -->
       <a href={getRelativeLocaleUrl(currentLang, "/")}><Logo class="w-10" /></a>
 
       <!-- Menú Desktop -->
-      <ul class="hidden md:flex items-center gap-8">
+      <ul class="hidden lg:flex items-center gap-8">
         <li>
           <a
             href={getRelativeLocaleUrl(currentLang, "about")}
@@ -46,7 +46,7 @@ const translateLabels = useTranslations(
       <!-- Botón Menú Móvil -->
       <button
         id="menu-toggle"
-        class="md:hidden p-2 rounded-lg hover:bg-[var(--color-text)]/10 transition-colors"
+        class="lg:hidden p-2 rounded-lg hover:bg-[var(--color-text)]/10 transition-colors"
         aria-label="Toggle menu"
       >
         <MenuIcon class="w-6 h-6" />
@@ -56,7 +56,7 @@ const translateLabels = useTranslations(
     <!-- Menú Móvil -->
     <div
       id="mobile-menu"
-      class="hidden md:hidden relative top-0 m-0 w-full h-screen bg-[var(--color-bg)]/80 backdrop-blur-md shadow-lg z-40 rounded-4xl"
+      class="hidden lg:hidden relative top-0 m-0 w-full h-screen bg-[var(--color-bg)]/80 backdrop-blur-md shadow-lg z-40 rounded-4xl"
     >
       <ul class="flex flex-col py-4">
         <li>
