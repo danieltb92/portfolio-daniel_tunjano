@@ -1,5 +1,6 @@
 module.exports = {
   content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
+  darkMode: ["class", '[data-theme="dark"]'],
   theme: {
     extend: {
       colors: {
@@ -60,13 +61,13 @@ module.exports = {
         },
       },
       keyframes: {
-        'slide-left': {
-          from: { transform: 'translateX(0)' },
-          to: { transform: 'translateX(-100%)' },
+        "slide-left": {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(-100%)" },
         },
       },
       animation: {
-        'slide-left': 'slide-left 8s linear infinite',
+        "slide-left": "slide-left 8s linear infinite",
       },
     },
   },

@@ -1,8 +1,7 @@
 @import "tailwindcss";
 /* Modo dark usando data-theme */
-@custom-variants dark (&:where([data-theme='dark'], [data-theme='dark'] *));
-/* Define a custom variant for dark mode */
-@custom-variant dark (&:where(.dark, .dark *));
+/* Modo dark usando data-theme y class */
+@variant dark (&:where(.dark, .dark *, [data-theme="dark"], [data-theme="dark"] *));
 /* @import "tailwindcss/typography"; */
 
 /* Tailwind base layer */
@@ -78,9 +77,7 @@ body {
   color: var(--color-text);
   scroll-behavior: smooth;
   overflow-x: hidden;
-  
 }
-
 
 @font-face {
   font-family: "Kufam";
@@ -98,8 +95,12 @@ body {
   font-display: swap;
 }
 
-h1,h2,h3,h4,h5,h6 {
-
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
 }
 
 h1 {
