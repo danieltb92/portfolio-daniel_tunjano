@@ -1,4 +1,6 @@
-# Astro Starter Kit: Basics
+
+# ![Open Graph](https://github.com/user-attachments/assets/45a80196-9909-43fe-a37c-03cb1132eb80)
+tro Starter Kit: Basics
 
 ```sh
 pnpm create astro@latest -- --template basics
