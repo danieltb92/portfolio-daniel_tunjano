@@ -1,12 +1,12 @@
 // @ts-check
-import path from 'node:path';
-import { defineConfig } from 'astro/config';
-import tailwindcss from '@tailwindcss/vite';
-import sitemap from '@astrojs/sitemap';
+import path from "node:path";
+import { defineConfig } from "astro/config";
+import tailwindcss from "@tailwindcss/vite";
+import sitemap from "@astrojs/sitemap";
 
-import react from '@astrojs/react';
+import react from "@astrojs/react";
 // Import /static for a static site
-import vercelStatic from '@astrojs/vercel/static';
+import vercelStatic from "@astrojs/vercel/static";
 
 // https://astro.build/config
 export default defineConfig({
@@ -15,12 +15,12 @@ export default defineConfig({
     defaultLocale: "es",
     routing: {
       prefixDefaultLocale: false,
-    }
+    },
   },
 
-  site: 'https://your-domain.com',
+  site: "https://danieltunjano.online",
   integrations: [sitemap(), react()],
-  output: 'static',
+  output: "static",
   adapter: vercelStatic({
     webAnalytics: {
       enabled: true,
@@ -29,12 +29,10 @@ export default defineConfig({
   }),
   vite: {
     plugins: [tailwindcss()],
-     resolve: {
+    resolve: {
       alias: {
-        '@': path.resolve('./src'),
+        "@": path.resolve("./src"),
       },
     },
   },
-
-  
 });
