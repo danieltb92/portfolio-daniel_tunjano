@@ -36,7 +36,15 @@ const translateLabels = useTranslations(
         >
       </li>
       <li>
-        <a href={`tel:${profile.phone}`} class="hover:border-b">WhatsApp</a>
+        <a
+          href={`https://wa.me/${profile.phone}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hover:border-b">WhatsApp</a
+        >
+      </li>
+      <li>
+        <a href={`tel:${profile.phone}`} class="hover:border-b">Teléfono</a>
       </li>
       <li>
         <a

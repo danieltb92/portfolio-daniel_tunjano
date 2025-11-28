@@ -53,22 +53,31 @@ const roles = profileWords;
     <li>
       <a
         href={profile.social.linkedin}
-        class="hover:text-[var(--color-primary)]"><LinkedinIcon /></a
+        class="hover:text-[var(--color-primary)]"
+        target="_blank"
+        rel="noopener noreferrer"><LinkedinIcon /></a
       >
     </li>
     <li>
-      <a href={profile.social.github} class="hover:text-[var(--color-primary)]"
-        ><GithubIcon /></a
+      <a
+        href={profile.social.github}
+        class="hover:text-[var(--color-primary)]"
+        target="_blank"
+        rel="noopener noreferrer"><GithubIcon /></a
       >
     </li>
     <li>
-      <a href={profile.phone} class="hover:text-[var(--color-primary)]"
-        ><WhatsappIcon /></a
+      <a
+        href={`https://wa.me/${profile.phone}`}
+        class="hover:text-[var(--color-primary)]"
+        target="_blank"
+        rel="noopener noreferrer"><WhatsappIcon /></a
       >
     </li>
     <li>
-      <a href={profile.email} class="hover:text-[var(--color-primary)]"
-        ><EmailIcon /></a
+      <a
+        href={`mailto:${profile.email}`}
+        class="hover:text-[var(--color-primary)]"><EmailIcon /></a
       >
     </li>
   </ul>

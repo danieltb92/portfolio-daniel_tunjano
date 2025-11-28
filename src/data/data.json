@@ -6,12 +6,12 @@
     "image": "/profile-image.jpg",
     "location": "Bogotá, Colombia",
     "email": "danieltb92@hotmail.com",
-    "phone": "+57 320 219 0255",
+    "phone": "+573202190255",
     "availability": "Disponible para proyectos",
     "social": {
       "github": "https://github.com/danieltb92",
-      "linkedin": "https://linkedin.com/in/danieltb922",
-      "twitter": "https://twitter.com/danieltunjano",
+      "linkedin": "https://linkedin.com/in/daniel-tunjano",
+      "twitter": "https://twitter.com/danieltb1992",
       "instagram": "https://instagram.com/danieltb92"
     },
     "keywords": [
@@ -26,7 +26,7 @@
       "Desarrollo Web",
       "Tecnologías Web"
     ],
-    "profileWords" : [
+    "profileWords": [
       "Diseñador",
       "Desarrollador",
       "UX/UI",
@@ -39,7 +39,16 @@
     "technical": [
       {
         "category": "Frontend",
-        "items": ["HTML", "CSS", "JavaScript", "TypeScript", "React", "Astro", "Next.js", "TailwindCSS"]
+        "items": [
+          "HTML",
+          "CSS",
+          "JavaScript",
+          "TypeScript",
+          "React",
+          "Astro",
+          "Next.js",
+          "TailwindCSS"
+        ]
       },
       {
         "category": "Backend",
