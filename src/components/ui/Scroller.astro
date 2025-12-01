@@ -1,61 +1,104 @@
 ---
-import type { ImageMetadata } from 'astro';
+import type { ImageMetadata } from "astro";
 
 export interface Props {
   logos: {
     src: string | ImageMetadata;
     alt: string;
   }[];
-  speed?: 'slow' | 'normal' | 'fast';
+  speed?: "slow" | "normal" | "fast";
   height?: string;
   showMask?: boolean;
   grayscale?: boolean;
 }
 
-const { 
-  logos = [], 
-  speed = 'normal', 
-  height = 'h-10 md:h-12 lg:h-18',
+const {
+  logos = [],
+  speed = "normal",
+  height = "h-10 md:h-12 lg:h-18",
   showMask = true,
-  grayscale = true
+  grayscale = true,
 } = Astro.props;
 
-const speedValues = {
-  slow: 35,
-  normal: 25,
-  fast: 15
+const speedClass = {
+  slow: "duration-[40s]",
+  normal: "duration-[30s]",
+  fast: "duration-[20s]",
 };
-
-const animationDuration = speedValues[speed];
 ---
 
-<div class={`justify-center w-full inline-flex flex-nowrap overflow-hidden py-10 ${showMask ? '[mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]' : ''}`}>
-  <div class={`flex items-center justify-center md:justify-start [&_div]:md:mx-7 [&_div]:mx-3 [&_img]:max-w-none animate-marquee-${speed} whitespace-nowrap`}>
-    {logos.map((logo) => (
-      <div>
-        <img
-          src={typeof logo.src === 'string' ? logo.src : logo.src.src}
-          alt={logo.alt}
-          class={`${height} ${grayscale ? 'opacity-70 grayscale' : 'opacity-100'} transition-opacity duration-300 hover:opacity-100 ${grayscale ? 'hover:grayscale-0' : ''}`}
-          loading="lazy"
-        />
-      </div>
-    ))}
-    {logos.map((logo) => (
-      <div>
-        <img
-          src={typeof logo.src === 'string' ? logo.src : logo.src.src}
-          alt={logo.alt}
-          class={`${height} ${grayscale ? 'opacity-70 grayscale' : 'opacity-100'} transition-opacity duration-300 hover:opacity-100 ${grayscale ? 'hover:grayscale-0' : ''}`}
-          loading="lazy"
-        />
-      </div>
-    ))}
+<div
+  class:list={[
+    "w-full inline-flex flex-nowrap overflow-hidden py-10",
+    showMask &&
+      "[mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]",
+  ]}
+>
+  <div
+    class:list={[
+      "flex items-center justify-center md:justify-start [&_div]:mx-4 md:[&_div]:mx-8 [&_img]:max-w-none animate-infinite-scroll whitespace-nowrap",
+      speedClass[speed],
+    ]}
+  >
+    {/* Original Set */}
+    {
+      logos.map((logo) => (
+        <div class="flex items-center justify-center">
+          <img
+            src={typeof logo.src === "string" ? logo.src : logo.src.src}
+            alt={logo.alt}
+            class:list={[
+              height,
+              "object-contain transition-all duration-300",
+              grayscale &&
+                "opacity-60 grayscale hover:opacity-100 hover:grayscale-0",
+              !grayscale && "opacity-100",
+            ]}
+            loading="lazy"
+          />
+        </div>
+      ))
+    }
+
+    {/* Duplicate Set for seamless loop */}
+    {
+      logos.map((logo) => (
+        <div class="flex items-center justify-center">
+          <img
+            src={typeof logo.src === "string" ? logo.src : logo.src.src}
+            alt={logo.alt}
+            class:list={[
+              height,
+              "object-contain transition-all duration-300",
+              grayscale &&
+                "opacity-60 grayscale hover:opacity-100 hover:grayscale-0",
+              !grayscale && "opacity-100",
+            ]}
+            loading="lazy"
+          />
+        </div>
+      ))
+    }
   </div>
 </div>
 
-<!-- <style>
-  @keyframes marquee-slow {
+<style>
+  .animate-infinite-scroll {
+    animation: infinite-scroll var(--duration, 30s) linear infinite;
+  }
+
+  /* Map Tailwind classes to CSS variable if needed, or just use the class directly */
+  .duration-\[40s\] {
+    --duration: 40s;
+  }
+  .duration-\[30s\] {
+    --duration: 30s;
+  }
+  .duration-\[20s\] {
+    --duration: 20s;
+  }
+
+  @keyframes infinite-scroll {
     from {
       transform: translateX(0);
     }
@@ -63,34 +106,4 @@ const animationDuration = speedValues[speed];
       transform: translateX(-50%);
     }
   }
-
-  @keyframes marquee-normal {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(-50%);
-    }
-  }
-
-  @keyframes marquee-fast {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(-50%);
-    }
-  }
-
-  .animate-marquee-slow {
-    animation: marquee-slow 35s linear infinite;
-  }
-
-  .animate-marquee-normal {
-    animation: marquee-normal 25s linear infinite;
-  }
-
-  .animate-marquee-fast {
-    animation: marquee-fast 15s linear infinite;
-  }
-</style> -->
+</style>
