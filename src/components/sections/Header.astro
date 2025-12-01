@@ -4,6 +4,8 @@ import MenuIcon from "@/assets/icons/AntDesignMenuOutlined.svg";
 import Logo from "@/assets/logo.svg";
 import { useTranslations } from "@/i18n/utils";
 import { languageList } from "@/i18n/ui";
+import ThemeToggle from "@/components/ui/ThemeToggle.astro";
+import LanguageToggle from "@/components/ui/LanguageToggle.astro";
 
 // i18n Obtener el idioma actual y la función de traducción
 const currentLang = Astro.currentLocale || "es";
@@ -14,10 +16,10 @@ const translateLabels = useTranslations(
 
 <header class="fixed top-0 left-0 w-full z-50 px-2">
   <nav
-    class="max-w-lg md:max-w-4xl mx-auto mt-2 mb-10 px-4 bg-[var(--color-bg)]/50 backdrop-blur-md rounded-4xl shadow-md"
+    class="max-w-lg md:max-w-4xl mx-auto mt-2 mb-10 flex justify-center items-center flex-col md:flex-row"
   >
     <div
-      class="flex items-center justify-between lg:justify-center h-13 gap-18"
+      class="w-full md:max-w-lg flex items-center justify-between lg:justify-center h-13 gap-18 px-6 bg-[var(--color-bg)]/50 backdrop-blur-md rounded-4xl shadow-md"
     >
       <!-- Logo o Nombre -->
       <a href={getRelativeLocaleUrl(currentLang, "/")}><Logo class="w-10" /></a>
@@ -52,6 +54,13 @@ const translateLabels = useTranslations(
         <MenuIcon class="w-6 h-6" />
       </button>
     </div>
+    <!-- Botones de acción -->
+    <div
+      class="flex items-center gap-2 absolute right-8 h-13 px-4 bg-[var(--color-bg)]/50 backdrop-blur-md rounded-4xl shadow-md max-md:hidden"
+    >
+      <LanguageToggle />
+      <ThemeToggle />
+    </div>
 
     <!-- Menú Móvil -->
     <div
@@ -84,6 +93,10 @@ const translateLabels = useTranslations(
           </a>
         </li>
       </ul>
+      <div class="flex justify-end items-center gap-2 h-13 px-4">
+        <LanguageToggle />
+        <ThemeToggle />
+      </div>
     </div>
   </nav>
 </header>

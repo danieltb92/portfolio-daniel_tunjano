@@ -66,17 +66,26 @@ const currentLang = Astro.currentLocale || "es";
   <script>
     (function () {
       const saved = localStorage.getItem("theme");
-      if (saved === "dark" || saved === "light") {
-        document.documentElement.setAttribute("data-theme", saved);
-        return;
-      }
       const prefersDark = window.matchMedia(
         "(prefers-color-scheme: dark)"
       ).matches;
-      document.documentElement.setAttribute(
-        "data-theme",
-        prefersDark ? "dark" : "light"
-      );
+
+      let theme = "light";
+      if (saved === "dark") {
+        theme = "dark";
+      } else if (saved === "light") {
+        theme = "light";
+      } else {
+        // system or undefined
+        theme = prefersDark ? "dark" : "light";
+      }
+
+      document.documentElement.setAttribute("data-theme", theme);
+      if (theme === "dark") {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
     })();
   </script>
 </head>

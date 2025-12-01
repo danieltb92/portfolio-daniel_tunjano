@@ -1,0 +1,128 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { languageList } from "@/i18n/ui";
+
+const currentLang = Astro.currentLocale || "es";
+const currentPath = Astro.url.pathname;
+
+function getLangUrl(lang: string) {
+  // Remove current locale from path if present to get the "clean" path
+  let cleanPath = currentPath;
+
+  // Check if path starts with current lang (e.g. /en/...)
+  if (currentLang && cleanPath.startsWith(`/${currentLang}`)) {
+    cleanPath = cleanPath.slice(currentLang.length + 1);
+  }
+
+  // Ensure cleanPath starts with /
+  if (!cleanPath.startsWith("/")) cleanPath = "/" + cleanPath;
+
+  // If cleanPath is just "/" and we stripped the locale, it's fine.
+  // getRelativeLocaleUrl will handle adding the new locale prefix.
+  return getRelativeLocaleUrl(lang, cleanPath);
+}
+---
+
+<language-toggle class="relative ml-1">
+  <button
+    type="button"
+    class="language-toggle-btn appearance-none border-none flex hover:scale-125 transition bg-transparent cursor-pointer text-gray-800 dark:text-gray-200"
+    aria-label="Change language"
+  >
+    <span class="sr-only">Cambiar idioma</span>
+    <!-- Globe Icon -->
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="w-5 h-5"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      stroke-width="2"
+      stroke="currentColor"
+      fill="none"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+      <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0"></path>
+      <path d="M3.6 9h16.8"></path>
+      <path d="M3.6 15h16.8"></path>
+      <path d="M11.5 3a17 17 0 0 0 0 18"></path>
+      <path d="M12.5 3a17 17 0 0 1 0 18"></path>
+    </svg>
+  </button>
+
+  <!-- Dropdown Menu -->
+  <div
+    class="language-menu absolute hidden top-8 right-0 text-sm p-1 min-w-[8rem] rounded-md border border-gray-100 bg-white/90 dark:bg-gray-900/90 dark:border-gray-500/20 shadow-[0_3px_10px_rgb(0,0,0,0.2)] backdrop-blur-md z-50"
+  >
+    <ul>
+      {
+        Object.entries(languageList).map(([lang, label]) => (
+          <li>
+            <a
+              href={getLangUrl(lang)}
+              class:list={[
+                "px-2 py-1.5 cursor-pointer hover:bg-neutral-400/40 dark:hover:bg-gray-500/50 rounded-sm flex items-center gap-2 no-underline transition-colors",
+                currentLang === lang
+                  ? "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-medium"
+                  : "text-gray-700 dark:text-gray-200",
+              ]}
+            >
+              {label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <script>
+    class LanguageToggle extends HTMLElement {
+      constructor() {
+        super();
+        const button = this.querySelector(
+          ".language-toggle-btn"
+        ) as HTMLButtonElement;
+        const menu = this.querySelector(".language-menu") as HTMLDivElement;
+
+        if (button && menu) {
+          // Toggle Menu
+          button.addEventListener("click", (e) => {
+            e.stopPropagation();
+            menu.classList.toggle("hidden");
+          });
+
+          // Close menu when clicking outside
+          document.addEventListener("click", (e) => {
+            if (
+              !menu.classList.contains("hidden") &&
+              !this.contains(e.target as Node)
+            ) {
+              menu.classList.add("hidden");
+            }
+          });
+        }
+      }
+    }
+
+    customElements.define("language-toggle", LanguageToggle);
+  </script>
+
+  <style>
+    .language-menu {
+      animation: scale-up-center 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    }
+
+    @keyframes scale-up-center {
+      0% {
+        transform: scale(0.5);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+  </style>
+</language-toggle>
