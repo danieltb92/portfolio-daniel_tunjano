@@ -1,25 +1,48 @@
 ---
-import Layout from '@/layouts/Layout.astro';
-import Footer from '@/components/sections/Footer.astro';
-import Header from '@/components/sections/Header.astro';
-import LogoScroller from '@/components/sections/LogoScroller.astro';
-import FormBlack from '@/assets/formBlack.svg';
-import FormWhite from '@/assets/formWhite.svg';
-
+import Layout from "@/layouts/Layout.astro";
+import Footer from "@/components/sections/Footer.astro";
+import Header from "@/components/sections/Header.astro";
+import LogoScroller from "@/components/sections/LogoScroller.astro";
+import FormBlack from "@/assets/formBlack.svg";
+import FormWhite from "@/assets/formWhite.svg";
 ---
 
 <Layout>
   <!-- <Header /> -->
-  <main class="items-center mt-[64px] pt-20 min-h-screen text-center max-w-7xl m-auto px-8">
+  <main
+    class="items-center mt-[64px] py-10 lg:py-20 h-auto text-center max-w-7xl m-auto px-4"
+  >
     <h2 class="text-4xl font-bold mb-16">Sobre mí</h2>
-    <article class="grid grid-cols-2 gap-4 w-full overflow-visible">
-      <picture class="flex justify-center overflow-visible" ><img class="w-[450px] overflow-visible" src={FormWhite.src} alt=""></picture>
-      <p class="flex justify-items-center justify-center justify-self-center align-middle text-md text-left m-auto p-5 ">
-      Hola, soy Daniel Tunjano, un desarrollador web y diseñador industrial apasionado por crear experiencias digitales innovadoras y funcionales. Con una sólida formación en diseño y desarrollo, me especializo en construir sitios web atractivos y fáciles de usar que cumplen con los objetivos de mis clientes.   
-        Mi enfoque combina creatividad y tecnología para ofrecer soluciones personalizadas que destacan en el competitivo mundo digital. Siempre estoy buscando nuevas formas de mejorar mis habilidades y mantenerme al día con las últimas tendencias en diseño y desarrollo web.
-    </p>
+    <article
+      class="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full overflow-visible"
+    >
+      <picture class="flex justify-center overflow-visible"
+        ><img
+          class="w-[450px] overflow-visible py-8 block dark:hidden"
+          src={FormBlack.src}
+          alt="Forma en tema claro"
+        />
+        <img
+          class="w-[450px] overflow-visible py-8 hidden dark:block"
+          src={FormWhite.src}
+          alt="Forma en tema oscuro"
+        />
+      </picture>
+      <p
+        class="flex justify-items-center justify-center justify-self-center align-middle text-md text-left m-auto p-5"
+      >
+        Hola, soy Daniel Tunjano, un desarrollador web y diseñador industrial
+        apasionado por crear experiencias digitales innovadoras y funcionales.
+        Con una sólida formación en diseño y desarrollo, me especializo en
+        construir sitios web atractivos y fáciles de usar que cumplen con los
+        objetivos de mis clientes. Mi enfoque combina creatividad y tecnología
+        para ofrecer soluciones personalizadas que destacan en el competitivo
+        mundo digital. Siempre estoy buscando nuevas formas de mejorar mis
+        habilidades y mantenerme al día con las últimas tendencias en diseño y
+        desarrollo web.
+      </p>
     </article>
-    
+
     <!-- <LogoScroller /> -->
   </main>
   <!-- <Footer /> -->
