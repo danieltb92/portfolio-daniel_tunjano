@@ -28,3 +28,6 @@ src/content/project/*
 
 # vercel files
 .vercel/
+
+# notion images
+public/images/notion

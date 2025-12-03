@@ -27,12 +27,21 @@ const n2m = new NotionToMarkdown({
 });
 
 // Añadir custom transformers para diferentes tipos de bloques
+// Añadir custom transformers para diferentes tipos de bloques
 n2m.setCustomTransformer("video", async (block) => {
   const videoBlock = block as VideoBlockObjectResponse;
   const video = videoBlock.video;
   const url = video.type === "external" ? video.external.url : video.file.url;
+
+  // Descargar video
+  const { downloadImage } = await import("./download-image");
+  const filename = `video-${block.id}.${
+    url.split("?")[0].split(".").pop() || "mp4"
+  }`;
+  const localUrl = await downloadImage(url, filename);
+
   return `<video preload:auto autoplay loop class="w-full rounded-lg">
-    <source src="${url}" type="video/mp4">
+    <source src="${localUrl}" type="video/mp4">
     Tu navegador no soporta el tag de video.
   </video>`;
 });
@@ -64,7 +73,15 @@ n2m.setCustomTransformer("image", async (block) => {
     imageBlock.image.caption?.length > 0
       ? imageBlock.image.caption[0].plain_text
       : "";
-  return `![${caption}](${url})`;
+
+  // Descargar imagen
+  const { downloadImage } = await import("./download-image");
+  const filename = `image-${block.id}.${
+    url.split("?")[0].split(".").pop() || "jpg"
+  }`;
+  const localUrl = await downloadImage(url, filename);
+
+  return `![${caption}](${localUrl})`;
 });
 
 n2m.setCustomTransformer("file", async (block) => {
@@ -73,7 +90,15 @@ n2m.setCustomTransformer("file", async (block) => {
   const url = file.type === "external" ? file.external.url : file.file.url;
   const caption =
     fileBlock.file.caption?.[0]?.plain_text || "Descargar archivo";
-  return `<a href="${url}" target="_blank" class="inline-flex items-center px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700">
+
+  // Descargar archivo
+  const { downloadImage } = await import("./download-image");
+  const filename = `file-${block.id}.${
+    url.split("?")[0].split(".").pop() || "pdf"
+  }`;
+  const localUrl = await downloadImage(url, filename);
+
+  return `<a href="${localUrl}" target="_blank" class="inline-flex items-center px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700">
     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
     </svg>
