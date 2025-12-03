@@ -63,6 +63,7 @@ export async function getProjectCard(): Promise<Project[]> {
       response.results.map(async (page: any) => {
         const slug = page?.properties?.Slug.rich_text?.[0]?.plain_text || null;
         const coverUrl = page?.properties?.Cover?.files?.[0]?.file.url || null;
+        const url = page?.properties?.URL?.url || null;
 
         let localCoverUrl = coverUrl;
         if (coverUrl) {
@@ -81,7 +82,7 @@ export async function getProjectCard(): Promise<Project[]> {
           description:
             page?.properties?.Description?.rich_text?.[0]?.plain_text || null,
           type: page?.properties?.Type?.rich_text?.[0]?.plain_text || null,
-          url: page?.public_url || null,
+          url: url,
           idPage: page?.id || null,
 
           image: {
@@ -90,7 +91,7 @@ export async function getProjectCard(): Promise<Project[]> {
           },
           tags: page.properties.Tags.multi_select.map((tag: any) => tag.name),
           link: {
-            href: slug,
+            href: url,
             text: "Ver Proyecto",
             external: true,
           },
