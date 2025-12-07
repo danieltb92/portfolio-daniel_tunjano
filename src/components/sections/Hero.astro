@@ -32,7 +32,7 @@ const roles = profileWords;
     text={translateLabels("hero.textStatus")}
     status="available"
   />
-  <h1 class="text-[16vw] lg:text-[14vw] font-bold text-center leading-none">
+  <h1 class="text-[19vw] lg:text-[14vw] font-bold text-center leading-none">
     <span
       id="changing-word"
       class="block text-[10vw] lg:text-[8vw] opacity-30 transition-all duration-500 ease-in-out"
@@ -40,8 +40,9 @@ const roles = profileWords;
       {roles[0]}
     </span>
     <span
-      class="block text-transparent leading-none bg-clip-text bg-gradient-to-r from-blue-600 to-[var(--color-accent)]"
+      class="block leading-none bg-clip-text bg-gradient-to-r text-[var(--color-text)]"
     >
+      <!-- text-transparent from-blue-600 to-[var(--color-accent)] -->
       {translateLabels("hero.title")}
     </span>
   </h1>

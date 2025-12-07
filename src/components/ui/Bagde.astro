@@ -9,9 +9,10 @@ const { text, status = "available", pulse = true } = Astro.props;
 
 const statusColors = {
   available: `
-    bg-neutral-900 text-neutral-100 border-neutral-600
-    dark:bg-neutral-100 dark:text-neutral-900 dark:border-neutral-300
+    bg-[var(--primary-blue-950)] text-neutral-100 border-neutral-100
+    dark:bg-[var(--primary-blue-950)] dark:text-neutral-100 dark:border-none
   `,
+  // dark:bg-[var(--primary-blue-100)] dark:text-neutral-900 dark:border-neutral-300
   busy: `
     bg-amber-500/15 text-amber-700 border-amber-500/30
     dark:bg-amber-500/20 dark:text-amber-300 dark:border-amber-400
@@ -30,7 +31,7 @@ const dotColors = {
 ---
 
 <span
-  class={`inline-flex items-center gap-4 px-4 py-1.5 rounded-full border text-[10px] sm:text-[12px] md:text-sm font-light m-8 backdrop-blur-sm transition-all duration-300 ${statusColors[status]}`}
+  class={`inline-flex items-center gap-4 px-4 py-2 rounded-full border text-[12px] sm:text-[12px] md:text-sm font-normal my-8 backdrop-blur-sm transition-all duration-300 ${statusColors[status]}`}
 >
   <span class="relative flex h-2.5 w-2.5">
     <span
@@ -40,6 +41,5 @@ const dotColors = {
       class={`relative inline-flex h-2.5 w-2.5 rounded-full ${dotColors[status]}`}
     ></span>
   </span>
-
   {text}
 </span>
