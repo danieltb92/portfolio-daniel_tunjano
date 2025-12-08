@@ -23,8 +23,14 @@ const roles = profileWords;
 
 <section
   id="hero"
-  class="relative z-20 md:max-w-5xl mx-auto h-[100dvh] flex flex-col items-center justify-center px-4 pt-16"
+  class="relative z-20 md:max-w-5xl mx-auto h-[100dvh] flex flex-col items-center justify-center px-4 pt-16 overflow-visible"
 >
+  <div
+    id="hero-background"
+    class="absolute inset-0 -z-10 [mask-image:linear-gradient(to_top,transparent,black_70%)]"
+  >
+    <!-- md:right-[calc(10%-60vw)] -->
+  </div>
   <!-- <Background /> -->
   <!-- <BackgroundAura /> -->
 
@@ -35,7 +41,7 @@ const roles = profileWords;
   <h1 class="text-[19vw] lg:text-[14vw] font-bold text-center leading-none">
     <span
       id="changing-word"
-      class="block text-[10vw] lg:text-[8vw] opacity-30 transition-all duration-500 ease-in-out"
+      class="block text-[10vw] lg:text-[8vw] opacity-50 transition-all duration-500 ease-in-out"
     >
       {roles[0]}
     </span>
@@ -98,5 +104,67 @@ const roles = profileWords;
         }, 400);
       }, 2500);
     }
+  </script>
+
+  <script
+    is:inline
+    src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.min.js"></script>
+  <script
+    is:inline
+    src="https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.24/vanta.trunk.min.js"
+  ></script>
+  <script is:inline>
+    let vantaEffect = null;
+
+    const getThemeColor = () => {
+      const isDark =
+        document.documentElement.getAttribute("data-theme") === "dark" ||
+        document.documentElement.classList.contains("dark");
+      // Color Light: #eff9ff (0xeff9ff), Color Dark: #000000 (0x000000)
+      return isDark ? 0x000000 : 0xeff9ff;
+    };
+
+    const initVanta = () => {
+      if (!vantaEffect) {
+        vantaEffect = VANTA.TRUNK({
+          el: "#hero-background",
+          mouseControls: true,
+          touchControls: true,
+          gyroControls: false,
+          minHeight: 200.0,
+          minWidth: 200.0,
+          scale: 1.0,
+          scaleMobile: 1.0,
+          color: 0x1088e8,
+          backgroundColor: getThemeColor(),
+          spacing: 1.0,
+          chaos: 4.0,
+        });
+      }
+    };
+
+    const stopVanta = () => {
+      if (vantaEffect) {
+        vantaEffect.destroy();
+        vantaEffect = null;
+      }
+    };
+
+    // Iniciar efecto
+    initVanta();
+
+    // Observar cambios de tema
+    const observer = new MutationObserver(() => {
+      stopVanta();
+      initVanta();
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme", "class"],
+    });
+
+    // Limpieza al desmontar (astro:before-swap es para transiciones de vista, pero útil tener en cuenta)
+    document.addEventListener("astro:before-swap", stopVanta);
   </script>
 </section>
