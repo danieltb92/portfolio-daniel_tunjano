@@ -6,11 +6,8 @@
     "dev": "astro dev",
     "preview": "astro preview",
     "astro": "astro",
-
     "generate": "tsx src/utils/generate-projectsData.ts",
-
     "build": "pnpm generate && astro build",
-    
     "start": "tsx src/scripts/start.ts",
     "start:prod": "tsx src/scripts/start.ts build"
   },
@@ -21,15 +18,15 @@
     "@notionhq/client": "^5.2.1",
     "@tailwindcss/vite": "^4.1.14",
     "@types/marked": "^6.0.0",
-    "@types/react": "^19.2.3",
-    "@types/react-dom": "^19.2.2",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
     "astro": "^5.14.5",
     "dotenv": "^17.2.3",
     "marked": "^16.4.1",
     "motion": "^12.23.24",
     "notion-to-md": "^3.1.9",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
+    "react": "^19.2.1",
+    "react-dom": "^19.2.1",
     "tailwindcss": "^4.1.14"
   },
   "devDependencies": {
