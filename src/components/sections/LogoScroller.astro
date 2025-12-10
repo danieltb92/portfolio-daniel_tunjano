@@ -11,11 +11,19 @@ import AstroLogo from "@/assets/tools/Astro_dark.svg";
 
 import type { ImageLayout } from "node_modules/astro/dist/assets/types";
 import type { SvgComponent } from "astro/types";
+import { useTranslations } from "@/i18n/utils";
+import { languageList } from "@/i18n/ui";
+
+// i18n Obtener el idioma actual y la función de traducción
+const currentLang = Astro.currentLocale || "es";
+const translateLabels = useTranslations(
+  currentLang as keyof typeof languageList
+);
 ---
 
-<section class="flex justify-center flex-col max-w-4xl m-auto">
+<section class="flex justify-center flex-col max-w-4xl m-auto mb-30">
   <h4 class="!font-normal !font-[Inter] text-center mb-0">
-    Herramientas y tecnologías que uso:
+    {translateLabels("cta.subtitle2")}
   </h4>
   <Scroller
     logos={[
