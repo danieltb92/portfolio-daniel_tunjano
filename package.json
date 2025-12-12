@@ -25,8 +25,8 @@
     "marked": "^16.4.1",
     "motion": "^12.23.24",
     "notion-to-md": "^3.1.9",
-    "react": "^19.2.1",
-    "react-dom": "^19.2.1",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
     "tailwindcss": "^4.1.14"
   },
   "devDependencies": {
