@@ -5,6 +5,7 @@ import Footer from "@/components/sections/Footer.astro";
 import { useTranslations } from "@/i18n/utils";
 import { languageList } from "@/i18n/ui";
 import Head from "@/layouts/HeadLayout.astro";
+import Snow from "@/components/effects/Snow.astro";
 
 // i18n Obtener el idioma actual y la función de traducción
 const currentLang = Astro.currentLocale || "es";
@@ -17,8 +18,11 @@ const translateLabels = useTranslations(
 <html lang={currentLang}>
   <Head title={Astro.props.title} description={Astro.props.description} />
   <body>
-    <Header />
-    <slot />
-    <Footer />
+    <main>
+      <Header />
+      <slot />
+      <Footer />
+    </main>
+    <Snow />
   </body>
 </html>
