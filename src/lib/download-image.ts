@@ -10,7 +10,8 @@ export async function downloadImage(
 ): Promise<string> {
   try {
     // Definir el directorio de destino
-    const publicDir = path.join(process.cwd(), "src", "assets");
+    // const publicDir = path.join(process.cwd(), "src", "assets");
+    const publicDir = path.join(process.cwd(), "public");
     const imagesDir = path.join(publicDir, "content", "notion");
 
     // Asegurarse de que el directorio existe
@@ -18,7 +19,8 @@ export async function downloadImage(
 
     // Definir la ruta completa del archivo
     const filePath = path.join(imagesDir, filename);
-    const publicPath = `/src/assets/content/notion/${filename}`;
+    // const publicPath = `/src/assets/content/notion/${filename}`;
+    const publicPath = `/content/notion/${filename}`;
 
     // Verificar si el archivo ya existe (opcional: podrías querer sobrescribirlo siempre)
     // Para simplificar y asegurar frescura, lo sobrescribiremos si la URL ha cambiado o si forzamos
