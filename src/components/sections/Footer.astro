@@ -2,7 +2,8 @@
 import { profile } from "../../data/data.json";
 import { useTranslations } from "@/i18n/utils";
 import { languageList } from "@/i18n/ui";
-import Danieltb from "public/Danieltb.svg";
+// import Danieltb from "public/Danieltb.svg";
+import Danieltb from "public/DanieltbNavidad.svg";
 
 // i18n Obtener el idioma actual y la función de traducción
 const currentLang = Astro.currentLocale || "es";
@@ -57,7 +58,7 @@ const translateLabels = useTranslations(
     </ul>
   </div>
   <div class="max-w-[1728px] w-full items-center py-10 m-auto">
-    <Danieltb class="w-full text-gray-400 dark:text-white" />
+    <Danieltb class="w-full text-gray-400 dark:text-gray-500" />
   </div>
   <div
     class="bottom-[0px] flex justify-center flex-col items-center p-4 pb-0 z-10"
