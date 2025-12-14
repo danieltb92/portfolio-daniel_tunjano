@@ -56,19 +56,71 @@ import Img404 from "public/404.svg";
   </main>
 </Layout>
 
-<style>
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+<script>
+  import { gsap } from "gsap";
 
-  .animate-fade-in {
-    animation: fadeIn 0.8s ease-out forwards;
-  }
-</style>
+  const init404Animation = () => {
+    const main = document.querySelector("main");
+    if (!main) return;
+
+    // Use a bounce effect for the 404 title
+    const title = main.querySelector("h1");
+    const subtitle = main.querySelector("h2");
+    const text = main.querySelector("p");
+    const button = main.querySelector("a"); // Button renders as 'a' usually
+
+    const tl = gsap.timeline();
+
+    if (title) {
+      tl.from(title, {
+        scale: 0,
+        rotation: -10,
+        opacity: 0,
+        duration: 0.8,
+        ease: "back.out(1.7)",
+      });
+    }
+
+    if (subtitle) {
+      tl.from(
+        subtitle,
+        {
+          y: 20,
+          opacity: 0,
+          duration: 0.5,
+          ease: "power2.out",
+        },
+        "-=0.4"
+      );
+    }
+
+    if (text) {
+      tl.from(
+        text,
+        {
+          y: 20,
+          opacity: 0,
+          duration: 0.5,
+          ease: "power2.out",
+        },
+        "-=0.3"
+      );
+    }
+
+    if (button) {
+      tl.from(
+        button,
+        {
+          y: 20,
+          opacity: 0,
+          duration: 0.5,
+          ease: "power2.out",
+        },
+        "-=0.3"
+      );
+    }
+  };
+
+  init404Animation();
+  document.addEventListener("astro:after-swap", init404Animation);
+</script>

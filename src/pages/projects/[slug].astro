@@ -121,3 +121,40 @@ const { project, content } = Astro.props;
     @apply my-8;
   }
 </style>
+
+<script>
+  import { gsap } from "gsap";
+
+  const initProjectAnimation = () => {
+    const article = document.querySelector("article");
+    if (!article) return;
+
+    const tl = gsap.timeline();
+
+    // Animate the main content container
+    tl.from(article, {
+      y: 30,
+      opacity: 0,
+      duration: 0.8,
+      ease: "power3.out",
+    });
+
+    // Animate children elements specifically for a nicer effect
+    // Attempting to select direct children of the prose div and the button container
+    const contentChildren = article.querySelectorAll(".prose > *, .flex.gap-4");
+
+    if (contentChildren.length > 0) {
+      gsap.from(contentChildren, {
+        y: 20,
+        opacity: 0,
+        stagger: 0.1,
+        duration: 0.6,
+        ease: "power3.out",
+        delay: 0.2, // Start slightly after the main container fade starts (or overlapping)
+      });
+    }
+  };
+
+  initProjectAnimation();
+  document.addEventListener("astro:after-swap", initProjectAnimation);
+</script>

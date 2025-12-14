@@ -50,3 +50,56 @@ const translateLabels = useTranslations(
   </main>
   <!-- <Footer /> -->
 </Layout>
+
+<script>
+  import { gsap } from "gsap";
+
+  const initAboutAnimation = () => {
+    const main = document.querySelector("main");
+    if (!main) return;
+
+    const tl = gsap.timeline();
+
+    const title = main.querySelector("h2");
+    const image = main.querySelector("picture");
+    const text = main.querySelector("p");
+
+    if (title) {
+      tl.from(title, {
+        y: -30,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power3.out",
+      });
+    }
+
+    if (image) {
+      tl.from(
+        image,
+        {
+          x: -50,
+          opacity: 0,
+          duration: 0.8,
+          ease: "power3.out",
+        },
+        "-=0.4"
+      );
+    }
+
+    if (text) {
+      tl.from(
+        text,
+        {
+          x: 50,
+          opacity: 0,
+          duration: 0.8,
+          ease: "power3.out",
+        },
+        "-=0.6"
+      );
+    }
+  };
+
+  initAboutAnimation();
+  document.addEventListener("astro:after-swap", initAboutAnimation);
+</script>
