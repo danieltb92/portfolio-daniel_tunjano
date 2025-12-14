@@ -7,53 +7,107 @@ import { languageList } from "@/i18n/ui";
 // i18n Obtener el idioma actual y la función de traducción
 const currentLang = Astro.currentLocale || "es";
 const translateLabels = useTranslations(
-    currentLang as keyof typeof languageList,
+  currentLang as keyof typeof languageList
 );
 
 interface ProjectData {
-    title: string;
-    slug: string;
-    image: {
-        src: string;
-        alt: string;
-    };
-    tags: string[];
-    link: {
-        href: string;
-        text: string;
-        external: boolean;
-    };
+  title: string;
+  slug: string;
+  image: {
+    src: string;
+    alt: string;
+  };
+  tags: string[];
+  link: {
+    href: string | null;
+    text: string;
+    external: boolean;
+  };
 }
 
 const projects: ProjectData[] = projectsData;
 ---
 
 <section
-    id="projects"
-    class="max-w-[1728px] flex justify-center m-auto flex-col items-center mt-10 p-4 md:p-10 lg:p-16"
+  id="projects"
+  class="max-w-[1728px] flex justify-center m-auto flex-col items-center mt-10 p-4 md:p-10 lg:p-16"
 >
-    <h2 class="text-3xl font-bold mb-4 md:mb-20 text-center">
-        {translateLabels("projects.tittle")}
-    </h2>
-    <div
-        class="grid justify-items-center grid-cols-1 lg:grid-cols-2 gap-2 md:gap-6 w-full"
-    >
-        {
-            projects.map((project) => (
-                <ProjectCard
-                    class="w-[100%] last:mb-10"
-                    title={project.title}
-                    slug={project.slug}
-                    image={project.image}
-                    tags={project.tags}
-                    link={{
-                        href: `/projects/${project.slug}`, // Corregido aquí
-                        text: "Ver Proyecto",
-                        external: false,
-                    }}
-                    variant="minimal"
-                />
-            ))
-        }
-    </div>
+  <h2 class="text-3xl font-bold mb-4 md:mb-20 text-center">
+    {translateLabels("projects.tittle")}
+  </h2>
+  <div
+    class="grid justify-items-center grid-cols-1 lg:grid-cols-2 gap-2 md:gap-6 w-full"
+  >
+    {
+      projects.map((project) => (
+        <ProjectCard
+          class="w-[100%] last:mb-10"
+          title={project.title}
+          slug={project.slug}
+          image={project.image}
+          tags={project.tags}
+          link={{
+            href: `/projects/${project.slug}`, // Corregido aquí
+            text: "Ver Proyecto",
+            external: false,
+          }}
+          variant="minimal"
+        />
+      ))
+    }
+  </div>
 </section>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const initProjectsAnimation = () => {
+    const section = document.getElementById("projects");
+    if (!section) return;
+
+    // Animate Title
+    const title = section.querySelector("h2");
+    if (title) {
+      gsap.from(title, {
+        scrollTrigger: {
+          trigger: title,
+          start: "top 80%",
+          toggleActions: "play none none reverse",
+        },
+        y: 50,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out",
+      });
+    }
+
+    // Animate Cards
+    const cards = section.querySelectorAll(".grid > a"); // ProjectCard is 'a' tag usually? Let's check Card.astro or just use children
+    // Checking previous view: ProjectCard implementation might wrap an 'a' or be a 'div'.
+    // In Projects.astro, it maps to <ProjectCard ... /> inside a div.
+    // The render of ProjectCard is unknown but likely a 'div' or 'article' or 'a'.
+    // Safer to select direct children of .grid.
+    const gridChildren = section.querySelectorAll(".grid > *");
+
+    if (gridChildren.length > 0) {
+      gsap.from(gridChildren, {
+        scrollTrigger: {
+          trigger: section.querySelector(".grid"),
+          start: "top 75%",
+          toggleActions: "play none none reverse",
+        },
+        y: 50,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: "power3.out",
+      });
+    }
+  };
+
+  initProjectsAnimation();
+  document.addEventListener("astro:after-swap", initProjectsAnimation);
+</script>

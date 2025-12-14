@@ -216,3 +216,45 @@ const roles = profileWords;
     });
   </script>
 </section>
+
+<script>
+  import { gsap } from "gsap";
+
+  const initHeroAnimation = () => {
+    const heroTitle = document.querySelector("#hero h1");
+    if (!heroTitle) return;
+
+    const tl = gsap.timeline();
+
+    tl.from("#hero h1", {
+      y: 50,
+      opacity: 0,
+      duration: 1,
+      ease: "power3.out",
+    })
+      .from(
+        "#hero p",
+        {
+          y: 30,
+          opacity: 0,
+          duration: 0.8,
+          ease: "power3.out",
+        },
+        "-=0.6"
+      )
+      .from(
+        "#hero ul li",
+        {
+          y: 20,
+          opacity: 0,
+          stagger: 0.1,
+          duration: 0.6,
+          ease: "power3.out",
+        },
+        "-=0.4"
+      );
+  };
+
+  initHeroAnimation();
+  document.addEventListener("astro:after-swap", initHeroAnimation);
+</script>

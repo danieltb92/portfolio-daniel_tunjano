@@ -13,6 +13,7 @@ const translateLabels = useTranslations(
 ---
 
 <section
+  id="cta-primary"
   class="relative z-20 flex flex-col justify-center items-center lg:min-h-[90dvh] h-[600px] my-28 px-4 lg:px-10 mt-16 max-w-5xl justify-self-center"
 >
   <Background />
@@ -38,6 +39,7 @@ const translateLabels = useTranslations(
 </div>
 
 <section
+  id="cta-secondary"
   class="flex flex-col justify-center items-center h-auto md:h-[400px] my-0 px-4 lg:px-10 mt-16 max-w-5xl justify-self-center"
 >
   <h2 class="!text-4xl md:!text-[3rem] font-bold mb-6 text-center">
@@ -52,12 +54,39 @@ const translateLabels = useTranslations(
     {translateLabels("cta.buttonText2")}</Button> -->
 </section>
 
-<!-- <div class="relative overflow-hidden h-[300px] md:h-[500px]">
-  <picture class="absolute inset-0 flex justify-center items-center -z-90">
-    <img
-      class="min-w-[120%] md:min-w-[110%] lg:min-w-full object-cover hue-rotate-10"
-      src={Form.src}
-      alt=""
-    />
-  </picture>
-</div> -->
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const initCTAAnimation = () => {
+    const ids = ["#cta-primary", "#cta-secondary"];
+
+    ids.forEach((id) => {
+      const section = document.querySelector(id);
+      if (!section) return;
+
+      // Animate children (h2, p, button)
+      // We can just animate the whole section content staggered
+      const children = section.querySelectorAll("h2, p, a, button");
+      if (children.length > 0) {
+        gsap.from(children, {
+          scrollTrigger: {
+            trigger: section,
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          },
+          y: 50,
+          opacity: 0,
+          duration: 1,
+          stagger: 0.2,
+          ease: "power3.out",
+        });
+      }
+    });
+  };
+
+  initCTAAnimation();
+  document.addEventListener("astro:after-swap", initCTAAnimation);
+</script>
