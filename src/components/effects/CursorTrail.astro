@@ -1,0 +1,80 @@
+---
+
+---
+
+<!-- Glow Effect -->
+<div
+  id="cursor-glow"
+  class="pointer-events-none fixed inset-0 z-[9000] overflow-hidden hidden md:block"
+>
+  <div class="glow-point"></div>
+</div>
+
+<style>
+  .glow-point {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 600px; /* Large visible area */
+    height: 600px;
+    background: radial-gradient(
+      circle,
+      rgba(29, 78, 216, 0.15) 0%,
+      rgba(29, 78, 216, 0) 70%
+    ); /* Blueish glow */
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    mix-blend-mode: screen; /* Nice blending */
+    will-change: transform;
+    opacity: 0; /* Start hidden */
+  }
+
+  :global(.dark) .glow-point {
+    background: radial-gradient(
+      circle,
+      rgba(100, 149, 237, 0.1) 0%,
+      rgba(0, 0, 0, 0) 70%
+    );
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+
+  const initCursorGlow = () => {
+    const glow = document.querySelector(".glow-point") as HTMLElement;
+    if (!glow) return;
+
+    // Center initially or just hide until move
+    gsap.set(glow, { xPercent: -50, yPercent: -50, opacity: 0 });
+
+    const moveGlow = (e: MouseEvent) => {
+      // Reveal on first move
+      if (glow.style.opacity === "0") {
+        gsap.to(glow, { opacity: 1, duration: 0.5 });
+      }
+
+      gsap.to(glow, {
+        duration: 1.2, // Slow duration for "floating" feel or "trace"
+        x: e.clientX,
+        y: e.clientY,
+        ease: "power3.out",
+        overwrite: "auto",
+      });
+    };
+
+    window.addEventListener("mousemove", moveGlow);
+
+    // Hide when leaving window
+    document.body.addEventListener("mouseleave", () => {
+      gsap.to(glow, { opacity: 0, duration: 0.5 });
+    });
+    document.body.addEventListener("mouseenter", () => {
+      gsap.to(glow, { opacity: 1, duration: 0.5 });
+    });
+  };
+
+  initCursorGlow();
+  document.addEventListener("astro:after-swap", initCursorGlow);
+</script>

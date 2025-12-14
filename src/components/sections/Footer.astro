@@ -83,3 +83,40 @@ const translateLabels = useTranslations(
     {translateLabels("footer.title")}
   </h1> -->
 </footer>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const initFooterAnimation = () => {
+    const footer = document.getElementById("contact");
+    if (!footer) return;
+
+    // Select distinct groups to animate: The top text/links, the main logo, and the copyright
+    const topSection = footer.querySelector("div.max-w-\\[1728px\\]"); // Contains TitleList and UL
+    const mainLogo = footer.querySelector("svg");
+    const copyright = footer.querySelector(".bottom-\\[0px\\]");
+
+    const elements = [topSection, mainLogo, copyright].filter((el) => el);
+
+    if (elements.length > 0) {
+      gsap.from(elements, {
+        scrollTrigger: {
+          trigger: footer,
+          start: "top 85%", // Trigger a bit earlier
+          toggleActions: "play none none reverse",
+        },
+        y: 50,
+        opacity: 0,
+        stagger: 0.2, // Stagger the blocks
+        duration: 1,
+        ease: "power3.out",
+      });
+    }
+  };
+
+  initFooterAnimation();
+  document.addEventListener("astro:after-swap", initFooterAnimation);
+</script>
