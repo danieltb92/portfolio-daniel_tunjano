@@ -31,4 +31,5 @@ src/content/project/*
 
 # notion images
 public/images/notion
+public/content/notion
 src/assets/content/notion
