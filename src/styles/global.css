@@ -1,7 +1,5 @@
 @import "tailwindcss";
-/* Modo dark usando data-theme */
-/* Modo dark usando data-theme y class */
-@variant dark (&:where(.dark, .dark *, [data-theme="dark"], [data-theme="dark"] *));
+@variant dark (&:is(.dark, .dark *, [data-theme="dark"], [data-theme="dark"] *));
 /* @import "tailwindcss/typography"; */
 
 /* Tailwind base layer */
@@ -82,7 +80,9 @@ body {
 @font-face {
   font-family: "Kufam";
   src: url("/fonts/Kufam-VariableFont_wght.ttf") format("truetype");
-  font-weight: bold, 100 900;
+  font-weight:
+    bold,
+    100 900;
   font-style: normal;
   font-display: swap;
 }
@@ -90,7 +90,9 @@ body {
 @font-face {
   font-family: "Inter";
   src: url("/fonts/Inter-VariableFont_opsz,wght.ttf") format("truetype");
-  font-weight: bold, 100 900;
+  font-weight:
+    bold,
+    100 900;
   font-style: normal;
   font-display: swap;
 }
