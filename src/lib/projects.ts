@@ -22,6 +22,7 @@ export interface Project {
     text: string;
     external: boolean;
   };
+  created_date: string | null;
 }
 
 export async function getProjectCard(): Promise<Project[]> {
@@ -64,6 +65,7 @@ export async function getProjectCard(): Promise<Project[]> {
         const slug = page?.properties?.Slug.rich_text?.[0]?.plain_text || null;
         const coverUrl = page?.properties?.Cover?.files?.[0]?.file.url || null;
         const url = page?.properties?.URL?.url || null;
+        const date = page?.properties?.Date?.date?.start || null;
 
         let localCoverUrl = coverUrl;
         if (coverUrl) {
@@ -95,8 +97,9 @@ export async function getProjectCard(): Promise<Project[]> {
             text: "Ver Proyecto",
             external: true,
           },
+          created_date: date,
         };
-      })
+      }),
     );
 
     // Descargar imágenes en paralelo
@@ -116,7 +119,7 @@ export async function getProjectCard(): Promise<Project[]> {
           project.image.src = localPath;
         }
         return project;
-      })
+      }),
     );
 
     return projectsWithLocalImages;

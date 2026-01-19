@@ -13,7 +13,12 @@ export interface ProjectContent {
   content: string;
   metadata: {
     title: string;
-    // desription?: string;
+    description?: string;
+    type: string;
+    tags: string[];
+    created_date: string;
+    updated_date: string;
+    url: string;
   };
 }
 
@@ -107,7 +112,7 @@ n2m.setCustomTransformer("file", async (block) => {
 });
 
 export async function getProjectContent(
-  pageId: string
+  pageId: string,
 ): Promise<ProjectContent> {
   if (!pageId) {
     throw new Error("pageId es requerido");
@@ -153,13 +158,24 @@ export async function getProjectContent(
         title:
           (page as any).properties?.Title?.title?.[0]?.plain_text ||
           "Sin título",
+        description:
+          (page as any).properties?.Description?.rich_text?.[0]?.plain_text ||
+          "Sin descripción",
+        type: (page as any).properties?.Type?.select?.name || "Sin tipo",
+        tags:
+          (page as any).properties?.Tags?.multi_select?.map(
+            (tag: any) => tag.name,
+          ) || [],
+        created_date: (page as any).created_time,
+        updated_date: (page as any).last_edited_time,
+        url: (page as any).url,
       },
     };
   } catch (error) {
     console.error("Error obteniendo contenido del proyecto:", error);
     console.error(
       "Detalles del error:",
-      error instanceof Error ? error.message : String(error)
+      error instanceof Error ? error.message : String(error),
     );
     throw error;
   }
