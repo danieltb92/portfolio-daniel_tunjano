@@ -10,7 +10,7 @@ import Snow from "@/components/effects/Snow.astro";
 // i18n Obtener el idioma actual y la función de traducción
 const currentLang = Astro.currentLocale || "es";
 const translateLabels = useTranslations(
-  currentLang as keyof typeof languageList
+  currentLang as keyof typeof languageList,
 );
 ---
 
