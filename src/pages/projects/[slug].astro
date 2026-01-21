@@ -71,7 +71,7 @@ const { project, content } = Astro.props;
         class="mb-8 ml-0 pl-0"
         ariaLabel="Back to projects"
       >
-        <ArrowLeft /> 
+        <ArrowLeft />
       </Button>
 
       <h1
@@ -172,7 +172,7 @@ const { project, content } = Astro.props;
 </Layout>
 
 <style>
-  @import "tailwindcss";
+  @reference "../../styles/global.css";
   /* Estilos adicionales para el contenido */
   :global(.prose blockquote) {
     @apply p-4 border-0 border-blue-600 bg-blue-50 text-gray-700 italic my-8;
@@ -198,5 +198,4 @@ const { project, content } = Astro.props;
   :global(.prose hr) {
     @apply my-12 border-gray-200 dark:border-gray-800 border-t-2;
   }
-
 </style>
