@@ -111,6 +111,50 @@ n2m.setCustomTransformer("file", async (block) => {
   </a>`;
 });
 
+n2m.setCustomTransformer("column_list", async (block) => {
+  const { id } = block as any;
+  try {
+    const { results } = await notion.blocks.children.list({
+      block_id: id,
+    });
+
+    const colsCount = results.length;
+    const mdBlocks = await n2m.blocksToMarkdown(results);
+    const content = n2m.toMarkdownString(mdBlocks);
+
+    // Determinar la clase de columnas basada en cuántas hay
+    const gridColsClass =
+      colsCount === 2
+        ? "md:grid-cols-2"
+        : colsCount === 3
+          ? "md:grid-cols-3"
+          : "md:grid-cols-1";
+
+    return `<div class="grid grid-cols-1 ${gridColsClass} gap-8 items-start my-10">\n${content.parent}\n</div>`;
+  } catch (error) {
+    console.error("Error procesando column_list:", error);
+    return "";
+  }
+});
+
+n2m.setCustomTransformer("column", async (block) => {
+  const { id } = block as any;
+  try {
+    const { results } = await notion.blocks.children.list({
+      block_id: id,
+    });
+
+    const mdBlocks = await n2m.blocksToMarkdown(results);
+    const content = n2m.toMarkdownString(mdBlocks);
+
+    // Envolver cada columna para control de espaciado
+    return `<div class="notion-column flex flex-col gap-0">\n${content.parent}\n</div>`;
+  } catch (error) {
+    console.error("Error procesando column:", error);
+    return "";
+  }
+});
+
 export async function getProjectContent(
   pageId: string,
 ): Promise<ProjectContent> {

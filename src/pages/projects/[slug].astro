@@ -194,6 +194,15 @@ const { project, content } = Astro.props;
     @apply my-8;
   }
 
+  /* Ajustes para columnas de Notion */
+  :global(.notion-column img) {
+    @apply my-0;
+  }
+
+  :global(.notion-column p) {
+    @apply my-0;
+  }
+
   /* Notion Divider Styles */
   :global(.prose hr) {
     @apply my-12 border-gray-200 dark:border-gray-800 border-t-2;
