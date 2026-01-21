@@ -54,7 +54,7 @@ export async function getProjectCard(): Promise<Project[]> {
       sorts: [
         {
           property: "Date",
-          direction: "ascending",
+          direction: "descending",
         },
       ],
     });
