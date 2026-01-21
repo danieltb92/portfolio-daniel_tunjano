@@ -6,6 +6,7 @@ import Button from "@/components/ui/Button.astro";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { marked } from "marked";
+import ArrowLeft from "@/assets/icons/arrow-narrow-left.svg";
 
 // Configurar marked para permitir HTML
 const renderer = new marked.Renderer();
@@ -67,26 +68,10 @@ const { project, content } = Astro.props;
         variant="ghost"
         size="md"
         href="/#projects"
-        onclick="history.back(); return false;"
         class="mb-8 ml-0 pl-0"
         ariaLabel="Back to projects"
       >
-        <svg
-          slot="icon-left"
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="w-5 h-5"
-        >
-          <path d="M19 12H5"></path>
-          <path d="M12 19l-7-7 7-7"></path>
-        </svg>
+        <ArrowLeft /> 
       </Button>
 
       <h1
@@ -169,7 +154,7 @@ const { project, content } = Astro.props;
         )
       }
 
-      <hr class="mt-8 border-gray-200 dark:border-gray-800" />
+      <hr class="mt-8 border-[var(--color-text)]" />
     </header>
 
     <!-- Content -->
@@ -213,4 +198,5 @@ const { project, content } = Astro.props;
   :global(.prose hr) {
     @apply my-12 border-gray-200 dark:border-gray-800 border-t-2;
   }
+
 </style>
