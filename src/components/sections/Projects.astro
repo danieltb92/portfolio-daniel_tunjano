@@ -7,53 +7,59 @@ import { languageList } from "@/i18n/ui";
 // i18n Obtener el idioma actual y la función de traducción
 const currentLang = Astro.currentLocale || "es";
 const translateLabels = useTranslations(
-    currentLang as keyof typeof languageList,
+  currentLang as keyof typeof languageList,
 );
 
 interface ProjectData {
-    title: string;
-    slug: string;
-    image: {
-        src: string;
-        alt: string;
-    };
-    tags: string[];
-    link: {
-        href: string;
-        text: string;
-        external: boolean;
-    };
+  id: string;
+  name: string;
+  slug: string;
+  cover: string;
+  title: string;
+  description: string;
+  type: string;
+  url: string | null;
+  idPage: string;
+  image: {
+    src: string;
+    alt: string;
+  };
+  tags: string[];
+  link: {
+    href: string | null;
+    text: string;
+    external: boolean;
+  };
+  created_date: string;
 }
 
 const projects: ProjectData[] = projectsData;
+
+// Construir la URL base según el idioma
+const baseUrl = currentLang === "es" ? "" : `/${currentLang}`;
 ---
 
 <section
-    id="projects"
-    class="max-w-[1728px] flex justify-center m-auto flex-col items-center mt-10 p-4 md:p-10 lg:p-16"
+  id="projects"
+  class="max-w-[1728px] flex justify-center m-auto flex-col items-center mt-10 p-4 md:p-10 lg:p-16"
 >
-    <h2 class="text-3xl font-bold mb-4 md:mb-20 text-center">
-        {translateLabels("projects.tittle")}
-    </h2>
-    <div
-        class="grid justify-items-center grid-cols-1 lg:grid-cols-2 gap-2 md:gap-6 w-full"
-    >
-        {
-            projects.map((project) => (
-                <ProjectCard
-                    class="w-[100%] last:mb-10"
-                    title={project.title}
-                    slug={project.slug}
-                    image={project.image}
-                    tags={project.tags}
-                    link={{
-                        href: `/projects/${project.slug}`, // Corregido aquí
-                        text: "Ver Proyecto",
-                        external: false,
-                    }}
-                    variant="minimal"
-                />
-            ))
-        }
-    </div>
+  <h2 class="text-3xl font-bold mb-4 md:mb-20 text-center">
+    {translateLabels("projects.tittle")}
+  </h2>
+  <div
+    class="grid justify-items-center grid-cols-1 lg:grid-cols-2 gap-2 md:gap-6 w-full"
+  >
+    {
+      projects.map((project) => (
+        <ProjectCard
+          class="w-[100%] last:mb-10"
+          title={project.title}
+          slug={`${baseUrl}/projects/${project.slug}`}
+          image={project.image}
+          tags={project.tags}
+          variant="minimal"
+        />
+      ))
+    }
+  </div>
 </section>

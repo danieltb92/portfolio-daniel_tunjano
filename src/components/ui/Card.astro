@@ -44,7 +44,7 @@ const cardClasses = [baseStyles, variants[variant], className].join(" ");
 ---
 
 <article class={`${cardClasses} flex flex-col`}>
-  <a href={slug ? `projects/${slug}` : "#"} class="group cursor-pointer">
+  <a href={slug ? slug : "#"} class="group cursor-pointer">
     {
       image && (
         <div class="aspect-video overflow-hidden rounded-2xl border-2 border-gray-300">
