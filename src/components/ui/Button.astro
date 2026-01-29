@@ -1,6 +1,6 @@
 ---
 export interface Props {
-  variant?: "primary" | "secondary" | "outline";
+  variant?: "primary" | "secondary" | "outline" | "link" | "ghost";
   size?: "sm" | "md" | "lg";
   class?: string;
   type?: "button" | "submit" | "reset";
@@ -9,6 +9,7 @@ export interface Props {
   target?: "_blank" | "_self";
   ariaLabel?: string;
   fullWidth?: boolean;
+  [key: string]: any;
 }
 
 const {
@@ -21,20 +22,23 @@ const {
   target,
   ariaLabel,
   fullWidth = false,
+  ...rest
 } = Astro.props;
 
 // Definimos los estilos base
 const baseStyles =
-  "inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50";
+  "inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 cursor-pointer";
 
 // Estilos para cada variante
 const variants = {
   primary:
-    "bg-blue-600 text-white hover:bg-blue-700 focus-visible:ring-blue-500",
+    "bg-[var(--primary-blue-600)] text-neutral-100 hover:bg-[var(--primary-blue-700)] focus-visible:ring-[var(--primary-blue-500)]",
   secondary:
     "bg-gray-200 text-gray-900 hover:bg-gray-300 focus-visible:ring-gray-500",
   outline:
     "border-2 border-blue-600 text-blue-600 hover:bg-blue-50 focus-visible:ring-blue-500",
+  link: "text-blue-600 hover:bg-blue-50 focus-visible:ring-blue-500",
+  ghost: "text-[var(--color-text)] hover:scale-110 focus-visible:ring-blue-500",
 };
 
 // Estilos para cada tamaño
@@ -62,6 +66,7 @@ const classes = [
       rel={target === "_blank" ? "noopener noreferrer" : undefined}
       class={classes}
       aria-label={ariaLabel}
+      {...rest}
     >
       <slot name="icon-left" />
       <slot />
@@ -71,8 +76,9 @@ const classes = [
     <button
       type={type}
       disabled={disabled}
-      class={"cursor-pointer " + classes}
+      class={classes}
       aria-label={ariaLabel}
+      {...rest}
     >
       <slot name="icon-left" />
       <slot />

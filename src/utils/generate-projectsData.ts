@@ -10,12 +10,12 @@ async function generateProjectsData() {
     console.log("🔐 Verificando configuración...");
     if (!process.env.NOTION_TOKEN) {
       throw new Error(
-        "❌ NOTION_TOKEN no está definido en las variables de entorno"
+        "❌ NOTION_TOKEN no está definido en las variables de entorno",
       );
     }
     if (!process.env.NOTION_DATABASE_ID) {
       throw new Error(
-        "❌ NOTION_DATABASE_ID no está definido en las variables de entorno"
+        "❌ NOTION_DATABASE_ID no está definido en las variables de entorno",
       );
     }
     console.log("✅ Variables de entorno verificadas");
@@ -55,7 +55,7 @@ async function generateProjectsData() {
         }
 
         console.log(
-          `   🔗 Obteniendo contenido de Notion (ID: ${project.idPage})...`
+          `   🔗 Obteniendo contenido de Notion (ID: ${project.idPage})...`,
         );
         const projectContent = await getProjectContent(project.idPage);
 
@@ -76,13 +76,13 @@ ${projectContent.content.trim()}
         const filePath = path.join(contentDir, `${project.slug}.md`);
         await fs.writeFile(filePath, mdContent);
         console.log(
-          `   ✅ Archivo generado: ${project.slug}.md (${mdContent.length} bytes)`
+          `   ✅ Archivo generado: ${project.slug}.md (${mdContent.length} bytes)`,
         );
         successCount++;
       } catch (error) {
         console.error(
           `   ❌ Error procesando ${project.title}:`,
-          error instanceof Error ? error.message : String(error)
+          error instanceof Error ? error.message : String(error),
         );
         errorCount++;
       }
@@ -97,7 +97,7 @@ ${projectContent.content.trim()}
 
     if (successCount === 0) {
       throw new Error(
-        "❌ No se generó ningún archivo markdown. Revisa los logs anteriores."
+        "❌ No se generó ningún archivo markdown. Revisa los logs anteriores.",
       );
     }
 
@@ -105,7 +105,7 @@ ${projectContent.content.trim()}
   } catch (error) {
     console.error(
       "\n❌ Error fatal en la generación:",
-      error instanceof Error ? error.message : String(error)
+      error instanceof Error ? error.message : String(error),
     );
     if (error instanceof Error && error.stack) {
       console.error("Stack trace:", error.stack);

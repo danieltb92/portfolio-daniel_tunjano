@@ -7,12 +7,19 @@ import { languageList } from "@/i18n/ui";
 // i18n Obtener el idioma actual y la función de traducción
 const currentLang = Astro.currentLocale || "es";
 const translateLabels = useTranslations(
-  currentLang as keyof typeof languageList
+  currentLang as keyof typeof languageList,
 );
 
 interface ProjectData {
-  title: string;
+  id: string;
+  name: string;
   slug: string;
+  cover: string;
+  title: string;
+  description: string;
+  type: string;
+  url: string | null;
+  idPage: string;
   image: {
     src: string;
     alt: string;
@@ -23,9 +30,13 @@ interface ProjectData {
     text: string;
     external: boolean;
   };
+  created_date: string;
 }
 
 const projects: ProjectData[] = projectsData;
+
+// Construir la URL base según el idioma
+const baseUrl = currentLang === "es" ? "" : `/${currentLang}`;
 ---
 
 <section
@@ -43,14 +54,9 @@ const projects: ProjectData[] = projectsData;
         <ProjectCard
           class="w-[100%] last:mb-10"
           title={project.title}
-          slug={project.slug}
+          slug={`${baseUrl}/projects/${project.slug}`}
           image={project.image}
           tags={project.tags}
-          link={{
-            href: `/projects/${project.slug}`, // Corregido aquí
-            text: "Ver Proyecto",
-            external: false,
-          }}
           variant="minimal"
         />
       ))

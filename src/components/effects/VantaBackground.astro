@@ -1,0 +1,124 @@
+---
+
+---
+
+<div
+  id="hero-background"
+  class="absolute inset-0 -z-10 [mask-image:linear-gradient(to_top,transparent,black_70%)]"
+>
+  <!-- md:right-[calc(10%-60vw)] -->
+</div>
+
+<script
+  is:inline
+  src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.min.js"></script>
+<script
+  is:inline
+  src="https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.24/vanta.trunk.min.js"
+></script>
+
+<script is:inline>
+  // Variables para controlar el efecto y los observadores
+  let vantaEffect = null;
+  let observer = null;
+  let isDark = false;
+
+  // Función para detectar si el tema oscuro está activo y determinar el color de fondo
+  const getThemeColor = () => {
+    isDark =
+      document.documentElement.getAttribute("data-theme") === "dark" ||
+      document.documentElement.classList.contains("dark");
+    // Color Light: #eff9ff (azul muy pálido), Color Dark: #000000 (negro)
+    return isDark ? 0x000000 : 0xeff9ff;
+  };
+
+  const initVanta = () => {
+    // Solo iniciar si el elemento es visible y la librería está cargada
+    // Evita reinicializaciones si ya existe (vantaEffect)
+    if (!vantaEffect && window.VANTA) {
+      vantaEffect = window.VANTA.TRUNK({
+        el: "#hero-background",
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.0,
+        minWidth: 200.0,
+        scale: 1.0,
+        scaleMobile: 0.5, // Escala reducida en móviles para rendimiento
+        color: 0x1088e8, // Color principal del efecto
+        backgroundColor: getThemeColor(), // Color de fondo dinámico
+        spacing: 1.0,
+        chaos: 4.0,
+      });
+    }
+  };
+
+  const stopVanta = () => {
+    // Destruir el efecto para liberar recursos
+    if (vantaEffect) {
+      vantaEffect.destroy();
+      vantaEffect = null;
+    }
+  };
+
+  // Intersection Observer: Optimización de rendimiento
+  // Solo ejecuta la animación cuando el elemento de fondo es visible
+  const setupObserver = () => {
+    // Observamos el propio elemento de fondo en lugar de depender del ID 'hero' padre
+    const backgroundElement = document.getElementById("hero-background");
+    if (!backgroundElement) return;
+
+    observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Si es visible, iniciar efecto
+            // Dar un pequeño delay para asegurar que los scripts se cargaron si es la primera vez
+            if (window.VANTA) {
+              initVanta();
+            } else {
+              // Reintentar brevemente si los scripts externos aún no cargan
+              setTimeout(initVanta, 100);
+            }
+          } else {
+            // Si no es visible, detener efecto para ahorrar GPU/CPU
+            stopVanta();
+          }
+        });
+      },
+      { threshold: 0.1 },
+    );
+
+    observer.observe(backgroundElement);
+  };
+
+  // Inicialización al cargar la ventana completa
+  window.addEventListener("load", () => {
+    setupObserver();
+  });
+
+  // Soporte para navegaciones SPA o carga rápida donde 'load' ya pasó
+  if (document.readyState === "complete") {
+    setupObserver();
+  }
+
+  // MutationObserver: Detectar cambio de tema (claro/oscuro) en tiempo real
+  const themeObserver = new MutationObserver(() => {
+    // Si el efecto está corriendo, reiniciarlo con el nuevo color de fondo
+    if (vantaEffect) {
+      stopVanta();
+      initVanta();
+    }
+  });
+
+  themeObserver.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["data-theme", "class"],
+  });
+
+  // Limpieza de eventos y efectos al navegar fuera de la página (Astro View Transitions)
+  document.addEventListener("astro:before-swap", () => {
+    stopVanta();
+    if (observer) observer.disconnect();
+  });
+</script>

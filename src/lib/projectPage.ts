@@ -13,7 +13,12 @@ export interface ProjectContent {
   content: string;
   metadata: {
     title: string;
-    // desription?: string;
+    description?: string;
+    type: string;
+    tags: string[];
+    created_date: string;
+    updated_date: string;
+    url: string;
   };
 }
 
@@ -106,8 +111,52 @@ n2m.setCustomTransformer("file", async (block) => {
   </a>`;
 });
 
+n2m.setCustomTransformer("column_list", async (block) => {
+  const { id } = block as any;
+  try {
+    const { results } = await notion.blocks.children.list({
+      block_id: id,
+    });
+
+    const colsCount = results.length;
+    const mdBlocks = await n2m.blocksToMarkdown(results);
+    const content = n2m.toMarkdownString(mdBlocks);
+
+    // Determinar la clase de columnas basada en cuántas hay
+    const gridColsClass =
+      colsCount === 2
+        ? "md:grid-cols-2"
+        : colsCount === 3
+          ? "md:grid-cols-3"
+          : "md:grid-cols-1";
+
+    return `<div class="grid grid-cols-1 ${gridColsClass} gap-8 items-start my-10">\n${content.parent}\n</div>`;
+  } catch (error) {
+    console.error("Error procesando column_list:", error);
+    return "";
+  }
+});
+
+n2m.setCustomTransformer("column", async (block) => {
+  const { id } = block as any;
+  try {
+    const { results } = await notion.blocks.children.list({
+      block_id: id,
+    });
+
+    const mdBlocks = await n2m.blocksToMarkdown(results);
+    const content = n2m.toMarkdownString(mdBlocks);
+
+    // Envolver cada columna para control de espaciado
+    return `<div class="notion-column flex flex-col gap-0">\n${content.parent}\n</div>`;
+  } catch (error) {
+    console.error("Error procesando column:", error);
+    return "";
+  }
+});
+
 export async function getProjectContent(
-  pageId: string
+  pageId: string,
 ): Promise<ProjectContent> {
   if (!pageId) {
     throw new Error("pageId es requerido");
@@ -153,13 +202,24 @@ export async function getProjectContent(
         title:
           (page as any).properties?.Title?.title?.[0]?.plain_text ||
           "Sin título",
+        description:
+          (page as any).properties?.Description?.rich_text?.[0]?.plain_text ||
+          "Sin descripción",
+        type: (page as any).properties?.Type?.select?.name || "Sin tipo",
+        tags:
+          (page as any).properties?.Tags?.multi_select?.map(
+            (tag: any) => tag.name,
+          ) || [],
+        created_date: (page as any).created_time,
+        updated_date: (page as any).last_edited_time,
+        url: (page as any).url,
       },
     };
   } catch (error) {
     console.error("Error obteniendo contenido del proyecto:", error);
     console.error(
       "Detalles del error:",
-      error instanceof Error ? error.message : String(error)
+      error instanceof Error ? error.message : String(error),
     );
     throw error;
   }
