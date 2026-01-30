@@ -32,20 +32,20 @@ const baseStyles =
 // Estilos para cada variante
 const variants = {
   primary:
-    "bg-[var(--primary-blue-600)] text-neutral-100 hover:bg-[var(--primary-blue-700)] focus-visible:ring-[var(--primary-blue-500)]",
+    "bg-[var(--primary-blue-600)] text-white hover:bg-[var(--primary-blue-950)] focus-visible:ring-[var(--primary-blue-500)]",
   secondary:
     "bg-gray-200 text-gray-900 hover:bg-gray-300 focus-visible:ring-gray-500",
   outline:
-    "border-2 border-blue-600 text-blue-600 hover:bg-blue-50 focus-visible:ring-blue-500",
+    "border-2 border-blue-600 text-blue-600 hover:bg-blue-50 focus-visible:ring-blue-500 dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-black",
   link: "text-blue-600 hover:bg-blue-50 focus-visible:ring-blue-500",
   ghost: "text-[var(--color-text)] hover:scale-110 focus-visible:ring-blue-500",
 };
 
 // Estilos para cada tamaño
 const sizes = {
-  sm: "text-sm px-3 py-1.5",
-  md: "text-base px-4 py-2",
-  lg: "text-lg px-6 py-3",
+  sm: "text-sm px-3 py-1.5 gap-1",
+  md: "text-base px-4 py-2 gap-2",
+  lg: "text-lg px-6 py-3 gap-3",
 };
 
 // Combinamos todos los estilos

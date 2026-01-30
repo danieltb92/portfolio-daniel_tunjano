@@ -11,6 +11,7 @@ import Background from "@/components/ui/Background.astro";
 import BackgroundAura from "@/components/ui/BackgraoundAura.astro";
 import VantaBackground from "@/components/effects/VantaBackground.astro";
 import type { ImageMetadata } from "astro";
+import Button from "@/components/ui/Button.astro";
 
 // i18n Obtener el idioma actual y la función de traducción
 const currentLang = Astro.currentLocale || "es";
@@ -52,7 +53,30 @@ const roles = profileWords;
   <p class="text-center text-gray-600 dark:text-gray-400 text-lg">
     {translateLabels("hero.subtitle")}
   </p>
-  <ul class="flex flex-row gap-6 mt-6 text-gray-400">
+  <!-- Social Icons -->
+  <div class="flex flex-row gap-6 mt-6">
+    <Button
+      variant="primary"
+      size="lg"
+      href={profile.social.linkedin}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <LinkedinIcon />
+      LinkedIn
+    </Button>
+    <Button
+      variant="outline"
+      size="lg"
+      href={profile.social.github}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <GithubIcon />
+      Github
+    </Button>
+  </div>
+  <!-- <ul class="flex flex-row gap-6 mt-6 text-gray-400">
     <li>
       <a
         href={profile.social.linkedin}
@@ -83,7 +107,7 @@ const roles = profileWords;
         class="hover:text-[var(--color-primary)]"><EmailIcon /></a
       >
     </li>
-  </ul>
+  </ul> -->
 
   <!-- ========================================== -->
   <!--      SECCIÓN: ANIMACIÓN DE TEXTO (HERO)    -->
@@ -145,7 +169,7 @@ const roles = profileWords;
           duration: 0.8,
           ease: "power3.out",
         },
-        "-=0.6"
+        "-=0.6",
       )
       .from(
         "#hero ul li",
@@ -156,7 +180,7 @@ const roles = profileWords;
           duration: 0.6,
           ease: "power3.out",
         },
-        "-=0.4"
+        "-=0.4",
       );
   };
 
