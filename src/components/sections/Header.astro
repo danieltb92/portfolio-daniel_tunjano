@@ -51,7 +51,16 @@ const translateLabels = useTranslations(
         class="lg:hidden p-2 rounded-lg hover:bg-[var(--color-text)]/10 transition-colors"
         aria-label="Toggle menu"
       >
-        <MenuIcon class="w-6 h-6" />
+        <!-- Icono Menú (hamburguesa) -->
+        <span id="menu-icon-open" class="block">
+          <MenuIcon class="w-6 h-6" />
+        </span>
+        <!-- Icono Cerrar (X) -->
+        <span id="menu-icon-close" class="hidden">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </span>
       </button>
     </div>
     <!-- Botones de acción -->
@@ -105,18 +114,22 @@ const translateLabels = useTranslations(
   // Manejo del menú móvil
   const menuToggle = document.getElementById("menu-toggle");
   const mobileMenu = document.getElementById("mobile-menu");
+  const menuIconOpen = document.getElementById("menu-icon-open");
+  const menuIconClose = document.getElementById("menu-icon-close");
   let isMenuOpen = false;
 
-  if (menuToggle && mobileMenu) {
+  if (menuToggle && mobileMenu && menuIconOpen && menuIconClose) {
     menuToggle.addEventListener("click", () => {
       isMenuOpen = !isMenuOpen;
       mobileMenu.classList.toggle("hidden");
 
-      // Opcional: Animar el ícono del menú
-      const icon = menuToggle.querySelector("svg");
-      if (icon) {
-        icon.style.transform = isMenuOpen ? "rotate(90deg)" : "";
-        icon.style.transition = "transform 0.3s ease";
+      // Alternar entre iconos de menú y cerrar
+      if (isMenuOpen) {
+        menuIconOpen.classList.add("hidden");
+        menuIconClose.classList.remove("hidden");
+      } else {
+        menuIconOpen.classList.remove("hidden");
+        menuIconClose.classList.add("hidden");
       }
     });
 
@@ -126,6 +139,8 @@ const translateLabels = useTranslations(
       link.addEventListener("click", () => {
         mobileMenu.classList.add("hidden");
         isMenuOpen = false;
+        menuIconOpen.classList.remove("hidden");
+        menuIconClose.classList.add("hidden");
       });
     });
   }
