@@ -32,8 +32,8 @@ const roles = profileWords;
   <!-- <BackgroundAura /> -->
 
   <AvailableBagde
-    text={translateLabels("hero.textStatus")}
-    status="available"
+    text={`${translateLabels("hero.textStatus")}` + " →"}
+    status="glass"
   />
   <h1 class="text-[19vw] lg:text-[14vw] font-bold text-center leading-none">
     <span
@@ -62,7 +62,7 @@ const roles = profileWords;
       href={profile.social.linkedin}
       target="_blank"
       rel="noopener noreferrer"
-      class="px-6"
+      class="sm:px-12 px-6"
     >
       <LinkedinIcon />
       LinkedIn
@@ -73,7 +73,7 @@ const roles = profileWords;
       href={profile.social.github}
       target="_blank"
       rel="noopener noreferrer"
-      class="px-6"
+      class="sm:px-12 px-6 text-black"
     >
       <GithubIcon />
       Github

@@ -8,7 +8,7 @@ import Form from "@/assets/form.svg";
 // i18n Obtener el idioma actual y la función de traducción
 const currentLang = Astro.currentLocale || "es";
 const translateLabels = useTranslations(
-  currentLang as keyof typeof languageList
+  currentLang as keyof typeof languageList,
 );
 ---
 
@@ -22,7 +22,7 @@ const translateLabels = useTranslations(
   <p class="text-center max-w-2xl mb-4">
     {translateLabels("cta.subtitle")}
   </p>
-  <Button variant="primary" size="lg" href="#contact">
+  <Button variant="primary" size="lg" href="#contact" class="sm:px-12 px-6">
     {translateLabels("cta.buttonText")}</Button
   >
 </section>
