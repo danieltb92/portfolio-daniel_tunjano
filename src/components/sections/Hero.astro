@@ -12,6 +12,7 @@ import BackgroundAura from "@/components/ui/BackgraoundAura.astro";
 import VantaBackground from "@/components/effects/VantaBackground.astro";
 import type { ImageMetadata } from "astro";
 import Button from "@/components/ui/Button.astro";
+import { InteractiveGridPattern } from "@/components/ui/interactive-grid-pattern";
 
 // i18n Obtener el idioma actual y la función de traducción
 const currentLang = Astro.currentLocale || "es";
@@ -27,6 +28,17 @@ const roles = profileWords;
   id="hero"
   class="relative z-20 md:max-w-5xl mx-auto h-[100dvh] flex flex-col items-center justify-center px-4 pt-16 overflow-visible"
 >
+  <div class="bg-background -z-10">
+    <InteractiveGridPattern
+      client:load
+      className="[mask-image:radial-gradient(250px_circle_at_center,white,transparent)] sm:[mask-image:radial-gradient(600px_circle_at_center,white,transparent)] inset-x-0 inset-y-[-30%] h-[200%] skew-y-12"
+      width={20}
+      height={20}
+      squares={[80, 80]}
+      squaresClassName="hover:fill-blue-500 opacity-50"
+    />
+  </div>
+
   <!-- <VantaBackground /> -->
   <!-- <Background /> -->
   <!-- <BackgroundAura /> -->
@@ -35,7 +47,9 @@ const roles = profileWords;
     text={`${translateLabels("hero.textStatus")}` + " →"}
     status="glass"
   />
-  <h1 class="text-[19vw] lg:text-[14vw] font-bold text-center leading-none">
+  <h1
+    class="text-[19vw] lg:text-[14vw] font-bold text-center leading-none -z-11"
+  >
     <span
       id="changing-word"
       class="block text-[10vw] lg:text-[8vw] opacity-50 transition-all duration-500 ease-in-out"
