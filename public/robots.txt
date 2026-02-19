@@ -1,4 +1,13 @@
 User-agent: *
 Allow: /
 
+Host: https://danieltunjano.online
+
 Sitemap: https://danieltunjano.online/sitemap-index.xml
+
+# URLs prioritarias para sitelinks
+Allow: /about
+Allow: /projects
+Allow: /en
+Allow: /en/about
+Allow: /en/projects

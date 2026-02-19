@@ -1,10 +1,9 @@
 ---
 import SEO_DATA from '@/data/seo.json';
 
-// Definir las props que recibe el componente
 export interface Props {
-  title: string; // Ahora es obligatorio recibirlo desde fuera
-  description: string; // Ahora es obligatorio recibirlo desde fuera
+  title: string;
+  description: string;
   keywords?: string[];
   author?: string;
   image?: { src: string; alt: string };
@@ -12,15 +11,13 @@ export interface Props {
   locale?: string;
   type?: string;
   robots?: 'index, follow' | 'noindex, nofollow';
+  noindex?: boolean;
 }
 
-// Obtener las props
 const props = Astro.props;
 
-// Datos por defecto del JSON (solo siteUrl por ahora)
 const { siteUrl } = SEO_DATA.default;
 
-// Usar los valores recibidos por props, o valores por defecto si no se pasan
 const finalTitle = props.title;
 const finalDescription = props.description;
 const finalKeywords = props.keywords || SEO_DATA.default.keywords;
@@ -29,28 +26,109 @@ const finalImage = props.image || SEO_DATA.default.image;
 const finalSiteName = props.siteName || SEO_DATA.default.siteName;
 const finalLocale = props.locale || SEO_DATA.default.locale;
 const finalType = props.type || SEO_DATA.default.type;
-const finalRobots = props.robots || 'index, follow';
+const finalRobots = props.noindex ? 'noindex, nofollow' : (props.robots || 'index, follow');
 
-// URL canónica basada en la URL actual de Astro
 const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
+
+const isHomePage = Astro.url.pathname === '/' || Astro.url.pathname === '/en/';
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": finalSiteName,
+  "url": siteUrl,
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": `${siteUrl}/search?q={search_term_string}`
+    },
+    "query-input": "required name=search_term_string"
+  },
+  "about": {
+    "@type": "Thing",
+    "name": "Desarrollo Web y Diseño UX/UI",
+    "description": "Portafolio de desarrollador web y diseñador industrial"
+  },
+  "author": {
+    "@type": "Person",
+    "name": finalAuthor,
+    "url": siteUrl
+  }
+};
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": finalSiteName,
+  "url": siteUrl,
+  "logo": new URL(finalImage.src, siteUrl).href,
+  "sameAs": [
+    "https://github.com/DanielTunjano",
+    "https://www.linkedin.com/in/danieltunjano",
+    "https://twitter.com/DanielTunjano"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "daniel@example.com",
+    "contactType": "Developer"
+  },
+  "memberOf": {
+    "@type": "ProgramMembership",
+    "memberName": "Developer Community"
+  }
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": siteUrl
+    }
+  ]
+};
+
+let breadcrumbItems = breadcrumbSchema.itemListElement;
+
+if (!isHomePage && Astro.url.pathname.includes('/projects/')) {
+  breadcrumbItems.push({
+    "@type": "ListItem",
+    "position": 2,
+    "name": "Proyectos",
+    "item": `${siteUrl}/projects`
+  });
+  breadcrumbItems.push({
+    "@type": "ListItem",
+    "position": 3,
+    "name": finalTitle,
+    "item": canonicalUrl
+  });
+} else if (!isHomePage && Astro.url.pathname.includes('/about')) {
+  breadcrumbItems.push({
+    "@type": "ListItem",
+    "position": 2,
+    "name": "Sobre Mí",
+    "item": canonicalUrl
+  });
+}
 ---
 
-<!-- Metadatos Básicos -->
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="generator" content={Astro.generator} />
 
-<!-- Metadatos SEO -->
 <title>{finalTitle}</title>
 <meta name="description" content={finalDescription} />
 <meta name="keywords" content={finalKeywords?.join(', ') || ''} />
 <meta name="author" content={finalAuthor} />
 <meta name="robots" content={finalRobots} />
 
-<!-- Canonical URL -->
 <link rel="canonical" href={canonicalUrl} />
 
-<!-- Open Graph / Facebook -->
 <meta property="og:type" content={finalType} />
 <meta property="og:url" content={canonicalUrl} />
 <meta property="og:title" content={finalTitle} />
@@ -65,7 +143,6 @@ const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
 <meta property="og:site_name" content={finalSiteName} />
 <meta property="og:locale" content={finalLocale} />
 
-<!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={finalTitle} />
 <meta name="twitter:description" content={finalDescription} />
@@ -73,20 +150,26 @@ const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
 <meta name="twitter:image:alt" content={finalTitle} />
 <meta name="twitter:domain" content={siteUrl} />
 
-<!-- Datos Estructurados JSON-LD -->
-<script
-  type="application/ld+json"
-  set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": finalType === "website" ? "WebSite" : "WebPage",
-    "name": finalTitle,
-    "description": finalDescription,
-    "url": canonicalUrl,
-    "image": {
-      "@type": "ImageObject",
-      "url": new URL(finalImage.src, siteUrl).href,
-      "width": 1200,
-      "height": 600
-    }
-  })}
-/>
+{isHomePage && (
+  <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+)}
+
+<script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+
+{!isHomePage && (
+  <script type="application/ld+json" set:html={JSON.stringify({...breadcrumbSchema, itemListElement: breadcrumbItems})} />
+)}
+
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": finalType === "website" ? "WebSite" : "WebPage",
+  "name": finalTitle,
+  "description": finalDescription,
+  "url": canonicalUrl,
+  "image": {
+    "@type": "ImageObject",
+    "url": new URL(finalImage.src, siteUrl).href,
+    "width": 1200,
+    "height": 600
+  }
+})} />
