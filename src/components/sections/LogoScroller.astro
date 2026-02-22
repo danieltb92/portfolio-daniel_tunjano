@@ -9,38 +9,71 @@ import Git from "@/assets/tools/git.svg";
 import Tailwind from "@/assets/tools/tailwindcss.svg";
 import AstroLogo from "@/assets/tools/Astro_dark.svg";
 
-import type { ImageLayout } from "node_modules/astro/dist/assets/types";
-import type { SvgComponent } from "astro/types";
+import type { ImageMetadata } from "astro";
 import { useTranslations } from "@/i18n/utils";
 import { languageList } from "@/i18n/ui";
+
+export interface Props {
+  title?: string;
+  showTitle?: boolean;
+  logos?: {
+    src: string | ImageMetadata;
+    alt: string;
+  }[];
+  speed?: "slow" | "normal" | "fast";
+  height?: string;
+  showMask?: boolean;
+  grayscale?: boolean;
+  class?: string;
+}
+
+const {
+  title,
+  showTitle = true,
+  logos: customLogos,
+  speed = "normal",
+  height = "h-10 md:h-12 lg:h-18",
+  showMask = true,
+  grayscale = false,
+  class: customClass = "",
+} = Astro.props;
+
+// Default logos if none provided
+const defaultLogos = [
+  { src: Figma, alt: "Figma" },
+  { src: Illustrator, alt: "Illustrator" },
+  { src: Photoshop, alt: "Photoshop" },
+  { src: Blender, alt: "Blender" },
+  { src: React, alt: "React" },
+  { src: Git, alt: "Git" },
+  { src: Tailwind, alt: "Tailwind CSS" },
+  { src: AstroLogo, alt: "Astro" },
+];
+
+const logosToRender = customLogos || defaultLogos;
 
 // i18n Obtener el idioma actual y la función de traducción
 const currentLang = Astro.currentLocale || "es";
 const translateLabels = useTranslations(
   currentLang as keyof typeof languageList
 );
+
+// Use provided title or fallback to translation
+const titleText = title || translateLabels("cta.subtitle2");
 ---
 
-<section class="flex justify-center flex-col max-w-4xl m-auto mb-30">
-  <h4 class="!font-normal !font-[Inter] text-center mb-0">
-    {translateLabels("cta.subtitle2")}
-  </h4>
+<section class={`flex justify-center flex-col max-w-4xl m-auto mb-30 ${customClass}`}>
+  {
+    showTitle && (
+      <h4 class="!font-normal !font-[Inter] text-center mb-0">{titleText}</h4>
+    )
+  }
   <Scroller
-    logos={[
-      { src: Figma, alt: "Figma" },
-      { src: Illustrator, alt: "Illustrator" },
-      { src: Photoshop, alt: "Photoshop" },
-      { src: Blender, alt: "Blender" },
-      { src: React, alt: "React" },
-      { src: Git, alt: "Git" },
-      { src: Tailwind, alt: "Tailwind CSS" },
-      { src: AstroLogo, alt: "Astro" },
-      // { src: NodeJS, alt: 'Node.js' },
-      // { src: Git, alt: 'Git' },
-      // { src: Github, alt: 'GitHub' },
-    ]}
-    grayscale={false}
-    speed={"normal"}
+    logos={logosToRender}
+    {speed}
+    {height}
+    {showMask}
+    {grayscale}
     aria-Label="Logo marquee"
   />
 </section>

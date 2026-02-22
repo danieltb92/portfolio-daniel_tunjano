@@ -5,6 +5,9 @@ import Header from "@/components/sections/Header.astro";
 import LogoScroller from "@/components/sections/LogoScroller.astro";
 import FormBlack from "@/assets/formBlack.svg";
 import FormWhite from "@/assets/formWhite.svg";
+import Button from "@/components/ui/Button.astro";
+import CV from "@/data/data.json";
+import DanielIlustration from "@/components/DanielIlustration.astro";
 
 import { useTranslations } from "@/i18n/utils";
 import { languageList } from "@/i18n/ui";
@@ -12,41 +15,126 @@ import { languageList } from "@/i18n/ui";
 // i18n Obtener el idioma actual y la función de traducción
 const currentLang = Astro.currentLocale || "es";
 const translateLabels = useTranslations(
-  currentLang as keyof typeof languageList
+  currentLang as keyof typeof languageList,
 );
 ---
 
 <Layout>
   <!-- <Header /> -->
   <main
-    class="items-center mt-[64px] py-10 lg:py-20 h-auto text-center max-w-7xl m-auto px-4"
+    class="items-center mt-[64px] pt-10 lg:pt-20 h-auto text-center max-w-7xl m-auto px-4 md:px-6"
   >
-    <h2 class="text-4xl font-bold mb-16">
-      {translateLabels("page.about.title")}
-    </h2>
-    <article
-      class="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full overflow-visible"
+    <h1
+      class="text-start text-3xl md:text-4xl lg:text-5xl font-bold mb-8 md:mb-16 py-5 px-4 md:px-10"
     >
-      <picture class="flex justify-center overflow-visible"
-        ><img
-          class="w-[450px] overflow-visible py-8 block dark:hidden"
-          src={FormBlack.src}
-          alt="Forma en tema claro"
-        />
-        <img
-          class="w-[450px] overflow-visible py-8 hidden dark:block"
-          src={FormWhite.src}
-          alt="Forma en tema oscuro"
-        />
-      </picture>
-      <p
-        class="flex justify-items-center justify-center justify-self-center align-middle text-md text-left m-auto p-5"
+      {translateLabels("page.about.title")}
+    </h1>
+    <p
+      class="flex px-4 md:px-10 text-start text-[8vw] md:text-[7vw] lg:text-[4vw] font-medium m-0 mb-12 md:mb-16 leading-[1.1] tracking-tight"
+    >
+      Me muevo entre lo tangible y lo digital, explorando cómo el diseño puede
+      mejorar la forma en que interactuamos con el mundo.
+    </p>
+    <article
+      class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-4 w-full h-full overflow-visible"
+    >
+      <div
+        class="px-4 md:px-10 flex flex-col justify-center order-2 lg:order-1"
       >
-        {translateLabels("page.about.paragraph")}
-      </p>
+        <p
+          class="flex justify-items-center justify-center justify-self-center align-middle text-base md:text-md text-left m-auto py-5 whitespace-pre-line"
+        >
+          {translateLabels("page.about.paragraph")}
+        </p>
+        <div class="flex flex-wrap justify-start gap-4">
+          <Button
+            variant="outline"
+            size="sm"
+            href="/contact"
+            class="w-full sm:w-auto justify-center"
+          >
+            <!-- {translateLabels("page.home.button.contact")} -->
+            Descargar CV
+          </Button>
+          <div class="flex gap-4 w-full sm:w-auto">
+            <Button
+              variant="outline"
+              size="sm"
+              href={CV.profile.social.linkedin}
+              class="flex-1 sm:flex-none justify-center"
+            >
+              <!-- {translateLabels("page.home.button.contact")} -->
+              LinkedIn
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              href={CV.profile.social.github}
+              class="flex-1 sm:flex-none justify-center"
+            >
+              <!-- {translateLabels("page.home.button.contact")} -->
+              GitHub
+            </Button>
+          </div>
+        </div>
+      </div>
+      <div
+        class="flex justify-center items-center overflow-visible order-1 lg:order-2"
+      >
+        <DanielIlustration
+          class="w-full max-w-[320px] md:max-w-[450px] h-auto overflow-visible py-4 md:py-8 block"
+        />
+      </div>
     </article>
+    <!-- SECCION SKILLS -->
+    <div class="px-4 pt-4 md:px-10 md:pt-10">
+      <h2 class="text-start text-3xl md:text-4xl font-bold mb-8 md:mb-12 py-5">
+        {
+          (() => {
+            const skillsData = translateLabels("page.about.skills") as any;
+            return skillsData?.title || "Herramientas";
+          })()
+        }
+      </h2>
 
-    <!-- <LogoScroller /> -->
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12 text-start"
+      >
+        {
+          (() => {
+            const skillsData = translateLabels("page.about.skills") as any;
+            if (!skillsData || typeof skillsData !== "object") return null;
+
+            return Object.keys(skillsData)
+              .filter((key) => key !== "title")
+              .sort()
+              .map((key) => (
+                <div class="flex flex-col gap-4">
+                  <h3 class="text-2xl font-bold text-primary/80 border-b border-white/10 pb-2">
+                    {skillsData[key].title}
+                  </h3>
+                  <ul class="flex flex-wrap gap-2">
+                    {skillsData[key].skills?.map((skill: string) => (
+                      <li class="px-3 py-1 dark:bg-white/5 bg-black/5 border border-white/10 rounded-full text-sm font-medium hover:bg-white/10 dark:hover:bg-black/10 transition-colors">
+                        {skill}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ));
+          })()
+        }
+      </div>
+      <LogoScroller
+        title="Herramientas"
+        showTitle={false}
+        speed="slow"
+        height="h-10 md:h-12 lg:h-18"
+        showMask={true}
+        grayscale={false}
+        class="mt-16"
+      />
+    </div>
   </main>
-  <!-- <Footer /> -->
 </Layout>
+<!-- <Footer /> -->
