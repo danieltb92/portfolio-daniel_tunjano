@@ -32,7 +32,52 @@
     "footer.title": "DANIELTB",
 
     "page.about.title": "Sobre Mí",
-    "page.about.paragraph": "Hola, soy Daniel Tunjano, un desarrollador web y diseñador industrial apasionado por crear experiencias digitales innovadoras y funcionales. Con una sólida formación en diseño y desarrollo, me especializo en construir sitios web atractivos y fáciles de usar que cumplen con los objetivos de mis clientes. Mi enfoque combina creatividad y tecnología para ofrecer soluciones personalizadas que destacan en el competitivo mundo digital. Siempre estoy buscando nuevas formas de mejorar mis habilidades y mantenerme al día con las últimas tendencias en diseño y desarrollo web."
+    "page.about.paragraph": "Hola, soy Daniel Tunjano, un desarrollador web y diseñador industrial apasionado por crear experiencias digitales innovadoras y funcionales. Con una sólida formación en diseño y desarrollo, me especializo en construir sitios web atractivos y fáciles de usar que cumplen con los objetivos de mis clientes.\n\nMi enfoque combina creatividad y tecnología para ofrecer soluciones personalizadas que destacan en el competitivo mundo digital. Siempre estoy buscando nuevas formas de mejorar mis habilidades y mantenerme al día con las últimas tendencias en diseño y desarrollo web.",
+
+    "page.about.skills": {
+      "title": "Habilidades",
+      "column1": {
+        "title": "Estrategia UX",
+        "skills": [
+          "Design thinking",
+          "User research",
+          "User interviews",
+          "Personas",
+          "Journey maps",
+          "Blueprints",
+          "Storytelling",
+          "Metodologías ágiles"
+        ]
+      },
+      "column2": {
+        "title": "Diseño UX/UI",
+        "skills": [
+          "Wireframes/Mockups",
+          "Prototipos",
+          "Heurísticas",
+          "Usabilidad",
+          "Sistemas de Diseño",
+          "Figma"
+        ]
+      },
+      "column3": {
+        "title": "Desarrollo",
+        "skills": [
+          "Git/GitHub",
+          "HTML",
+          "CSS",
+          "JavaScript",
+          "React",
+          "Node.js",
+          "Astro",
+          "Tailwind",
+          "TypeScript",
+          "Sprints",
+          "Scrum",
+          "Kanban"
+        ]
+      }
+    }
   },
 
   "en": {
@@ -68,6 +113,21 @@
     "footer.title": "DANIELTB",
 
     "page.about.title": "About Me",
-    "page.about.paragraph": "Hello, I'm Daniel Tunjano, a web developer and industrial designer passionate about creating innovative and functional digital experiences. With a solid background in design and development, I specialize in building attractive and user-friendly websites that meet my clients' goals. My approach combines creativity and technology to deliver customized solutions that stand out in the competitive digital world. I'm always looking for new ways to improve my skills and stay up to date with the latest trends in web design and development."
+    "page.about.paragraph": "Hello, I'm Daniel Tunjano, a web developer and industrial designer passionate about creating innovative and functional digital experiences.\n\nWith a solid background in design and development, I specialize in building attractive and user-friendly websites that meet my clients' goals.\n\nMy approach combines creativity and technology to deliver customized solutions that stand out in the competitive digital world. I'm always looking for new ways to improve my skills and stay up to date with the latest trends in web design and development.",
+    "page.about.skills": {
+      "title": "Skills",
+      "column1": {
+        "title": "UX Strategy",
+        "skills": ["Research", "Analysis", "Tools"]
+      },
+      "column2": {
+        "title": "UX/UI Design",
+        "skills": ["Design", "Development", "Tools"]
+      },
+      "column3": {
+        "title": "Web Development",
+        "skills": ["Design", "Development", "Tools"]
+      }
+    }
   }
 }

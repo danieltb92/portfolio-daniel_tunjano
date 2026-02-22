@@ -34,7 +34,9 @@ const translateLabels = useTranslations(
           >
         </li>
         <li>
-          <a href="#projects" class="text-md hover:border-b transition-colors"
+          <a
+            href={`${getRelativeLocaleUrl(currentLang, "")}#projects`}
+            class="text-md hover:border-b transition-colors"
             >{translateLabels("nav.projects")}</a
           >
         </li>
@@ -97,7 +99,7 @@ const translateLabels = useTranslations(
         </li>
         <li>
           <a
-            href="#projects"
+            href={`${getRelativeLocaleUrl(currentLang, "")}#projects`}
             class="block content-center pl-8 px-2 py-2 text-2xl h-20 border-b-1 border-[var(--color-text)] hover:border-b-[var(--color-primary)] transition-colors"
           >
             {translateLabels("nav.projects")}
