@@ -75,29 +75,28 @@ const { project, content } = Astro.props;
       </Button>
 
       <h1
-        class="text-4xl md:text-5xl font-bold mb-6 text-[--color-text] tracking-tight text-balance"
+        class="text-4xl md:text-5xl font-bold mb-1 text-[--color-text] tracking-tight text-balance"
         style="view-transition-name: project-title;"
       >
         {project.title}
       </h1>
 
+      <div class="text-gray-500 dark:text-gray-400 text-sm font-medium mb-3">
+        By Daniel Tunjano
+      </div>
+
       <div
         class="flex flex-wrap items-center gap-4 text-gray-500 dark:text-gray-400 text-sm font-medium"
       >
-        <span>By Daniel Tunjano</span>
-
         {
           project.created_date && (
-            <>
-              <span class="text-gray-300 dark:text-gray-600">•</span>
-              <time datetime={project.created_date}>
-                {new Date(project.created_date).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "short",
-                  day: "numeric",
-                })}
-              </time>
-            </>
+            <time datetime={project.created_date}>
+              {new Date(project.created_date).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+              })}
+            </time>
           )
         }
 
@@ -109,7 +108,7 @@ const { project, content } = Astro.props;
                 href={project.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="inline-flex items-center gap-1.5 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                class="inline-flex items-center gap-1.5 text-[var(--primary-blue-500)] hover:text-[var(--primary-blue-400)] dark:text-[var(--primary-blue-400)] dark:hover:text-[var(--primary-blue-300)] transition-colors"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
