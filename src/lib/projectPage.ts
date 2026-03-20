@@ -111,6 +111,11 @@ n2m.setCustomTransformer("file", async (block) => {
   </a>`;
 });
 
+function getColumnWidthStyle(ratio: number): string {
+  // Usar porcentaje para máximo control y compatibilidad
+  return `${(ratio * 100).toFixed(2)}%`;
+}
+
 n2m.setCustomTransformer("column_list", async (block) => {
   const { id } = block as any;
   try {
@@ -118,19 +123,26 @@ n2m.setCustomTransformer("column_list", async (block) => {
       block_id: id,
     });
 
-    const colsCount = results.length;
-    const mdBlocks = await n2m.blocksToMarkdown(results);
-    const content = n2m.toMarkdownString(mdBlocks);
+    // Procesar cada columna individualmente
+    const columnsHtml = await Promise.all(
+      results.map(async (colBlock: any) => {
+        const widthRatio = colBlock.column?.width_ratio || 1 / results.length;
+        const widthStyle = getColumnWidthStyle(widthRatio);
 
-    // Determinar la clase de columnas basada en cuántas hay
-    const gridColsClass =
-      colsCount === 2
-        ? "md:grid-cols-2"
-        : colsCount === 3
-          ? "md:grid-cols-3"
-          : "md:grid-cols-1";
+        // Obtener el contenido de la columna
+        const { results: colChildren } = await notion.blocks.children.list({
+          block_id: colBlock.id,
+        });
 
-    return `<div class="grid grid-cols-1 ${gridColsClass} gap-8 items-start my-10">\n${content.parent}\n</div>`;
+        const mdBlocks = await n2m.blocksToMarkdown(colChildren);
+        const content = n2m.toMarkdownString(mdBlocks);
+        const colContent = typeof content.parent === "string" ? content.parent : "";
+
+        return `<div class="notion-column flex flex-col gap-0" style="flex: ${widthRatio}; min-width: 0;">\n${colContent}\n</div>`;
+      })
+    );
+
+    return `<div class="grid gap-8 items-start my-10" style="display: flex; flex-wrap: wrap;">\n${columnsHtml.join('\n')}\n</div>`;
   } catch (error) {
     console.error("Error procesando column_list:", error);
     return "";
@@ -147,7 +159,7 @@ n2m.setCustomTransformer("column", async (block) => {
     const mdBlocks = await n2m.blocksToMarkdown(results);
     const content = n2m.toMarkdownString(mdBlocks);
 
-    // Envolver cada columna para control de espaciado
+    // Envolver cada columna para control de espaciado (sin col-span, se maneja en column_list)
     return `<div class="notion-column flex flex-col gap-0">\n${content.parent}\n</div>`;
   } catch (error) {
     console.error("Error procesando column:", error);
