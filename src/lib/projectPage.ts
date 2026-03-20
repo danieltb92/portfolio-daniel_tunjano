@@ -142,7 +142,7 @@ n2m.setCustomTransformer("column_list", async (block) => {
       })
     );
 
-    return `<div class="grid gap-8 items-start my-10" style="display: flex; flex-wrap: wrap;">\n${columnsHtml.join('\n')}\n</div>`;
+    return `<div class="grid gap-8 items-start my-10 responsive-columns" style="display: flex; flex-wrap: wrap;">\n${columnsHtml.join('\n')}\n</div>`;
   } catch (error) {
     console.error("Error procesando column_list:", error);
     return "";
