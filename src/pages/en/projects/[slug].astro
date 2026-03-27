@@ -171,7 +171,7 @@ const { project, content } = Astro.props;
 </Layout>
 
 <style>
-  @import "tailwindcss";
+  @reference "../../../styles/global.css";
   /* Estilos adicionales para el contenido */
   :global(.prose blockquote) {
     @apply p-4 border-0 border-blue-600 bg-blue-50 text-gray-700 italic my-8;
