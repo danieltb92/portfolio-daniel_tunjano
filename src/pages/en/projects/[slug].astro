@@ -207,6 +207,38 @@ const { project, content } = Astro.props;
     @apply my-12 border-gray-200 dark:border-gray-800 border-t-2;
   }
 
+  /* Notion Callout Styles */
+  :global(.prose .callout-block) {
+    @apply p-5 py-6 rounded-lg my-6 flex flex-col sm:flex-row gap-3 items-start;
+  }
+  :global(.prose .callout-block > div) {
+    @apply font-light text-gray-800 dark:text-gray-200;
+  }
+
+  /* Callout Colors - Light Theme */
+  :global(.prose .callout-default) { @apply bg-gray-100 text-gray-800; }
+  :global(.prose .callout-gray) { @apply bg-gray-200 text-gray-800; }
+  :global(.prose .callout-brown) { @apply bg-amber-100 text-amber-900; }
+  :global(.prose .callout-orange) { @apply bg-orange-100 text-orange-900; }
+  :global(.prose .callout-yellow) { @apply bg-yellow-100 text-yellow-900; }
+  :global(.prose .callout-green) { @apply bg-green-100 text-green-900; }
+  :global(.prose .callout-blue) { @apply bg-blue-100 text-blue-900; }
+  :global(.prose .callout-purple) { @apply bg-purple-100 text-purple-900; }
+  :global(.prose .callout-pink) { @apply bg-pink-100 text-pink-900; }
+  :global(.prose .callout-red) { @apply bg-red-100 text-red-900; }
+
+  /* Callout Colors - Dark Theme */
+  :global(html[data-theme="dark"] .prose .callout-default) { @apply bg-gray-800 text-gray-200; }
+  :global(html[data-theme="dark"] .prose .callout-gray) { @apply bg-gray-700 text-gray-200; }
+  :global(html[data-theme="dark"] .prose .callout-brown) { @apply bg-amber-900/30 text-amber-200; }
+  :global(html[data-theme="dark"] .prose .callout-orange) { @apply bg-orange-900/30 text-orange-200; }
+  :global(html[data-theme="dark"] .prose .callout-yellow) { @apply bg-yellow-900/30 text-yellow-200; }
+  :global(html[data-theme="dark"] .prose .callout-green) { @apply bg-green-900/30 text-green-200; }
+  :global(html[data-theme="dark"] .prose .callout-blue) { @apply bg-blue-900/30 text-blue-200; }
+  :global(html[data-theme="dark"] .prose .callout-purple) { @apply bg-purple-900/30 text-purple-200; }
+  :global(html[data-theme="dark"] .prose .callout-pink) { @apply bg-pink-900/30 text-pink-200; }
+  :global(html[data-theme="dark"] .prose .callout-red) { @apply bg-red-900/30 text-red-200; }
+
   /* Columnas responsivas - vertical en mobile */
   @media (max-width: 767px) {
     :global(.prose .responsive-columns) {

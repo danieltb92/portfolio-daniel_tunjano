@@ -89,6 +89,33 @@ n2m.setCustomTransformer("image", async (block) => {
   return `![${caption}](${localUrl})`;
 });
 
+n2m.setCustomTransformer("callout", async (block: any) => {
+  const callout = block.callout;
+  const icon = callout.icon?.emoji || "";
+  const text = callout.rich_text?.map((t: any) => t.plain_text).join("") || "";
+  const color = callout.color || "default";
+  
+  const colorMap: Record<string, string> = {
+    default: "callout-default",
+    gray: "callout-gray",
+    brown: "callout-brown",
+    orange: "callout-orange",
+    yellow: "callout-yellow",
+    green: "callout-green",
+    blue: "callout-blue",
+    purple: "callout-purple",
+    pink: "callout-pink",
+    red: "callout-red",
+  };
+  
+  const bgClass = colorMap[color] || colorMap.default;
+  
+  return `<div class="callout-block ${bgClass}">
+    <span class="text-xl">${icon}</span>
+    <div>${text}</div>
+  </div>`;
+});
+
 n2m.setCustomTransformer("file", async (block) => {
   const fileBlock = block as FileBlockObjectResponse;
   const file = fileBlock.file;
