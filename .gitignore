@@ -33,3 +33,8 @@ src/content/project/*
 public/images/notion
 public/content/notion
 src/assets/content/notion
+
+# agents skills
+.agent/
+.agents/
+
