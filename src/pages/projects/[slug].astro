@@ -61,43 +61,41 @@ const { project, content } = Astro.props;
     ? project.description
     : undefined}
 >
-  <main class="max-w-3xl mx-auto px-4 py-12 md:py-20">
+  <main class="max-w-3xl md:max-w-4xl lg:max-w-5xl mx-auto px-4 py-12 md:py-20">
     <!-- Header -->
     <header class="mb-10">
       <Button
         variant="ghost"
         size="md"
         href="/#projects"
-        class="mb-8 ml-0 pl-0"
+        class="mb-8 mt-6 md:mt-8 ml-0 pl-0"
         ariaLabel="Back to projects"
       >
         <ArrowLeft />
       </Button>
 
       <h1
-        class="text-4xl md:text-5xl font-bold mb-6 text-[--color-text] tracking-tight text-balance"
+        class="text-4xl md:text-5xl font-bold mb-1 text-[--color-text] tracking-tight text-balance"
         style="view-transition-name: project-title;"
       >
         {project.title}
       </h1>
 
+      <div class="text-gray-500 dark:text-gray-400 text-sm font-medium mb-3">
+        By Daniel Tunjano
+      </div>
+
       <div
         class="flex flex-wrap items-center gap-4 text-gray-500 dark:text-gray-400 text-sm font-medium"
       >
-        <span>By Daniel Tunjano</span>
-
         {
           project.created_date && (
-            <>
-              <span class="text-gray-300 dark:text-gray-600">•</span>
-              <time datetime={project.created_date}>
-                {new Date(project.created_date).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "short",
-                  day: "numeric",
-                })}
-              </time>
-            </>
+            <time datetime={project.created_date}>
+              {new Date(project.created_date).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "short",
+              })}
+            </time>
           )
         }
 
@@ -109,7 +107,7 @@ const { project, content } = Astro.props;
                 href={project.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="inline-flex items-center gap-1.5 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                class="inline-flex items-center gap-1.5 text-[var(--primary-blue-500)] hover:text-[var(--primary-blue-400)] dark:text-[var(--primary-blue-400)] dark:hover:text-[var(--primary-blue-300)] transition-colors"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -205,7 +203,90 @@ const { project, content } = Astro.props;
 
   /* Notion Divider Styles */
   :global(.prose hr) {
-    @apply my-12 border-gray-200 dark:border-gray-800 border-t-2;
+    @apply my-8 border-[var(--color-text)];
+  }
+
+  /* Notion Callout Styles */
+  :global(.prose .callout-block) {
+    @apply p-5 py-6 rounded-lg my-6 flex flex-col sm:flex-row gap-3 items-start;
+  }
+  :global(.prose .callout-block > div) {
+    @apply font-light text-gray-800 dark:text-gray-200;
+  }
+
+  /* Callout Colors - Light Theme */
+  :global(.prose .callout-default) {
+    @apply bg-gray-100 text-gray-800;
+  }
+  :global(.prose .callout-gray) {
+    @apply bg-gray-200 text-gray-800;
+  }
+  :global(.prose .callout-brown) {
+    @apply bg-amber-100 text-amber-900;
+  }
+  :global(.prose .callout-orange) {
+    @apply bg-orange-100 text-orange-900;
+  }
+  :global(.prose .callout-yellow) {
+    @apply bg-yellow-100 text-yellow-900;
+  }
+  :global(.prose .callout-green) {
+    @apply bg-green-100 text-green-900;
+  }
+  :global(.prose .callout-blue) {
+    @apply bg-blue-100 text-blue-900;
+  }
+  :global(.prose .callout-purple) {
+    @apply bg-purple-100 text-purple-900;
+  }
+  :global(.prose .callout-pink) {
+    @apply bg-pink-100 text-pink-900;
+  }
+  :global(.prose .callout-red) {
+    @apply bg-red-100 text-red-900;
+  }
+
+  /* Callout Colors - Dark Theme */
+  :global(html[data-theme="dark"] .prose .callout-default) {
+    @apply bg-gray-800 text-gray-200;
+  }
+  :global(html[data-theme="dark"] .prose .callout-gray) {
+    @apply bg-gray-700 text-gray-200;
+  }
+  :global(html[data-theme="dark"] .prose .callout-brown) {
+    @apply bg-amber-900/30 text-amber-200;
+  }
+  :global(html[data-theme="dark"] .prose .callout-orange) {
+    @apply bg-orange-900/30 text-orange-200;
+  }
+  :global(html[data-theme="dark"] .prose .callout-yellow) {
+    @apply bg-yellow-900/30 text-yellow-200;
+  }
+  :global(html[data-theme="dark"] .prose .callout-green) {
+    @apply bg-green-900/30 text-green-200;
+  }
+  :global(html[data-theme="dark"] .prose .callout-blue) {
+    @apply bg-blue-900/30 text-blue-200;
+  }
+  :global(html[data-theme="dark"] .prose .callout-purple) {
+    @apply bg-purple-900/30 text-purple-200;
+  }
+  :global(html[data-theme="dark"] .prose .callout-pink) {
+    @apply bg-pink-900/30 text-pink-200;
+  }
+  :global(html[data-theme="dark"] .prose .callout-red) {
+    @apply bg-red-900/30 text-red-200;
+  }
+
+  /* Columnas responsivas - vertical en mobile */
+  @media (max-width: 767px) {
+    :global(.prose .responsive-columns) {
+      flex-direction: column;
+    }
+    :global(.prose .responsive-columns > *) {
+      flex: 1 1 100% !important;
+      width: 100%;
+    }
   }
 </style>
 

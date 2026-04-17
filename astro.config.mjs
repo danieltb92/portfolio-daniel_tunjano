@@ -19,7 +19,38 @@ export default defineConfig({
   },
 
   site: "https://danieltunjano.online",
-  integrations: [sitemap(), react()],
+  integrations: [
+    sitemap({
+      changefreq: "weekly",
+      priority: 0.7,
+      lastmod: new Date(),
+      serialize: (item) => {
+        if (item.url === "https://danieltunjano.online/" || item.url === "https://danieltunjano.online") {
+          return {
+            ...item,
+            priority: 1.0,
+            changefreq: "daily",
+          };
+        }
+        if (item.url.includes("/about")) {
+          return {
+            ...item,
+            priority: 0.8,
+            changefreq: "monthly",
+          };
+        }
+        if (item.url.includes("/projects")) {
+          return {
+            ...item,
+            priority: 0.9,
+            changefreq: "weekly",
+          };
+        }
+        return item;
+      },
+    }),
+    react(),
+  ],
   output: "static",
   adapter: vercelStatic({
     webAnalytics: {
