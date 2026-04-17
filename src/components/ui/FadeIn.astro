@@ -1,0 +1,109 @@
+---
+export interface Props {
+  as?: string;
+  delay?: number;
+  duration?: number;
+  class?: string;
+  animation?: "fadeIn" | "fadeInUp" | "fadeInDown" | "fadeInLeft" | "fadeInRight" | "scaleIn" | "slideUp";
+}
+
+const {
+  as: Tag = "div",
+  delay = 0,
+  duration = 0.8,
+  class: className = "",
+  animation = "fadeInUp",
+} = Astro.props;
+
+const style = `--animation-delay: ${delay}s; --animation-duration: ${duration}s;`;
+---
+
+<Tag class:list={["animate-wrapper", className]} style={style}>
+  <div class={`animate-${animation}`} style={`animation-delay: ${delay}s; animation-duration: ${duration}s;`}>
+    <slot />
+  </div>
+</Tag>
+
+<style>
+  .animate-wrapper {
+    display: inline-block;
+  }
+
+  .animate-fadeIn {
+    opacity: 0;
+    animation: fadeIn var(--animation-duration) ease-out forwards;
+  }
+
+  .animate-fadeInUp {
+    opacity: 0;
+    animation: fadeInUp var(--animation-duration) ease-out forwards;
+  }
+
+  .animate-fadeInDown {
+    opacity: 0;
+    animation: fadeInDown var(--animation-duration) ease-out forwards;
+  }
+
+  .animate-fadeInLeft {
+    opacity: 0;
+    animation: fadeInLeft var(--animation-duration) ease-out forwards;
+  }
+
+  .animate-fadeInRight {
+    opacity: 0;
+    animation: fadeInRight var(--animation-duration) ease-out forwards;
+  }
+
+  .animate-scaleIn {
+    opacity: 0;
+    animation: scaleIn var(--animation-duration) ease-out forwards;
+  }
+
+  .animate-slideUp {
+    opacity: 0;
+    animation: slideUp var(--animation-duration) ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeInLeft {
+    from { opacity: 0; transform: translateX(-30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes fadeInRight {
+    from { opacity: 0; transform: translateX(30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [class*="animate-"] {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+</style>

@@ -19,7 +19,8 @@ const translateLabels = useTranslations(
   class="w-full justify-between overflow-hidden min-h-[400px] sm:min-h-[500px] md:min-h-[500px] flex justify-items-start items-center flex-col p-4"
 >
   <div
-    class="max-w-[1728px] w-full flex flex-col items-center px-4 md:px-8 mt-10 gap-10"
+    id="footer-main"
+    class="max-w-[1728px] w-full flex flex-col items-center px-4 md:px-8 mt-10 gap-10 scroll-animate"
   >
     <!-- CTA Block -->
     <div class="flex flex-col items-start w-full gap-6 max-w-3xl mr-auto">
@@ -69,14 +70,15 @@ const translateLabels = useTranslations(
       </li>
     </ul>
   </div>
-  <div class="w-full flex justify-center items-center mt-10 overflow-hidden">
+  <div id="footer-logos" class="w-full flex justify-center items-center mt-10 overflow-hidden scroll-animate">
     <Logo class="h-[15vw] max-h-[160px] w-auto text-gray-400 dark:text-white" />
     <Danieltb
       class="h-[15vw] max-h-[160px] w-auto text-black dark:text-white"
     />
   </div>
   <div
-    class="bottom-[0px] flex justify-center flex-col items-center p-4 pb-0 z-10"
+    id="footer-copyright"
+    class="bottom-[0px] flex justify-center flex-col items-center p-4 pb-0 z-10 scroll-animate"
   >
     <div class="md:max-w-5xl text-center py-4 text-gray-400 text-sm">
       &copy; {new Date().getFullYear()}
@@ -112,41 +114,4 @@ const translateLabels = useTranslations(
       }
     });
   }
-</script>
-
-<script>
-  import { gsap } from "gsap";
-  import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-  gsap.registerPlugin(ScrollTrigger);
-
-  const initFooterAnimation = () => {
-    const footer = document.getElementById("contact");
-    if (!footer) return;
-
-    // Select distinct groups to animate: The top text/links, the main logo, and the copyright
-    const topSection = footer.querySelector("div.max-w-\\[1728px\\]"); // Contains TitleList and UL
-    const mainLogo = footer.querySelector("svg");
-    const copyright = footer.querySelector(".bottom-\\[0px\\]");
-
-    const elements = [topSection, mainLogo, copyright].filter((el) => el);
-
-    if (elements.length > 0) {
-      gsap.from(elements, {
-        scrollTrigger: {
-          trigger: footer,
-          start: "top 85%", // Trigger a bit earlier
-          toggleActions: "play none none reverse",
-        },
-        y: 50,
-        opacity: 0,
-        stagger: 0.2, // Stagger the blocks
-        duration: 1,
-        ease: "power3.out",
-      });
-    }
-  };
-
-  initFooterAnimation();
-  document.addEventListener("astro:after-swap", initFooterAnimation);
 </script>

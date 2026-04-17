@@ -175,7 +175,7 @@ const roles = profileWords;
     tl.from("#hero h1", {
       y: 50,
       opacity: 0,
-      duration: 2,
+      duration: 1.5,
       ease: "power3.out",
     })
       .from(
@@ -187,9 +187,13 @@ const roles = profileWords;
           ease: "power3.out",
         },
         "-=0.6",
-      )
-      .from(
-        "#hero ul li",
+      );
+
+    // Animación de los botones sociales
+    const socialButtons = document.querySelectorAll("#hero .flex.flex-row > *");
+    if (socialButtons.length > 0) {
+      tl.from(
+        socialButtons,
         {
           y: 20,
           opacity: 0,
@@ -199,6 +203,7 @@ const roles = profileWords;
         },
         "-=0.4",
       );
+    }
   };
 
   initHeroAnimation();

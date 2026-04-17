@@ -34,7 +34,9 @@
     "footer.title": "DANIELTB",
 
     "page.about.title": "Sobre Mí",
+    "page.about.teaser": "Me muevo entre lo tangible y lo digital, explorando cómo el diseño puede mejorar la forma en que interactuamos con el mundo.",
     "page.about.paragraph": "Hola, soy Daniel Tunjano, un desarrollador web y diseñador industrial apasionado por crear experiencias digitales innovadoras y funcionales. Con una sólida formación en diseño y desarrollo, me especializo en construir sitios web atractivos y fáciles de usar que cumplen con los objetivos de mis clientes.\n\nMi enfoque combina creatividad y tecnología para ofrecer soluciones personalizadas que destacan en el competitivo mundo digital. Siempre estoy buscando nuevas formas de mejorar mis habilidades y mantenerme al día con las últimas tendencias en diseño y desarrollo web.",
+    "page.about.downloadCV": "Descargar CV",
 
     "page.about.skills": {
       "title": "Habilidades",
@@ -79,7 +81,15 @@
           "Kanban"
         ]
       }
-    }
+    },
+    "nav.theme.label": "Elige el tema",
+    "nav.theme.light": "Claro",
+    "nav.theme.dark": "Oscuro",
+    "nav.theme.system": "Sistema",
+    "nav.lang.label": "Cambiar idioma",
+    "project.visit": "Visitar sitio web",
+    "project.back": "Volver a proyectos",
+    "project.by": "Por"
   },
 
   "en": {
@@ -117,21 +127,60 @@
     "footer.title": "DANIELTB",
 
     "page.about.title": "About Me",
+    "page.about.teaser": "I move between the tangible and the digital, exploring how design can improve the way we interact with the world.",
     "page.about.paragraph": "Hello, I'm Daniel Tunjano, a web developer and industrial designer passionate about creating innovative and functional digital experiences.\n\nWith a solid background in design and development, I specialize in building attractive and user-friendly websites that meet my clients' goals.\n\nMy approach combines creativity and technology to deliver customized solutions that stand out in the competitive digital world. I'm always looking for new ways to improve my skills and stay up to date with the latest trends in web design and development.",
+    "page.about.downloadCV": "Download CV",
     "page.about.skills": {
       "title": "Skills",
       "column1": {
         "title": "UX Strategy",
-        "skills": ["Research", "Analysis", "Tools"]
+        "skills": [
+          "Design thinking",
+          "User research",
+          "User interviews",
+          "Personas",
+          "Journey maps",
+          "Blueprints",
+          "Storytelling",
+          "Agile methodologies"
+        ]
       },
       "column2": {
         "title": "UX/UI Design",
-        "skills": ["Design", "Development", "Tools"]
+        "skills": [
+          "Wireframes/Mockups",
+          "Prototypes",
+          "Heuristics",
+          "Usability",
+          "Design Systems",
+          "Figma"
+        ]
       },
       "column3": {
         "title": "Web Development",
-        "skills": ["Design", "Development", "Tools"]
+        "skills": [
+          "Git/GitHub",
+          "HTML",
+          "CSS",
+          "JavaScript",
+          "React",
+          "Node.js",
+          "Astro",
+          "Tailwind",
+          "TypeScript",
+          "Sprints",
+          "Scrum",
+          "Kanban"
+        ]
       }
-    }
+    },
+    "nav.theme.label": "Choose theme",
+    "nav.theme.light": "Light",
+    "nav.theme.dark": "Dark",
+    "nav.theme.system": "System",
+    "nav.lang.label": "Change language",
+    "project.visit": "Visit Website",
+    "project.back": "Back to projects",
+    "project.by": "By"
   }
 }

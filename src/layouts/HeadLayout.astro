@@ -1,5 +1,6 @@
 ---
 // src/components/layout/Head.astro
+import { ViewTransitions } from "astro:transitions";
 import SEO from "@/components/seo/SEO.astro";
 import seo from "@/data/seo.json";
 
@@ -42,6 +43,7 @@ const currentLang = Astro.currentLocale || "es";
 ---
 
 <head>
+  <ViewTransitions />
   <link rel="sitemap" href="/sitemap-index.xml" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <!-- Google tag (gtag.js) -->

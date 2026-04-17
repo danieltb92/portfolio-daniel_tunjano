@@ -7,6 +7,11 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { marked } from "marked";
 import ArrowLeft from "@/assets/icons/arrow-narrow-left.svg";
+import { useTranslations } from "@/i18n/utils";
+import { languageList } from "@/i18n/ui";
+
+const currentLang = "en"; // Forzado en esta ruta
+const translateLabels = useTranslations(currentLang as keyof typeof languageList);
 
 // Configurar marked para permitir HTML
 const renderer = new marked.Renderer();
@@ -67,9 +72,9 @@ const { project, content } = Astro.props;
       <Button
         variant="ghost"
         size="md"
-        href="/#projects"
+        href="/en/#projects"
         class="mb-8 mt-6 md:mt-8 ml-0 pl-0"
-        ariaLabel="Back to projects"
+        ariaLabel={translateLabels("project.back")}
       >
         <ArrowLeft />
       </Button>
@@ -82,7 +87,7 @@ const { project, content } = Astro.props;
       </h1>
 
       <div class="text-gray-500 dark:text-gray-400 text-sm font-medium mb-3">
-        By Daniel Tunjano
+        {translateLabels("project.by")} Daniel Tunjano
       </div>
 
       <div
@@ -123,7 +128,7 @@ const { project, content } = Astro.props;
                   <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
                   <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
                 </svg>
-                <span>Visit Website</span>
+                <span>{translateLabels("project.visit")}</span>
               </a>
             </>
           )

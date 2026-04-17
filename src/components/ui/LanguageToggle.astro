@@ -1,9 +1,15 @@
 ---
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { languageList } from "@/i18n/ui";
+import { useTranslations } from "@/i18n/utils";
 
 const currentLang = Astro.currentLocale || "es";
 const currentPath = Astro.url.pathname;
+
+// i18n Obtener el idioma actual y la función de traducción
+const translateLabels = useTranslations(
+  currentLang as keyof typeof languageList,
+);
 
 function getLangUrl(lang: string) {
   // Remove current locale from path if present to get the "clean" path
@@ -27,9 +33,9 @@ function getLangUrl(lang: string) {
   <button
     type="button"
     class="language-toggle-btn appearance-none border-none flex hover:scale-125 transition bg-transparent cursor-pointer text-gray-800 dark:text-gray-200"
-    aria-label="Change language"
+    aria-label={translateLabels("nav.lang.label")}
   >
-    <span class="sr-only">Cambiar idioma</span>
+    <span class="sr-only">{translateLabels("nav.lang.label")}</span>
     <!-- Globe Icon -->
     <svg
       xmlns="http://www.w3.org/2000/svg"

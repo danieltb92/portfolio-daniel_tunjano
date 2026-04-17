@@ -32,8 +32,7 @@ const translateLabels = useTranslations(
     <p
       class="flex px-4 md:px-10 text-start text-[8vw] md:text-[7vw] lg:text-[4vw] font-medium m-0 mb-12 md:mb-16 leading-[1.1] tracking-tight"
     >
-      Me muevo entre lo tangible y lo digital, explorando cómo el diseño puede
-      mejorar la forma en que interactuamos con el mundo.
+      {translateLabels("page.about.teaser")}
     </p>
     <article
       class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-4 w-full h-full overflow-visible"
@@ -53,8 +52,7 @@ const translateLabels = useTranslations(
             href="/contact"
             class="w-full sm:w-auto justify-center"
           >
-            <!-- {translateLabels("page.home.button.contact")} -->
-            Descargar CV
+            {translateLabels("page.about.downloadCV")}
           </Button>
           <div class="flex gap-4 w-full sm:w-auto">
             <Button
@@ -135,56 +133,64 @@ const translateLabels = useTranslations(
         class="mt-16"
       />
     </div>
-  </main>
+</main>
 </Layout>
 
 <script>
   import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
 
   const initAboutAnimation = () => {
     const main = document.querySelector("main");
     if (!main) return;
 
-    const tl = gsap.timeline();
+    const animatedElements = ["main h1", "main p", "article p", "svg[class*='DanielIlustration']"];
+    gsap.set(animatedElements, { opacity: 1, y: 0, x: 0 });
 
-    const title = main.querySelector("h2");
-    const image = main.querySelector("picture");
-    const text = main.querySelector("p");
+    const tl = gsap.timeline({ 
+      defaults: { ease: "power3.out", duration: 0.8 },
+      onComplete: () => {
+        ScrollTrigger.refresh();
+      }
+    });
+
+    const title = main.querySelector("h1");
+    const teaser = main.querySelector("p");
+    const articleText = main.querySelector("article p");
+    
+    const illuEl = document.querySelector(".DanielIlustration") || document.querySelector('svg[class*="DanielIlustration"]');
+    
+    gsap.set([title, teaser, articleText, illuEl].filter(Boolean), { opacity: 0 });
 
     if (title) {
-      tl.from(title, {
-        y: -30,
-        opacity: 0,
-        duration: 0.8,
-        ease: "power3.out",
+      tl.to(title, { y: 0, opacity: 1, clearProps: "all" });
+    }
+    if (teaser) {
+      tl.to(teaser, { y: 0, opacity: 1, clearProps: "all" }, "-=0.6");
+    }
+    if (articleText) {
+      tl.to(articleText, { x: 0, opacity: 1, clearProps: "all" }, "-=0.6");
+    }
+    if (illuEl) {
+       tl.to(illuEl, { x: 0, opacity: 1, clearProps: "all" }, "-=0.6");
+    }
+    
+ScrollTrigger.refresh();
+    
+    // Fallback: forzar visibilidad después de 1.5 segundos si la animación no se ejecutó
+    setTimeout(() => {
+      [title, teaser, articleText, illuEl].filter(Boolean).forEach(el => {
+        if (el) {
+          const style = getComputedStyle(el);
+          if (style.opacity === "0") {
+            gsap.set(el, { clearProps: "all" });
+            gsap.to(el, { opacity: 1, y: 0, x: 0, duration: 0.3 });
+          }
+        }
       });
-    }
-
-    if (image) {
-      tl.from(
-        image,
-        {
-          x: -50,
-          opacity: 0,
-          duration: 0.8,
-          ease: "power3.out",
-        },
-        "-=0.4"
-      );
-    }
-
-    if (text) {
-      tl.from(
-        text,
-        {
-          x: 50,
-          opacity: 0,
-          duration: 0.8,
-          ease: "power3.out",
-        },
-        "-=0.6"
-      );
-    }
+    }, 1500);
   };
 
   initAboutAnimation();

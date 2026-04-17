@@ -1,18 +1,21 @@
 ---
 import { type HTMLAttributes } from "astro/types";
+import { useTranslations } from "@/i18n/utils";
 
 interface Props extends HTMLAttributes<"div"> {}
 
 const { class: className, ...props } = Astro.props;
+const currentLang = Astro.currentLocale || "es";
+const t = useTranslations(currentLang as any);
 ---
 
 <theme-toggle class:list={["relative ml-1", className]} {...props}>
   <button
     type="button"
     class="theme-toggle-btn appearance-none border-none flex hover:scale-125 transition bg-transparent cursor-pointer text-gray-800 dark:text-gray-200"
-    aria-label="Toggle theme"
+    aria-label={t("nav.theme.toggle")}
   >
-    <span class="sr-only">Elige el tema</span>
+    <span class="sr-only">{t("nav.theme.toggle")}</span>
     <!-- Sun Icon -->
     <svg
       class="sun-icon theme-icon w-5 h-5 transition-all hidden"
@@ -79,19 +82,19 @@ const { class: className, ...props } = Astro.props;
         class="themes-menu-option px-2 py-1.5 cursor-default hover:bg-neutral-400/40 dark:hover:bg-gray-500/50 rounded-sm flex items-center gap-2"
         data-theme="light"
       >
-        Light
+        {t("nav.theme.light")}
       </li>
       <li
         class="themes-menu-option px-2 py-1.5 cursor-default hover:bg-neutral-400/40 dark:hover:bg-gray-500/50 rounded-sm flex items-center gap-2"
         data-theme="dark"
       >
-        Dark
+        {t("nav.theme.dark")}
       </li>
       <li
         class="themes-menu-option px-2 py-1.5 cursor-default hover:bg-neutral-400/40 dark:hover:bg-gray-500/50 rounded-sm flex items-center gap-2"
         data-theme="system"
       >
-        System
+        {t("nav.theme.system")}
       </li>
     </ul>
   </div>
