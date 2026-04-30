@@ -4,7 +4,7 @@ This file provides guidelines for AI agents working on this codebase.
 
 ## Project Overview
 
-Astro 5 static portfolio with Notion CMS integration, i18n (ES/EN), dark mode, and Tailwind CSS 4. Deployed on Vercel.
+Astro 5 static portfolio with Notion CMS integration, i18n (ES/EN), dark mode, native scroll animations (no GSAP), and Tailwind CSS 4. Deployed on Vercel.
 
 ## Build/Lint/Test Commands
 
@@ -167,6 +167,10 @@ Configured in `tsconfig.json`:
 - Use `cn()` utility for conditional classes
 - Custom variants available: `dark:` prefix for dark mode
 
+**Global CSS:**
+- `src/styles/global.css`: Contains CSS variables and base Tailwind imports.
+- `src/styles/animations.css`: Contains all custom CSS keyframes and transitions for scroll animations.
+
 ### I18n Pattern
 
 ```astro
@@ -198,12 +202,12 @@ src/
 ├── components/
 │   ├── sections/    # Page sections (Header, Hero, Projects)
 │   ├── ui/           # Reusable UI components
-│   └── effects/      # Visual effects (Snow, VantaBackground)
+│   └── effects/      # Visual effects (Snow, CursorTrail)
 ├── layouts/          # Page layouts
-├── lib/              # Utilities (notion.ts, projects.ts, utils.ts)
+├── lib/              # Utilities (notion.ts, projects.ts, utils.ts, animations.ts)
 ├── i18n/             # Internationalization (ui.ts)
 ├── pages/            # Routes (index.astro, /en/ for English)
-├── styles/           # Global CSS with theme variables
+├── styles/           # Global CSS with theme variables and animations.css
 ├── content/project/  # Auto-generated project markdown
 └── data/             # Auto-generated data (projects.json, dataPage.json)
 ```
@@ -225,6 +229,12 @@ NOTION_DATABASE_ID=your_database_id
 Access via `process.env.NOTION_TOKEN` in lib files or `import 'dotenv/config'` at top.
 
 ## Key Patterns
+
+### Animations & Performance (No GSAP)
+- **Zero Dependencies**: All animations use Vanilla JS (`IntersectionObserver`, `requestAnimationFrame`) and CSS transitions for maximum performance. GSAP and Framer Motion are strictly prohibited.
+- **Scroll Animations**: Add the `.scroll-animate` or `.scroll-animate-stagger` classes to HTML elements. The global observer in `src/lib/animations.ts` will trigger them when they enter the viewport.
+- **CSS Transitions**: Defined in `src/styles/animations.css`. Elements start with `opacity: 0` and transform, then transition to `opacity: 1` when the `.is-visible` class is added.
+- **ClientRouter (ViewTransitions)**: Animation observers are automatically re-initialized on `astro:page-load` events to work seamlessly with Astro's ViewTransitions.
 
 ### Static Generation
 This is a **static site**—all Notion content must be pre-generated via `pnpm generate` before build. Generated files:
