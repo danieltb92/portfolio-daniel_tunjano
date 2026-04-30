@@ -80,7 +80,7 @@ const { project, content } = Astro.props;
       </Button>
 
       <h1
-        class="text-4xl md:text-5xl font-bold mb-1 text-[--color-text] tracking-tight text-balance"
+        class="scroll-animate text-4xl md:text-5xl font-bold mb-1 text-[--color-text] tracking-tight text-balance"
         style="view-transition-name: project-title;"
       >
         {project.title}
@@ -162,7 +162,7 @@ const { project, content } = Astro.props;
 
     <!-- Content -->
     <article
-      class="prose dark:prose-invert max-w-none
+      class="scroll-animate prose dark:prose-invert max-w-none
         prose-headings:font-bold prose-headings:text-gray-900 dark:prose-headings:text-white
         prose-p:text-gray-600 dark:prose-p:text-gray-300 prose-p:leading-relaxed
         prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-a:no-underline hover:prose-a:underline
@@ -295,58 +295,3 @@ const { project, content } = Astro.props;
   }
 </style>
 
-<script>
-  import { gsap } from "gsap";
-
-  const initProjectAnimation = () => {
-    const article = document.querySelector("article");
-    if (!article) return;
-
-    const tl = gsap.timeline();
-
-    // Animate the main content container
-    tl.from(article, {
-      y: 30,
-      opacity: 0,
-      duration: 0.8,
-      ease: "power3.out",
-      onComplete: () => {
-        gsap.set(article, { clearProps: "all" });
-      }
-    });
-
-    // Animate children elements specifically for a nicer effect
-    const contentChildren = article.querySelectorAll(".prose > *, .flex.gap-4");
-
-    if (contentChildren.length > 0) {
-      gsap.from(contentChildren, {
-        y: 20,
-        opacity: 0,
-        stagger: 0.1,
-        duration: 0.6,
-        ease: "power3.out",
-        delay: 0.2,
-      });
-    }
-
-    // Fallback: forzar visibilidad después de 1.5 segundos si la animación no se ejecutó
-    setTimeout(() => {
-      const articleStyle = getComputedStyle(article);
-      if (articleStyle.opacity === "0") {
-        gsap.set(article, { clearProps: "all" });
-        gsap.to(article, { opacity: 1, y: 0, duration: 0.3 });
-      }
-      
-      contentChildren.forEach((child) => {
-        const style = getComputedStyle(child);
-        if (style.opacity === "0") {
-          gsap.set(child, { clearProps: "all" });
-          gsap.to(child, { opacity: 1, y: 0, duration: 0.3 });
-        }
-      });
-    }, 1500);
-  };
-
-  initProjectAnimation();
-  document.addEventListener("astro:after-swap", initProjectAnimation);
-</script>

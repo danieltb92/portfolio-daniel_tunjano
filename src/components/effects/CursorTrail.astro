@@ -40,38 +40,57 @@
 </style>
 
 <script>
-  import { gsap } from "gsap";
-
   const initCursorGlow = () => {
     const glow = document.querySelector(".glow-point") as HTMLElement;
     if (!glow) return;
 
-    // Center initially or just hide until move
-    gsap.set(glow, { xPercent: -50, yPercent: -50, opacity: 0 });
+    glow.style.transform = "translate(-50%, -50%)";
+    glow.style.opacity = "0";
+
+    let currentX = window.innerWidth / 2;
+    let currentY = window.innerHeight / 2;
+    let targetX = currentX;
+    let targetY = currentY;
+    let isMoving = false;
+
+    const lerp = (start: number, end: number, factor: number) => {
+      return start + (end - start) * factor;
+    };
+
+    const animate = () => {
+      currentX = lerp(currentX, targetX, 0.05);
+      currentY = lerp(currentY, targetY, 0.05);
+      glow.style.transform = `translate(calc(-50% + ${currentX}px), calc(-50% + ${currentY}px))`;
+      
+      if (Math.abs(targetX - currentX) > 0.1 || Math.abs(targetY - currentY) > 0.1) {
+        requestAnimationFrame(animate);
+      } else {
+        isMoving = false;
+      }
+    };
 
     const moveGlow = (e: MouseEvent) => {
-      // Reveal on first move
       if (glow.style.opacity === "0") {
-        gsap.to(glow, { opacity: 1, duration: 0.5 });
+        glow.style.transition = "opacity 0.5s ease";
+        glow.style.opacity = "1";
       }
 
-      gsap.to(glow, {
-        duration: 1.2, // Slow duration for "floating" feel or "trace"
-        x: e.clientX,
-        y: e.clientY,
-        ease: "power3.out",
-        overwrite: "auto",
-      });
+      targetX = e.clientX;
+      targetY = e.clientY;
+
+      if (!isMoving) {
+        isMoving = true;
+        requestAnimationFrame(animate);
+      }
     };
 
     window.addEventListener("mousemove", moveGlow);
 
-    // Hide when leaving window
     document.body.addEventListener("mouseleave", () => {
-      gsap.to(glow, { opacity: 0, duration: 0.5 });
+      glow.style.opacity = "0";
     });
     document.body.addEventListener("mouseenter", () => {
-      gsap.to(glow, { opacity: 1, duration: 0.5 });
+      glow.style.opacity = "1";
     });
   };
 

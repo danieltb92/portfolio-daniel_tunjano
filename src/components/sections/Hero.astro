@@ -48,7 +48,7 @@ const roles = profileWords;
     status="glass"
   />
   <h1
-    class="text-[19vw] lg:text-[14vw] font-bold text-center leading-none -z-11"
+    class="scroll-animate text-[19vw] lg:text-[14vw] font-bold text-center leading-none -z-11"
   >
     <span
       id="changing-word"
@@ -64,12 +64,12 @@ const roles = profileWords;
     </span>
   </h1>
 
-  <p class="text-center text-gray-600 dark:text-gray-400 text-lg">
+  <p class="scroll-animate text-center text-gray-600 dark:text-gray-400 text-lg">
     {translateLabels("hero.subtitle")}
   </p>
 
   <!-- Social Icons -->
-  <div class="flex flex-row gap-2 sm:gap-4 mt-6">
+  <div class="scroll-animate-stagger flex flex-row gap-2 sm:gap-4 mt-6">
     <Button
       variant="primary"
       size="md"
@@ -163,49 +163,4 @@ const roles = profileWords;
   <!-- ========================================== -->
 </section>
 
-<script>
-  import { gsap } from "gsap";
 
-  const initHeroAnimation = () => {
-    const heroTitle = document.querySelector("#hero h1");
-    if (!heroTitle) return;
-
-    const tl = gsap.timeline();
-
-    tl.from("#hero h1", {
-      y: 50,
-      opacity: 0,
-      duration: 1.5,
-      ease: "power3.out",
-    })
-      .from(
-        "#hero p",
-        {
-          y: 30,
-          opacity: 0,
-          duration: 0.8,
-          ease: "power3.out",
-        },
-        "-=0.6",
-      );
-
-    // Animación de los botones sociales
-    const socialButtons = document.querySelectorAll("#hero .flex.flex-row > *");
-    if (socialButtons.length > 0) {
-      tl.from(
-        socialButtons,
-        {
-          y: 20,
-          opacity: 0,
-          stagger: 0.1,
-          duration: 0.6,
-          ease: "power3.out",
-        },
-        "-=0.4",
-      );
-    }
-  };
-
-  initHeroAnimation();
-  document.addEventListener("astro:after-swap", initHeroAnimation);
-</script>

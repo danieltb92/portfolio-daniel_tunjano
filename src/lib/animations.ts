@@ -1,134 +1,79 @@
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+/**
+ * animations.ts
+ * 
+ * Implementación optimizada de animaciones mediante IntersectionObserver.
+ * Reemplaza a GSAP para mejorar el rendimiento, reducir el peso del bundle
+ * y garantizar compatibilidad perfecta con las transiciones de Astro (ClientRouter).
+ */
 
-gsap.registerPlugin(ScrollTrigger);
+let observer: IntersectionObserver | null = null;
 
 export function setupAnimations() {
-  gsap.registerPlugin(ScrollTrigger);
+  // 1. Respetar preferencias de accesibilidad del usuario (prefers-reduced-motion)
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (prefersReducedMotion) return;
+
+  // 2. Configurar el IntersectionObserver
+  // rootMargin: "0px 0px -15% 0px" hace que la animación se dispare
+  // cuando el elemento está un 15% por encima de la parte inferior de la pantalla.
+  const observerOptions = {
+    root: null,
+    rootMargin: "0px 0px -15% 0px",
+    threshold: 0,
+  };
+
+  observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      // Toggle de clase para activar/desactivar la transición CSS
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+      } else {
+        // Opcional: remover la clase si queremos que la animación 
+        // se repita al hacer scroll hacia arriba.
+        entry.target.classList.remove("is-visible");
+      }
+    });
+  }, observerOptions);
+
+  // 3. Observar elementos animados estándar
+  const selectors = [
+    ".scroll-animate",
+    ".scroll-animate-left",
+    ".scroll-animate-right",
+    ".scroll-animate-scale"
+  ];
+  
+  const animatedElements = document.querySelectorAll(selectors.join(", "));
+  animatedElements.forEach((el) => observer!.observe(el));
+
+  // 4. Observar contenedores con escalonamiento (stagger)
+  const staggerContainers = document.querySelectorAll(".scroll-animate-stagger");
+  staggerContainers.forEach((container) => {
+    // Seleccionar solo los hijos directos
+    const children = container.querySelectorAll(":scope > *");
+    children.forEach((child, index) => {
+      child.classList.add("scroll-animate");
+      
+      // Asignar delay dinámico en línea para el escalonamiento (50ms por elemento)
+      if (child instanceof HTMLElement) {
+        child.style.transitionDelay = `${index * 50}ms`;
+      }
+      
+      observer!.observe(child);
+    });
+  });
 }
 
 export function cleanupAnimations() {
-  ScrollTrigger.getAll().forEach((t) => t.kill());
-  gsap.killTweensOf("*");
-}
-
-export function refreshScrollTrigger() {
-  requestAnimationFrame(() => {
-    ScrollTrigger.refresh();
-  });
-
-  setTimeout(() => {
-    ScrollTrigger.refresh();
-  }, 100);
-
-  setTimeout(() => {
-    ScrollTrigger.refresh();
-  }, 300);
-}
-
-export function initScrollAnimations() {
-  const animatedElements = document.querySelectorAll(".scroll-animate");
-  
-  animatedElements.forEach((el) => {
-    ScrollTrigger.create({
-      trigger: el,
-      start: "top 85%",
-      onEnter: () => el.classList.add("is-visible"),
-      onLeaveBack: () => el.classList.remove("is-visible"),
-    });
-  });
-}
-
-export function initScrollAnimationsLeft() {
-  const animatedElements = document.querySelectorAll(".scroll-animate-left");
-  
-  animatedElements.forEach((el) => {
-    ScrollTrigger.create({
-      trigger: el,
-      start: "top 85%",
-      onEnter: () => el.classList.add("is-visible"),
-      onLeaveBack: () => el.classList.remove("is-visible"),
-    });
-  });
-}
-
-export function initScrollAnimationsRight() {
-  const animatedElements = document.querySelectorAll(".scroll-animate-right");
-  
-  animatedElements.forEach((el) => {
-    ScrollTrigger.create({
-      trigger: el,
-      start: "top 85%",
-      onEnter: () => el.classList.add("is-visible"),
-      onLeaveBack: () => el.classList.remove("is-visible"),
-    });
-  });
-}
-
-export function initScrollAnimationsScale() {
-  const animatedElements = document.querySelectorAll(".scroll-animate-scale");
-  
-  animatedElements.forEach((el) => {
-    ScrollTrigger.create({
-      trigger: el,
-      start: "top 85%",
-      onEnter: () => el.classList.add("is-visible"),
-      onLeaveBack: () => el.classList.remove("is-visible"),
-    });
-  });
-}
-
-export function initStaggerAnimations() {
-  const animatedContainers = document.querySelectorAll(".scroll-animate-stagger");
-  
-  animatedContainers.forEach((container) => {
-    const children = container.querySelectorAll(":scope > *");
-    
-    children.forEach((child, index) => {
-      child.classList.add("scroll-animate");
-      child.style.transitionDelay = `${index * 50}ms`;
-      
-      ScrollTrigger.create({
-        trigger: child,
-        start: "top 85%",
-        onEnter: () => child.classList.add("is-visible"),
-        onLeaveBack: () => child.classList.remove("is-visible"),
-      });
-    });
-  });
-}
-
-export function safetyNet() {
-  setTimeout(() => {
-    const potentialAnimatedElements = document.querySelectorAll(
-      "header, footer, section, main > div, article, .grid, h1, h2, h3, h4, h5, h6, p, a, button, .card, .project-card, .cta-section"
-    );
-    
-    potentialAnimatedElements.forEach(el => {
-      const style = getComputedStyle(el);
-      const isInvisible = style.opacity === "0" || style.visibility === "hidden" || style.display === "none";
-      const hasContent = el.innerHTML.trim().length > 0;
-      const rect = el.getBoundingClientRect();
-      const isNearViewport = rect.top < 2000 && rect.top > -1000;
-      
-      if (isInvisible && hasContent && isNearViewport) {
-        console.warn("GSAP Safety Net: forcing visibility on:", el.tagName, el.className);
-        gsap.set(el, { clearProps: "opacity,visibility" });
-        gsap.to(el, { opacity: 1, visibility: "visible", duration: 0.1 });
-      }
-    });
-    ScrollTrigger.refresh();
-  }, 1500);
+  // Desconectar el observer para evitar fugas de memoria 
+  // cuando Astro intercambia páginas (ViewTransitions)
+  if (observer) {
+    observer.disconnect();
+    observer = null;
+  }
 }
 
 export function initAllAnimations() {
-  refreshScrollTrigger();
-  initScrollAnimations();
-  initScrollAnimationsLeft();
-  initScrollAnimationsRight();
-  initScrollAnimationsScale();
-  initStaggerAnimations();
-  safetyNet();
+  cleanupAnimations();
+  setupAnimations();
 }
-
-export { gsap, ScrollTrigger };

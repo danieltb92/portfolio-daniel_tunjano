@@ -25,12 +25,12 @@ const translateLabels = useTranslations(
     class="items-center mt-[64px] pt-10 lg:pt-20 h-auto text-center max-w-7xl m-auto px-4 md:px-6"
   >
     <h1
-      class="text-start text-3xl md:text-4xl lg:text-5xl font-bold mb-8 md:mb-16 py-5 px-4 md:px-10"
+      class="scroll-animate text-start text-3xl md:text-4xl lg:text-5xl font-bold mb-8 md:mb-16 py-5 px-4 md:px-10"
     >
       {translateLabels("page.about.title")}
     </h1>
     <p
-      class="flex px-4 md:px-10 text-start text-[8vw] md:text-[7vw] lg:text-[4vw] font-medium m-0 mb-12 md:mb-16 leading-[1.1] tracking-tight"
+      class="scroll-animate flex px-4 md:px-10 text-start text-[8vw] md:text-[7vw] lg:text-[4vw] font-medium m-0 mb-12 md:mb-16 leading-[1.1] tracking-tight"
     >
       {translateLabels("page.about.teaser")}
     </p>
@@ -41,7 +41,7 @@ const translateLabels = useTranslations(
         class="px-4 md:px-10 flex flex-col justify-center order-2 lg:order-1"
       >
         <p
-          class="flex justify-items-center justify-center justify-self-center align-middle text-base md:text-md text-left m-auto py-5 whitespace-pre-line"
+          class="scroll-animate flex justify-items-center justify-center justify-self-center align-middle text-base md:text-md text-left m-auto py-5 whitespace-pre-line"
         >
           {translateLabels("page.about.paragraph")}
         </p>
@@ -80,7 +80,7 @@ const translateLabels = useTranslations(
         class="flex justify-center items-center overflow-visible order-1 lg:order-2"
       >
         <DanielIlustration
-          class="w-full max-w-[320px] md:max-w-[450px] h-auto overflow-visible py-4 md:py-8 block"
+          class="scroll-animate w-full max-w-[320px] md:max-w-[450px] h-auto overflow-visible py-4 md:py-8 block"
         />
       </div>
     </article>
@@ -136,63 +136,3 @@ const translateLabels = useTranslations(
 </main>
 </Layout>
 
-<script>
-  import { gsap } from "gsap";
-  import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-  gsap.registerPlugin(ScrollTrigger);
-
-  const initAboutAnimation = () => {
-    const main = document.querySelector("main");
-    if (!main) return;
-
-    const animatedElements = ["main h1", "main p", "article p", "svg[class*='DanielIlustration']"];
-    gsap.set(animatedElements, { opacity: 1, y: 0, x: 0 });
-
-    const tl = gsap.timeline({ 
-      defaults: { ease: "power3.out", duration: 0.8 },
-      onComplete: () => {
-        ScrollTrigger.refresh();
-      }
-    });
-
-    const title = main.querySelector("h1");
-    const teaser = main.querySelector("p");
-    const articleText = main.querySelector("article p");
-    
-    const illuEl = document.querySelector(".DanielIlustration") || document.querySelector('svg[class*="DanielIlustration"]');
-    
-    gsap.set([title, teaser, articleText, illuEl].filter(Boolean), { opacity: 0 });
-
-    if (title) {
-      tl.to(title, { y: 0, opacity: 1, clearProps: "all" });
-    }
-    if (teaser) {
-      tl.to(teaser, { y: 0, opacity: 1, clearProps: "all" }, "-=0.6");
-    }
-    if (articleText) {
-      tl.to(articleText, { x: 0, opacity: 1, clearProps: "all" }, "-=0.6");
-    }
-    if (illuEl) {
-       tl.to(illuEl, { x: 0, opacity: 1, clearProps: "all" }, "-=0.6");
-    }
-    
-ScrollTrigger.refresh();
-    
-    // Fallback: forzar visibilidad después de 1.5 segundos si la animación no se ejecutó
-    setTimeout(() => {
-      [title, teaser, articleText, illuEl].filter(Boolean).forEach(el => {
-        if (el) {
-          const style = getComputedStyle(el);
-          if (style.opacity === "0") {
-            gsap.set(el, { clearProps: "all" });
-            gsap.to(el, { opacity: 1, y: 0, x: 0, duration: 0.3 });
-          }
-        }
-      });
-    }, 1500);
-  };
-
-  initAboutAnimation();
-  document.addEventListener("astro:after-swap", initAboutAnimation);
-</script>
