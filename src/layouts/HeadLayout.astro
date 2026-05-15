@@ -8,7 +8,7 @@ const { pathname } = Astro.url;
 // Buscar coincidencia exacta o por patrón (soporta comodines tipo /projects/*)
 function matchSEO(
   pages: Array<{ path: string; title: string; description: string }>,
-  path: string
+  path: string,
 ): { path: string; title: string; description: string } | undefined {
   if (!Array.isArray(pages)) return undefined;
   // Coincidencia exacta primero
@@ -16,7 +16,7 @@ function matchSEO(
   if (found) return found;
   // Coincidencia por wildcard
   found = pages.find(
-    (p) => p.path.endsWith("/*") && path.startsWith(p.path.replace("/*", ""))
+    (p) => p.path.endsWith("/*") && path.startsWith(p.path.replace("/*", "")),
   );
   return found;
 }
@@ -46,14 +46,20 @@ const currentLang = Astro.currentLocale || "es";
   <ViewTransitions />
   <link rel="sitemap" href="/sitemap-index.xml" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZ3ZG2P3VG"></script>
+  <!-- Google Tag Manager -->
   <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-VZ3ZG2P3VG');
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+      var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != "dataLayer" ? "&l=" + l : "";
+      j.async = true;
+      j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, "script", "dataLayer", "GTM-KLZKSS6B");
   </script>
+  <!-- End Google Tag Manager -->
   <script is:inline src="https://t.contentsquare.net/uxa/d5eecf66467a1.js"
   ></script>
   <link
@@ -80,7 +86,7 @@ const currentLang = Astro.currentLocale || "es";
     (function () {
       const saved = localStorage.getItem("theme");
       const prefersDark = window.matchMedia(
-        "(prefers-color-scheme: dark)"
+        "(prefers-color-scheme: dark)",
       ).matches;
 
       let theme = "light";
