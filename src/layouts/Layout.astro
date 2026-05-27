@@ -39,6 +39,18 @@ const translateLabels = useTranslations(
 <script>
   import { initAllAnimations, cleanupAnimations } from "@/lib/animations";
 
+  // Redirect to English if browser language is English and user is on default (Spanish) root
+  if (location.pathname === "/") {
+    const alreadyRedirected = sessionStorage.getItem("lang-redirected");
+    if (!alreadyRedirected) {
+      const browserLang = navigator.language || (navigator as any).userLanguage;
+      if (browserLang?.startsWith("en")) {
+        sessionStorage.setItem("lang-redirected", "true");
+        location.href = "/en/";
+      }
+    }
+  }
+
   // Ejecutar al cargar la página inicial
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", initAllAnimations);
