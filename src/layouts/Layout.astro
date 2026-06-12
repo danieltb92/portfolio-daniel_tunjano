@@ -8,15 +8,24 @@ import { languageList } from "@/i18n/ui";
 import Head from "@/layouts/HeadLayout.astro";
 import CursorTrail from "@/components/effects/CursorTrail.astro";
 
+export interface Props {
+  title?: string;
+  description?: string;
+  image?: { src: string; alt: string };
+  type?: string;
+}
+
 const currentLang = Astro.currentLocale || "es";
 const translateLabels = useTranslations(
   currentLang as keyof typeof languageList,
 );
+
+const { title, description, image, type } = Astro.props;
 ---
 
 <!doctype html>
 <html lang={currentLang}>
-  <Head title={Astro.props.title} description={Astro.props.description} />
+  <Head title={title} description={description} image={image} type={type} />
   <body>
     <!-- Google Tag Manager (noscript) -->
     <noscript
@@ -38,18 +47,6 @@ const translateLabels = useTranslations(
 
 <script>
   import { initAllAnimations, cleanupAnimations } from "@/lib/animations";
-
-  // Redirect to English if browser language is English and user is on default (Spanish) root
-  if (location.pathname === "/") {
-    const alreadyRedirected = sessionStorage.getItem("lang-redirected");
-    if (!alreadyRedirected) {
-      const browserLang = navigator.language || (navigator as any).userLanguage;
-      if (browserLang?.startsWith("en")) {
-        sessionStorage.setItem("lang-redirected", "true");
-        location.href = "/en/";
-      }
-    }
-  }
 
   // Ejecutar al cargar la página inicial
   if (document.readyState === "loading") {

@@ -4,42 +4,71 @@ import { ViewTransitions } from "astro:transitions";
 import SEO from "@/components/seo/SEO.astro";
 import seo from "@/data/seo.json";
 
+export interface Props {
+  title?: string;
+  description?: string;
+  image?: { src: string; alt: string };
+  type?: string;
+}
+
 const { pathname } = Astro.url;
-// Buscar coincidencia exacta o por patrón (soporta comodines tipo /projects/*)
+const currentLang = Astro.currentLocale || "es";
+
+function normalizePath(path: string): string {
+  if (path === "/" || path === "/en/") return path;
+  return path.endsWith("/") ? path.slice(0, -1) : path;
+}
+
 function matchSEO(
   pages: Array<{ path: string; title: string; description: string }>,
   path: string,
 ): { path: string; title: string; description: string } | undefined {
   if (!Array.isArray(pages)) return undefined;
-  // Coincidencia exacta primero
-  let found = pages.find((p) => p.path === path);
+  const normalizedPath = normalizePath(path);
+  let found = pages.find((p) => normalizePath(p.path) === normalizedPath);
   if (found) return found;
-  // Coincidencia por wildcard
   found = pages.find(
-    (p) => p.path.endsWith("/*") && path.startsWith(p.path.replace("/*", "")),
+    (p) =>
+      p.path.endsWith("/*") &&
+      normalizedPath.startsWith(normalizePath(p.path.replace("/*", ""))),
   );
   return found;
 }
 
 const matchedSEO = matchSEO(seo.pages, pathname);
-// Permitir sobreescribir desde props (útil para páginas dinámicas)
 const props = Astro.props || {};
 function isValid(val: unknown): val is string {
   return typeof val === "string" && val.trim().length > 0;
 }
+
+const defaultSEO =
+  currentLang === "en"
+    ? {
+        title: seo.en?.title || seo.default.title,
+        description: seo.en?.description || seo.default.description,
+      }
+    : {
+        title: seo.default.title,
+        description: seo.default.description,
+      };
+const defaultType = pathname.includes("/projects/")
+  ? "article"
+  : pathname.includes("/about")
+    ? "profile"
+    : seo.default.type;
+
 const pageSEO = {
   title: isValid(props.title)
     ? props.title
     : matchedSEO && isValid(matchedSEO.title)
       ? matchedSEO.title
-      : seo.default.title,
+      : defaultSEO.title,
   description: isValid(props.description)
     ? props.description
     : matchedSEO && isValid(matchedSEO.description)
       ? matchedSEO.description
-      : seo.default.description,
+      : defaultSEO.description,
 };
-const currentLang = Astro.currentLocale || "es";
 ---
 
 <head>
@@ -72,12 +101,12 @@ const currentLang = Astro.currentLocale || "es";
   <SEO
     title={pageSEO.title}
     description={pageSEO.description}
-    keywords={seo.default.keywords}
+    keywords={currentLang === "en" ? seo.en?.keywords : seo.default.keywords}
     author={seo.default.author}
-    image={seo.default.image}
+    image={props.image || seo.default.image}
     siteName={seo.default.siteName}
-    locale={seo.default.locale}
-    type={seo.default.type}
+    locale={currentLang === "en" ? "en_US" : "es_ES"}
+    type={props.type || defaultType}
     robots="index, follow"
   />
 

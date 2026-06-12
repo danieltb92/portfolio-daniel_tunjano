@@ -23,7 +23,6 @@ export default defineConfig({
     sitemap({
       changefreq: "weekly",
       priority: 0.7,
-      lastmod: new Date(),
       serialize: (item) => {
         if (item.url === "https://danieltunjano.online/" || item.url === "https://danieltunjano.online") {
           return {

@@ -1,7 +1,7 @@
 {
   "default": {
-    "title": "Daniel Tunjano | Portafolio",
-    "description": "Portafolio de Daniel Tunjano, desarrollador web y diseñador industrial & UX/UI.",
+    "title": "Daniel Tunjano | Desarrollador Web y Diseñador UX/UI",
+    "description": "Portafolio de Daniel Tunjano: desarrollo web frontend, diseño UX/UI, proyectos en Astro, React y experiencias digitales.",
     "keywords": [
       "Daniel Tunjano",
       "portafolio",
@@ -22,19 +22,47 @@
     ],
     "author": "Daniel Tunjano",
     "image": {
-      "src": "https://github.com/user-attachments/assets/45a80196-9909-43fe-a37c-03cb1132eb80",
-      "alt": "Imagen de portada para Daniel Tunjano"
+      "src": "/imageOG.webp",
+      "alt": "Daniel Tunjano - Desarrollador web y diseñador UX/UI"
     },
     "siteName": "Daniel Tunjano",
     "locale": "es_ES",
     "type": "website",
     "siteUrl": "https://danieltunjano.online"
   },
+  "en": {
+    "title": "Daniel Tunjano | Web Developer & UX/UI Designer",
+    "description": "Daniel Tunjano portfolio: frontend development, UX/UI design, Astro and React projects, and digital product experiences.",
+    "keywords": [
+      "Daniel Tunjano",
+      "portfolio",
+      "web developer",
+      "industrial designer",
+      "projects",
+      "skills",
+      "Frontend Developer",
+      "React",
+      "Next.js",
+      "Astro",
+      "JavaScript",
+      "TypeScript",
+      "Web Design",
+      "UX/UI",
+      "Web Development",
+      "Web Technologies"
+    ],
+    "locale": "en_US"
+  },
   "pages": [
     {
       "path": "/",
-      "title": "Portfolio | Daniel Tunjano",
-      "description": "Portafolio de Daniel Tunjano, desarrollador web y diseñador industrial & UX/UI."
+      "title": "Daniel Tunjano | Desarrollador Web y Diseñador UX/UI",
+      "description": "Portafolio de Daniel Tunjano: desarrollo web frontend, diseño UX/UI, proyectos en Astro, React y experiencias digitales."
+    },
+    {
+      "path": "/en/",
+      "title": "Daniel Tunjano | Web Developer & UX/UI Designer",
+      "description": "Daniel Tunjano portfolio: frontend development, UX/UI design, Astro and React projects, and digital product experiences."
     },
     {
       "path": "/projects/*",
@@ -42,9 +70,19 @@
       "description": "Detalle del proyecto de Daniel Tunjano."
     },
     {
+      "path": "/en/projects/*",
+      "title": "Project - Daniel Tunjano",
+      "description": "Daniel Tunjano project details."
+    },
+    {
       "path": "/about/",
       "title": "Sobre Mí - Daniel Tunjano",
       "description": "Conoce más sobre Daniel Tunjano, su trayectoria como desarrollador web y diseñador industrial."
+    },
+    {
+      "path": "/en/about/",
+      "title": "About Me - Daniel Tunjano",
+      "description": "Learn more about Daniel Tunjano, his career as a web developer and industrial designer."
     }
   ]
 }

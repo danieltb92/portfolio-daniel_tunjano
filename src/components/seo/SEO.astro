@@ -18,37 +18,81 @@ const props = Astro.props;
 
 const { siteUrl } = SEO_DATA.default;
 
+const currentLang = Astro.currentLocale || 'es';
+const isEN = currentLang === 'en';
+
 const finalTitle = props.title;
 const finalDescription = props.description;
-const finalKeywords = props.keywords || SEO_DATA.default.keywords;
+const finalKeywords = props.keywords || (isEN ? SEO_DATA.en?.keywords : SEO_DATA.default.keywords);
 const finalAuthor = props.author || SEO_DATA.default.author;
 const finalImage = props.image || SEO_DATA.default.image;
 const finalSiteName = props.siteName || SEO_DATA.default.siteName;
-const finalLocale = props.locale || SEO_DATA.default.locale;
+const finalLocale = isEN ? 'en_US' : 'es_ES';
 const finalType = props.type || SEO_DATA.default.type;
 const finalRobots = props.noindex ? 'noindex, nofollow' : (props.robots || 'index, follow');
 
-const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
+function normalizePathname(pathname: string): string {
+  const path = pathname.startsWith('/') ? pathname : `/${pathname}`;
+
+  if (path === '/en') return '/en/';
+  if (path === '/' || path === '/en/') return path;
+  return path.endsWith('/') ? path.slice(0, -1) : path;
+}
+
+function getLocalizedPath(pathname: string, lang: 'es' | 'en'): string {
+  const path = normalizePathname(pathname);
+
+  if (lang === 'en') {
+    if (path === '/') return '/en/';
+    if (path === '/en/' || path.startsWith('/en/')) return path;
+    return `/en${path}`;
+  }
+
+  if (path === '/en/' || path === '/en') return '/';
+  if (path.startsWith('/en/')) return normalizePathname(path.slice(3));
+  return path;
+}
+
+const canonicalPath = normalizePathname(Astro.url.pathname);
+const canonicalUrl = new URL(canonicalPath, `${siteUrl}/`).href;
 
 const isHomePage = Astro.url.pathname === '/' || Astro.url.pathname === '/en/';
+
+function getOGImageType(src: string): string {
+  if (src.endsWith('.png')) return 'image/png';
+  if (src.endsWith('.webp')) return 'image/webp';
+  if (src.endsWith('.avif')) return 'image/avif';
+  return 'image/jpeg';
+}
+
+const ogImageType = getOGImageType(finalImage.src);
+
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": finalAuthor,
+  "url": siteUrl,
+  "jobTitle": isEN ? "Web Developer & UX/UI Designer" : "Desarrollador Web & Diseñador UX/UI",
+  "email": "danieltb92@hotmail.com",
+  "sameAs": [
+    "https://github.com/DanielTunjano",
+    "https://www.linkedin.com/in/danieltunjano",
+    "https://x.com/danieltb1992"
+  ],
+  "knowsAbout": isEN
+    ? ["Web Development", "Frontend", "React", "Next.js", "Astro", "JavaScript", "TypeScript", "UX/UI Design", "Industrial Design"]
+    : ["Desarrollo Web", "Frontend", "React", "Next.js", "Astro", "JavaScript", "TypeScript", "Diseño UX/UI", "Diseño Industrial"]
+};
 
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": finalSiteName,
   "url": siteUrl,
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": {
-      "@type": "EntryPoint",
-      "urlTemplate": `${siteUrl}/search?q={search_term_string}`
-    },
-    "query-input": "required name=search_term_string"
-  },
   "about": {
     "@type": "Thing",
-    "name": "Desarrollo Web y Diseño UX/UI",
-    "description": "Portafolio de desarrollador web y diseñador industrial"
+    "name": isEN ? "Web Development & UX/UI Design" : "Desarrollo Web y Diseño UX/UI",
+    "description": isEN ? "Web developer and industrial designer portfolio" : "Portafolio de desarrollador web y diseñador industrial"
   },
   "author": {
     "@type": "Person",
@@ -57,69 +101,57 @@ const websiteSchema = {
   }
 };
 
-const organizationSchema = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": finalSiteName,
-  "url": siteUrl,
-  "logo": new URL(finalImage.src, siteUrl).href,
-  "sameAs": [
-    "https://github.com/DanielTunjano",
-    "https://www.linkedin.com/in/danieltunjano",
-    "https://twitter.com/DanielTunjano"
-  ],
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "email": "daniel@example.com",
-    "contactType": "Developer"
-  },
-  "memberOf": {
-    "@type": "ProgramMembership",
-    "memberName": "Developer Community"
+function getBreadcrumbItems() {
+  const items = [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": isEN ? "Home" : "Inicio",
+      "item": isEN ? new URL('/en/', `${siteUrl}/`).href : new URL('/', `${siteUrl}/`).href
+    }
+  ];
+
+  const pathname = Astro.url.pathname;
+
+  if (pathname.includes('/projects/')) {
+    items.push({
+      "@type": "ListItem",
+      "position": 2,
+      "name": isEN ? "Projects" : "Proyectos",
+      "item": isEN ? new URL('/en/#projects', `${siteUrl}/`).href : new URL('/#projects', `${siteUrl}/`).href
+    });
+    items.push({
+      "@type": "ListItem",
+      "position": 3,
+      "name": finalTitle,
+      "item": canonicalUrl
+    });
+  } else if (pathname.includes('/about')) {
+    items.push({
+      "@type": "ListItem",
+      "position": 2,
+      "name": isEN ? "About Me" : "Sobre Mí",
+      "item": canonicalUrl
+    });
   }
-};
+
+  return items;
+}
 
 const breadcrumbSchema = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Inicio",
-      "item": siteUrl
-    }
-  ]
+  "itemListElement": getBreadcrumbItems()
 };
 
-let breadcrumbItems = breadcrumbSchema.itemListElement;
-
-if (!isHomePage && Astro.url.pathname.includes('/projects/')) {
-  breadcrumbItems.push({
-    "@type": "ListItem",
-    "position": 2,
-    "name": "Proyectos",
-    "item": `${siteUrl}/projects`
-  });
-  breadcrumbItems.push({
-    "@type": "ListItem",
-    "position": 3,
-    "name": finalTitle,
-    "item": canonicalUrl
-  });
-} else if (!isHomePage && Astro.url.pathname.includes('/about')) {
-  breadcrumbItems.push({
-    "@type": "ListItem",
-    "position": 2,
-    "name": "Sobre Mí",
-    "item": canonicalUrl
-  });
-}
+const esUrl = new URL(getLocalizedPath(canonicalPath, 'es'), `${siteUrl}/`).href;
+const enUrl = new URL(getLocalizedPath(canonicalPath, 'en'), `${siteUrl}/`).href;
 ---
 
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="generator" content={Astro.generator} />
+<meta name="theme-color" content="#1d4ed8" />
 
 <title>{finalTitle}</title>
 <meta name="description" content={finalDescription} />
@@ -129,6 +161,10 @@ if (!isHomePage && Astro.url.pathname.includes('/projects/')) {
 
 <link rel="canonical" href={canonicalUrl} />
 
+<link rel="alternate" hreflang="es" href={esUrl} />
+<link rel="alternate" hreflang="en" href={enUrl} />
+<link rel="alternate" hreflang="x-default" href={esUrl} />
+
 <meta property="og:type" content={finalType} />
 <meta property="og:url" content={canonicalUrl} />
 <meta property="og:title" content={finalTitle} />
@@ -136,28 +172,30 @@ if (!isHomePage && Astro.url.pathname.includes('/projects/')) {
 <meta property="og:image" content={new URL(finalImage.src, siteUrl).href} />
 <meta property="og:image:url" content={new URL(finalImage.src, siteUrl).href} />
 <meta property="og:image:secure_url" content={new URL(finalImage.src, siteUrl).href} />
-<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:type" content={ogImageType} />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="600" />
 <meta property="og:image:alt" content={finalImage.alt || finalTitle} />
 <meta property="og:site_name" content={finalSiteName} />
 <meta property="og:locale" content={finalLocale} />
+<meta property="og:locale:alternate" content={isEN ? 'es_ES' : 'en_US'} />
 
 <meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@danieltb1992" />
+<meta name="twitter:creator" content="@danieltb1992" />
 <meta name="twitter:title" content={finalTitle} />
 <meta name="twitter:description" content={finalDescription} />
 <meta name="twitter:image" content={new URL(finalImage.src, siteUrl).href} />
-<meta name="twitter:image:alt" content={finalTitle} />
-<meta name="twitter:domain" content={siteUrl} />
+<meta name="twitter:image:alt" content={finalImage.alt || finalTitle} />
 
 {isHomePage && (
   <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
 )}
 
-<script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+<script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
 
 {!isHomePage && (
-  <script type="application/ld+json" set:html={JSON.stringify({...breadcrumbSchema, itemListElement: breadcrumbItems})} />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
 )}
 
 <script type="application/ld+json" set:html={JSON.stringify({
@@ -166,6 +204,17 @@ if (!isHomePage && Astro.url.pathname.includes('/projects/')) {
   "name": finalTitle,
   "description": finalDescription,
   "url": canonicalUrl,
+  "inLanguage": isEN ? "en-US" : "es-ES",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": finalSiteName,
+    "url": siteUrl
+  },
+  "author": {
+    "@type": "Person",
+    "name": finalAuthor,
+    "url": siteUrl
+  },
   "image": {
     "@type": "ImageObject",
     "url": new URL(finalImage.src, siteUrl).href,

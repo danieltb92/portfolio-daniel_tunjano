@@ -91,7 +91,7 @@ const translateLabels = useTranslations(
       <ul class="flex flex-col py-4">
         <li>
           <a
-            href="/about"
+            href={getRelativeLocaleUrl(currentLang, "about")}
             class="block content-center pl-8 px-2 py-2 text-2xl h-20 border-b-1 border-[var(--color-text)] hover:border-b-[var(--color-primary)] transition-colors"
           >
             {translateLabels("nav.about")}
