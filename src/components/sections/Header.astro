@@ -19,7 +19,7 @@ const translateLabels = useTranslations(
     class="max-w-lg md:max-w-4xl mx-auto mt-2 mb-10 flex justify-center items-center flex-col lg:flex-row"
   >
     <div
-      class="w-full md:max-w-lg flex items-center justify-between lg:justify-center h-13 gap-18 px-6 bg-[var(--color-bg)]/50 backdrop-blur-md rounded-4xl shadow-md dark:shadow-white/10"
+      class="w-full md:max-w-lg flex items-center justify-between lg:justify-center h-13 gap-18 px-6 bg-[var(--color-bg)]/80 backdrop-blur-md rounded-4xl shadow-md dark:shadow-white/10"
     >
       <!-- Logo o Nombre -->
       <a href={getRelativeLocaleUrl(currentLang, "/")}><Logo class="w-10" /></a>
@@ -123,62 +123,78 @@ const translateLabels = useTranslations(
 </header>
 
 <script>
-  // Manejo del menú móvil
-  const menuToggle = document.getElementById("menu-toggle");
-  const mobileMenu = document.getElementById("mobile-menu");
-  const menuIconOpen = document.getElementById("menu-icon-open");
-  const menuIconClose = document.getElementById("menu-icon-close");
-  let isMenuOpen = false;
+  function initHeader() {
+    window.__headerController?.abort();
+    const controller = new AbortController();
+    window.__headerController = controller;
+    const { signal } = controller;
 
-  if (menuToggle && mobileMenu && menuIconOpen && menuIconClose) {
-    menuToggle.addEventListener("click", () => {
-      isMenuOpen = !isMenuOpen;
-      mobileMenu.classList.toggle("hidden");
+    let isMenuOpen = false;
 
-      // Alternar entre iconos de menú y cerrar
-      if (isMenuOpen) {
-        menuIconOpen.classList.add("hidden");
-        menuIconClose.classList.remove("hidden");
-      } else {
-        menuIconOpen.classList.remove("hidden");
-        menuIconClose.classList.add("hidden");
-      }
-    });
+    // Manejo del menú móvil
+    const menuToggle = document.getElementById("menu-toggle");
+    const mobileMenu = document.getElementById("mobile-menu");
+    const menuIconOpen = document.getElementById("menu-icon-open");
+    const menuIconClose = document.getElementById("menu-icon-close");
 
-    // Cerrar menú al hacer click en un enlace
-    const menuLinks = mobileMenu.querySelectorAll("a");
-    menuLinks.forEach((link) => {
-      link.addEventListener("click", () => {
-        mobileMenu.classList.add("hidden");
-        isMenuOpen = false;
-        menuIconOpen.classList.remove("hidden");
-        menuIconClose.classList.add("hidden");
+    if (menuToggle && mobileMenu && menuIconOpen && menuIconClose) {
+      menuToggle.addEventListener("click", () => {
+        isMenuOpen = !isMenuOpen;
+        mobileMenu.classList.toggle("hidden");
+
+        if (isMenuOpen) {
+          menuIconOpen.classList.add("hidden");
+          menuIconClose.classList.remove("hidden");
+        } else {
+          menuIconOpen.classList.remove("hidden");
+          menuIconClose.classList.add("hidden");
+        }
+      }, { signal });
+
+      const menuLinks = mobileMenu.querySelectorAll("a");
+      menuLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          mobileMenu.classList.add("hidden");
+          isMenuOpen = false;
+          menuIconOpen.classList.remove("hidden");
+          menuIconClose.classList.add("hidden");
+        }, { signal });
       });
-    });
+    }
+
+    // Ocultar/mostrar header al hacer scroll
+    let lastScroll = 0;
+    const header = document.querySelector("header");
+
+    window.addEventListener("scroll", () => {
+      if (!header) return;
+
+      const currentScroll = window.pageYOffset;
+
+      if (currentScroll <= 0) {
+        header.classList.remove("-translate-y-full");
+        return;
+      }
+
+      if (currentScroll > lastScroll && !isMenuOpen) {
+        header.classList.add("-translate-y-full");
+      } else {
+        header.classList.remove("-translate-y-full");
+      }
+
+      lastScroll = currentScroll;
+    }, { signal });
   }
 
-  // Ocultar/mostrar header al hacer scroll
-  let lastScroll = 0;
-  const header = document.querySelector("header");
+  // Inicializar en carga inicial de página
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initHeader);
+  } else {
+    initHeader();
+  }
 
-  window.addEventListener("scroll", () => {
-    if (!header) return;
-
-    const currentScroll = window.pageYOffset;
-
-    if (currentScroll <= 0) {
-      header.classList.remove("-translate-y-full");
-      return;
-    }
-
-    if (currentScroll > lastScroll && !isMenuOpen) {
-      header.classList.add("-translate-y-full");
-    } else {
-      header.classList.remove("-translate-y-full");
-    }
-
-    lastScroll = currentScroll;
-  });
+  // Reinicializar tras cada navegación cliente (ViewTransitions)
+  document.addEventListener("astro:after-swap", initHeader);
 </script>
 
 <style>
