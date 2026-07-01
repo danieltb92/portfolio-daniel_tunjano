@@ -12,66 +12,93 @@ Un sitio web estático generado con Astro que destaca por su velocidad, diseño 
 
 - **Core Framework:** [Astro](https://astro.build/) (v5+)
 - **UI Framework:** [React](https://react.dev/) (v19) para componentes interactivos.
-- **Estilos:** [Tailwind CSS](https://tailwindcss.com/) (v4) para un diseño utility-first y responsive.
-- **Animaciones:** [Motion](https://motion.dev/) (anteriormente Framer Motion) para transiciones fluidas.
+- **Estilos:** [Tailwind CSS](https://tailwindcss.com/) (v4) con `@tailwindcss/vite`.
+- **Animaciones:** CSS nativas + IntersectionObserver (sin librerías externas). Ver `src/lib/animations.ts` y `src/styles/animations.css`.
 - **CMS / Datos:** [Notion API](https://developers.notion.com/) y `notion-to-md` para gestionar el contenido de los proyectos dinámicamente.
-- **Despliegue:** [Vercel](https://vercel.com/) con `@astrojs/vercel`.
+- **Markdown:** [marked](https://marked.js.org/) (v16) para renderizar contenido de proyectos.
+- **Despliegue:** [Vercel](https://vercel.com/) con `@astrojs/vercel` + Web Analytics.
+- **shadcn/ui:** Componentes base con `lucide-react` y registro `@magicui`.
 
 ## 4. Requerimientos Funcionales
 
-### 4.1. Estructura de la Página (Single Page Application feel)
+### 4.1. Estructura de la Página
 
 La navegación principal ocurre en una sola página (`index.astro`) dividida en secciones claras:
 
 1.  **Hero Section (`Hero.astro`)**
-
     - Presentación principal del desarrollador.
-    - Debe incluir elementos visuales atractivos (posibles efectos de fondo o animaciones de entrada).
+    - Incluye `InteractiveGridPattern` (React) como fondo interactivo.
+    - Efectos de fondo `Background.astro` (blobs animados CSS) y `BackgroundAura.astro`.
     - Llamada a la acción (CTA) inicial.
 
 2.  **Call to Action (`CTA.astro`)**
-
-    - Sección estratégica para dirigir al usuario a contactar o ver proyectos.
+    - Sección estratégica para dirigir al usuario a contacto.
+    - Incluye ilustración SVG decorativa.
 
 3.  **Logo Scroller (`LogoScroller.astro`)**
-
-    - Carrusel infinito o grid para mostrar tecnologías dominadas (Tech Stack) o clientes anteriores.
+    - Carrusel infinito horizontal con tecnologías dominadas.
+    - Implementado con `Scroller.astro` (componente UI reutilizable).
 
 4.  **Proyectos (`Projects.astro`)**
-
-    - Exhibición de trabajos realizados.
-    - **Integración de Datos:** Los proyectos se generan estáticamente obteniendo datos desde Notion mediante el script `src/utils/generate-projectsData.ts`.
-    - Cada tarjeta de proyecto debe incluir título, descripción, tecnologías usadas y enlaces (repo/demo).
+    - Exhibición de trabajos realizados en grid de `Card.astro`.
+    - **Integración de Datos:** Los proyectos se generan estáticamente obteniendo datos desde Notion mediante `pnpm generate` (`src/utils/generate-projectsData.ts`).
+    - Cada tarjeta incluye título, descripción, tecnologías y enlaces.
 
 5.  **Layout General (`Layout.astro`)**
-    - Debe incluir `Header` y `Footer`.
-    - Configuración de SEO y metadatos globales.
+    - `Header` con navegación, ThemeToggle y LanguageToggle.
+    - `Footer` con redes sociales y botón de copiar email (Web Component).
+    - Configuración de SEO vía `HeadLayout.astro`.
 
-### 4.2. Funcionalidades Transversales Implementadas
+### 4.2. Páginas Adicionales
+
+- **About** (`/about`, `/en/about`): Página de perfil y habilidades.
+- **Detalle de Proyecto** (`/projects/[slug]`): Renderiza markdown con `marked.parse()` y estilos prose.
+- **404**: Página personalizada de error.
+- **API Webhook** (`/api/make-webhook`): POST endpoint para re-generar contenido desde Make.com.
+
+### 4.3. Funcionalidades Transversales Implementadas
 
 - **Gestión de Contenido (CMS):**
-  - Sincronización con Notion a través del comando `pnpm generate` (`src/utils/generate-projectsData.ts`).
-- **Internacionalización (i18n):**
+  - Sincronización con Notion a través de `pnpm generate`.
+  - Webhook externo para re-generación automática desde Make.com.
+  - Transformers personalizados para bloques: video, code, embed, image, callout, file, column_list, column.
 
+- **Internacionalización (i18n):**
   - Configurado nativamente en Astro (`astro.config.mjs`).
-  - Idiomas soportados: Español (`es`, default) e Inglés (`en`).
-  - Enrutamiento sin prefijo para el idioma por defecto.
+  - Idiomas: Español (`es`, default sin prefijo) e Inglés (`en` con prefijo).
+  - Traducciones en `src/data/dataPage.json` con hook `useTranslations()`.
 
 - **Modo Oscuro/Claro:**
-  - Implementado totalmente vía CSS Variables y atributo `data-theme="dark"`.
-  - Definición de colores semánticos (`--color-bg`, `--color-text`, `--color-primary`, etc.) que cambian automáticamente según el tema activo.
+  - Toggle con 3 estados: light, dark, system.
+  - Persistencia en `localStorage("theme")`.
+  - Flash-prevention con script inline en `<head>`.
+  - CSS variables semánticas que cambian según `[data-theme="dark"]`.
 
-### 4.3. Detalles Visuales y Sistema de Diseño
+- **SEO:**
+  - Componente `SEO.astro` con Open Graph, Twitter Card, JSON-LD (Person, Website, BreadcrumbList).
+  - Sitemap automático con prioridades por sección.
+  - Meta tags de hreflang para i18n.
+
+- **Analytics:**
+  - Google Tag Manager
+  - ContentSquare
+  - Vercel Web Analytics
+
+- **Animaciones:**
+  - Scroll animations vía IntersectionObserver (fade-in, slide, scale, stagger).
+  - View Transitions con crossfade entre páginas.
+  - Respeto por `prefers-reduced-motion`.
+  - Efectos: CursorTrail, Snow, VantaBackground (web components).
+
+### 4.4. Detalles Visuales y Sistema de Diseño
 
 El proyecto cuenta con un sistema de diseño robusto definido en `src/styles/global.css`:
 
 - **Tipografía:**
-
   - **Títulos (Headings):** [Kufam](https://fonts.google.com/specimen/Kufam) (Variable Font). Estilo moderno y geométrico.
   - **Cuerpo (Body):** [Inter](https://fonts.google.com/specimen/Inter) (Variable Font). Legibilidad y neutralidad.
 
 - **Paleta de Colores:**
-
   - **Primary Blue:** Escala completa desde `#eff9ff` (50) hasta `#04314d` (950).
   - **Secondary Slate:** Escala de grises azulados para interfaces modernas.
   - **Neutrals:** Escala de grises puros para textos y fondos.
@@ -83,21 +110,87 @@ El proyecto cuenta con un sistema de diseño robusto definido en `src/styles/glo
   - `--color-primary`: Color de marca (Light: Blue-600 / Dark: Blue-300).
   - `--color-secondary`: Color secundario (Light: Slate-800 / Dark: Blue-500).
 
+- **shadcn/ui:** Variables CSS en formato `--background`, `--foreground`, `--primary`, etc. con variantes `.dark`.
+
 ## 5. Requerimientos No Funcionales
 
-- **Performance:** Optimización extrema aprovechando la arquitectura de "Islas" de Astro.
-- **SEO:** Implementación de etiquetas meta, Open Graph y mapa del sitio (`@astrojs/sitemap`).
-- **Diseño Responsivo:** Adaptabilidad total usando Tailwind CSS v4.
+- **Performance:** Sitio 100% estático. Sin JavaScript innecesario (islas de React solo donde se necesitan).
+- **SEO:** Implementación completa de meta tags, Open Graph, Twitter Cards, JSON-LD y sitemap.
+- **Diseño Responsivo:** Adaptabilidad total usando Tailwind CSS v4 con enfoque mobile-first.
+- **Accesibilidad:** Contraste suficiente, etiquetas aria, navegación por teclado.
 
 ## 6. Scripts del Proyecto (pnpm)
 
-- `pnpm dev`: Inicia el servidor de desarrollo.
-- `pnpm build`: Ejecuta la generación de datos y construye el sitio.
-- `pnpm generate`: Ejecuta el script de extracción de datos de Notion.
-- `pnpm preview`: Vista previa de la build de producción.
+| Comando | Descripción |
+|---------|-------------|
+| `pnpm dev` | Inicia servidor de desarrollo en puerto 4321 |
+| `pnpm build` | Ejecuta `pnpm generate` + `astro build` |
+| `pnpm preview` | Vista previa de la build de producción |
+| `pnpm generate` | Obtiene datos de Notion y genera JSON + MD |
+| `pnpm start` | Ejecuta generate + dev secuencialmente |
+| `pnpm start:prod` | Ejecuta generate + build secuencialmente |
+| `pnpm astro ...` | Ejecuta comandos de Astro CLI |
 
-## 7. Futuras Mejoras / Roadmap
+## 7. Variables de Entorno
 
-- Implementación de modo oscuro/claro (si no está ya implementado).
-- Blog personal integrado también mediante Notion.
-- Formulario de contacto funcional (integración con servicios como Formspree o serverless functions).
+```env
+NOTION_TOKEN=tu_notion_api_token
+NOTION_DATABASE_ID=tu_database_id
+MAKE_WEBHOOK_SECRET=tu_secreto_para_webhook
+```
+
+## 8. Estructura del Proyecto
+
+```
+src/
+├── assets/            # SVG icons, socials, tools, imágenes
+├── components/
+│   ├── effects/       # Snow, CursorTrail, VantaBackground
+│   ├── sections/      # Header, Hero, CTA, LogoScroller, Projects, Footer
+│   ├── seo/           # SEO.astro con JSON-LD
+│   └── ui/            # Button, Card, Badge, FadeIn, Scroller, Background, ThemeToggle, LanguageToggle, InteractiveGridPattern
+├── content/
+│   ├── config.ts      # Content collections
+│   └── project/       # MDs auto-generados desde Notion
+├── data/
+│   ├── projects.json  # Auto-generado
+│   ├── dataPage.json  # Traducciones ES/EN
+│   ├── data.json      # Perfil personal
+│   └── seo.json       # Config SEO
+├── i18n/
+│   ├── ui.ts          # languageList
+│   └── utils.ts       # useTranslations()
+├── layouts/
+│   ├── HeadLayout.astro  # <head> con SEO, fonts, flash-prevention
+│   └── Layout.astro      # Layout base con Header/Footer
+├── lib/
+│   ├── notion.ts      # Cliente Notion API
+│   ├── projects.ts    # Fetch de project cards
+│   ├── projectPage.ts # Fetch + transformers a MD
+│   ├── download-image.ts # Descarga de imágenes Notion
+│   ├── animations.ts  # IntersectionObserver controller
+│   └── utils.ts       # cn() utility
+├── pages/
+│   ├── index.astro    # Home ES
+│   ├── about.astro    # About ES
+│   ├── 404.astro
+│   ├── projects/[slug].astro
+│   ├── en/            # Rutas EN
+│   └── api/           # make-webhook.ts
+├── scripts/
+│   └── start.ts       # Helper generate + dev/build
+├── styles/
+│   ├── global.css     # Tailwind v4, variables, fonts
+│   └── animations.css # Keyframes, scroll animations, view transitions
+└── utils/
+    ├── generate-projectsData.ts  # Script principal de generación
+    ├── jsonLD.js      # Schema JSON-LD
+    └── slugify.js     # URL slugs
+```
+
+## 9. Futuras Mejoras / Roadmap
+
+- Blog personal integrado mediante Notion.
+- Formulario de contacto funcional (Formspree o serverless).
+- Tests automatizados (Playwright/Vitest).
+- Más variantes de animaciones de scroll.

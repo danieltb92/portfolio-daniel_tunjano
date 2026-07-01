@@ -19,21 +19,25 @@ Portafolio estático moderno construido con **Astro 5**, **Tailwind CSS 4** e in
 ## ✨ Características
 
 - 🌍 **Multiidioma** - Soporte completo en español e inglés con routing automático
-- 🎨 **Modo Oscuro** - Toggle de tema implementado con CSS variables
-- 📦 **Notion CMS** - Gestión de proyectos directamente desde Notion
+- 🎨 **Modo Oscuro** - Toggle de tema con 3 estados (light/dark/system) y flash-prevention
+- 📦 **Notion CMS** - Gestión de proyectos desde Notion + webhook para auto-actualización
 - ⚡ **Rendimiento** - Sitio estático pre-generado, sin JavaScript innecesario
-- 📱 **Responsive** - Diseño móvil-first con Tailwind CSS 4
-- 🔍 **SEO Optimizado** - Sitemaps automáticos y metadatos
-- 🚀 **Vercel Ready** - Desplegado en Vercel con builds automáticos
+- 📱 **Responsive** - Diseño mobile-first con Tailwind CSS 4
+- 🔍 **SEO Optimizado** - Open Graph, Twitter Cards, JSON-LD, sitemap con prioridades
+- 🚀 **Vercel Ready** - Desplegado en Vercel con Web Analytics y builds automáticos
+- 🎬 **Animaciones Nativas** - Scroll animations con IntersectionObserver (sin librerías externas)
 
 ## 🛠️ Tech Stack
 
-- **Framework:** [Astro 5](https://astro.build)
+- **Framework:** [Astro 5](https://astro.build) + ViewTransitions
 - **Styling:** [Tailwind CSS 4](https://tailwindcss.com) + `@tailwindcss/vite`
+- **UI Library:** [shadcn/ui](https://ui.shadcn.com) (new-york style) + [lucide-react](https://lucide.dev)
 - **CMS:** [Notion API](https://developers.notion.com)
 - **Markdown:** [marked](https://marked.js.org) + [notion-to-md](https://github.com/souvikinator/notion-to-md)
-- **React:** v19 (para componentes interactivos)
-- **Despliegue:** [Vercel](https://vercel.com)
+- **React:** v19 (componentes interactivos como InteractiveGridPattern)
+- **Animaciones:** CSS + IntersectionObserver (src/lib/animations.ts)
+- **Despliegue:** [Vercel](https://vercel.com) (static adapter + Web Analytics)
+- **Analytics:** Google Tag Manager + ContentSquare
 
 ## 📋 Requisitos Previos
 
@@ -64,6 +68,7 @@ Crear archivo `.env` en la raíz del proyecto:
 ```env
 NOTION_TOKEN=tu_notion_api_token
 NOTION_DATABASE_ID=tu_database_id
+MAKE_WEBHOOK_SECRET=tu_secreto_para_webhook
 ```
 
 Obtener el token en [Notion Integrations](https://www.notion.so/my-integrations).
@@ -92,40 +97,60 @@ Acceder a `http://localhost:4321`
 | Comando | Descripción |
 |---------|-------------|
 | `pnpm dev` | Inicia servidor local en puerto 4321 |
-| `pnpm build` | Genera sitio estático en `./dist/` |
-| `pnpm preview` | Previsualiza build local antes de desplegar |
+| `pnpm build` | Genera datos + build del sitio en `./dist/` |
+| `pnpm preview` | Previsualiza build local |
 | `pnpm generate` | Sincroniza proyectos desde Notion |
+| `pnpm start` | Generate + dev secuencial |
+| `pnpm start:prod` | Generate + build secuencial |
 | `pnpm astro ...` | Ejecuta comandos de Astro CLI |
 
 ## 📁 Estructura del Proyecto
 
 ```
 src/
+├── assets/               # Íconos SVG (icons/, socials/, tools/)
 ├── components/
-│   ├── sections/       # Secciones principales (Header, Hero, Projects, etc.)
-│   ├── ui/            # Componentes reutilizables (Button, Card, Badge, etc.)
-│   └── effects/       # Animaciones y efectos visuales (Snow, VantaBackground)
+│   ├── effects/          # Efectos visuales (Snow, CursorTrail, VantaBackground)
+│   ├── sections/         # Secciones de página (Header, Hero, Projects, CTA, Footer, LogoScroller)
+│   ├── seo/              # SEO component con JSON-LD
+│   └── ui/               # Componentes reutilizables (Button, Card, Badge, FadeIn, Scroller, Toggles, Background, InteractiveGridPattern)
 ├── content/
-│   └── project/       # Archivos markdown de proyectos (auto-generados)
+│   ├── config.ts         # Content collections de Astro
+│   └── project/          # Archivos markdown de proyectos (auto-generados)
 ├── data/
-│   ├── projects.json  # Datos de proyectos (auto-generado)
-│   └── dataPage.json  # Traducciones y configuración
+│   ├── projects.json     # Datos de proyectos (auto-generado)
+│   ├── dataPage.json     # Traducciones ES/EN
+│   ├── data.json         # Perfil personal
+│   └── seo.json          # Configuración SEO
 ├── i18n/
-│   └── ui.ts          # Sistema de traducciones
+│   ├── ui.ts             # languageList
+│   └── utils.ts          # useTranslations()
 ├── layouts/
-│   └── Layout.astro   # Layout base del sitio
+│   ├── HeadLayout.astro  # <head> con SEO, fonts, theme flash-prevention
+│   └── Layout.astro      # Layout base con Header/Footer/animations
 ├── lib/
-│   ├── notion.ts      # Cliente de Notion
-│   ├── projects.ts    # Lógica de obtención de proyectos
-│   └── projectPage.ts # Lógica de detalles de proyectos
+│   ├── notion.ts         # Cliente de Notion
+│   ├── projects.ts       # Fetch de project cards
+│   ├── projectPage.ts    # Fetch + transformers a markdown
+│   ├── download-image.ts # Descarga imágenes de Notion
+│   ├── animations.ts     # IntersectionObserver controller
+│   └── utils.ts          # cn() utility
 ├── pages/
-│   ├── index.astro    # Página de inicio (ES)
-│   ├── projects/      # Rutas de proyectos
-│   └── en/            # Rutas en inglés
+│   ├── index.astro       # Home (ES)
+│   ├── about.astro       # About (ES)
+│   ├── 404.astro
+│   ├── projects/         # Detalle de proyecto
+│   ├── en/               # Rutas en inglés
+│   └── api/              # Webhook endpoint (make-webhook.ts)
+├── scripts/
+│   └── start.ts          # Helper para generate + dev/build
 ├── styles/
-│   └── global.css     # Variables CSS y estilos globales
+│   ├── global.css        # Tailwind v4, variables CSS, fuentes
+│   └── animations.css    # Keyframes, scroll animations, view transitions
 └── utils/
-    └── generate-projectsData.ts # Script de generación de datos
+    ├── generate-projectsData.ts  # Script de generación de datos
+    ├── jsonLD.js                 # Generación de JSON-LD
+    └── slugify.js                # URL slugs
 ```
 
 ## 🎨 Personalización
@@ -154,7 +179,8 @@ Editar `src/data/dataPage.json` y usar `useTranslations(lang)` en componentes:
 
 ```astro
 ---
-import { useTranslations } from '@/i18n/ui'
+import { useTranslations } from '@/i18n/utils'
+import { languageList } from '@/i18n/ui'
 const t = useTranslations(Astro.currentLocale)
 ---
 
@@ -172,9 +198,23 @@ const t = useTranslations(Astro.currentLocale)
 El sitio está configurado para despliegue en **Vercel**:
 
 1. Conectar repositorio a Vercel
-2. Agregar variables de entorno (`NOTION_TOKEN`, `NOTION_DATABASE_ID`)
-3. Vercel ejecutará automáticamente `pnpm generate && pnpm build`
-4. El sitio se actualiza con cada push a la rama principal
+2. Agregar variables de entorno (`NOTION_TOKEN`, `NOTION_DATABASE_ID`, `MAKE_WEBHOOK_SECRET`)
+3. Framework preset: Astro (seleccionado automáticamente)
+4. Vercel ejecutará `pnpm generate && astro build` automáticamente
+5. El sitio se actualiza con cada push a la rama principal
+
+### Actualización Automática vía Webhook
+
+El proyecto expone un endpoint POST en `/api/make-webhook` protegido por `MAKE_WEBHOOK_SECRET`. Puedes configurar Make.com (o cualquier servicio) para llamar este endpoint cuando haya cambios en Notion, y el sitio se re-generará automáticamente.
+
+## 🎬 Animaciones
+
+El proyecto **no usa librerías externas** (no GSAP, no Framer Motion). Las animaciones son:
+
+- **Scroll-based:** IntersectionObserver (ver `src/lib/animations.ts` y `src/styles/animations.css`)
+- **View Transitions:** Crossfade nativo de Astro
+- **Efectos:** Cursor trail, snow particles (Web Components)
+- **Respeto:** `prefers-reduced-motion` para accesibilidad
 
 ## 📄 Licencia
 
@@ -186,3 +226,4 @@ Este proyecto está bajo la licencia MIT. Ver archivo [LICENSE](LICENSE) para m�
 - [Notion API Docs](https://developers.notion.com)
 - [Tailwind CSS Docs](https://tailwindcss.com/docs)
 - [Vercel Docs](https://vercel.com/docs)
+- [shadcn/ui](https://ui.shadcn.com)
