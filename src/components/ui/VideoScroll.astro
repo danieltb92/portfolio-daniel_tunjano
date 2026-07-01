@@ -1,0 +1,86 @@
+---
+import { type HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"div"> {}
+
+const { class: className, ...props } = Astro.props;
+---
+
+<video-scroll class:list={["block", className]} {...props}>
+  <slot />
+</video-scroll>
+
+<script>
+  class VideoScroll extends HTMLElement {
+    private video: HTMLVideoElement | null = null;
+    private observer: IntersectionObserver | null = null;
+    private muteBtn: HTMLButtonElement | null = null;
+    private isMuted: boolean = true;
+
+    constructor() {
+      super();
+    }
+
+    connectedCallback() {
+      this.video = this.querySelector("video");
+      if (!this.video) return;
+
+      this.video.muted = true;
+      this.video.loop = true;
+      this.video.playsInline = true;
+      this.video.preload = "auto";
+
+      this.buildMuteButton();
+
+      this.observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              this.video!.play().catch(() => {});
+            } else {
+              this.video!.pause();
+            }
+          });
+        },
+        { rootMargin: "0px 0px -50px 0px", threshold: 0.3 },
+      );
+
+      this.observer.observe(this);
+    }
+
+    disconnectedCallback() {
+      this.observer?.disconnect();
+      this.muteBtn?.remove();
+    }
+
+    private buildMuteButton() {
+      this.muteBtn = document.createElement("button");
+      this.muteBtn.setAttribute("type", "button");
+      this.muteBtn.setAttribute("aria-label", this.isMuted ? "Activar sonido" : "Silenciar");
+      this.muteBtn.className =
+        "absolute bottom-3 right-3 z-10 w-9 h-9 flex items-center justify-center rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors cursor-pointer border-none";
+      this.muteBtn.innerHTML = this.getIcon();
+
+      this.muteBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        this.isMuted = !this.isMuted;
+        if (this.video) {
+          this.video.muted = this.isMuted;
+        }
+        this.muteBtn!.innerHTML = this.getIcon();
+        this.muteBtn!.setAttribute("aria-label", this.isMuted ? "Activar sonido" : "Silenciar");
+      });
+
+      this.style.position = "relative";
+      this.appendChild(this.muteBtn);
+    }
+
+    private getIcon(): string {
+      return this.isMuted
+        ? `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>`
+        : `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>`;
+    }
+  }
+
+  customElements.define("video-scroll", VideoScroll);
+</script>

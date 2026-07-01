@@ -7,6 +7,7 @@ import { useTranslations } from "@/i18n/utils";
 import { languageList } from "@/i18n/ui";
 import Head from "@/layouts/HeadLayout.astro";
 import CursorTrail from "@/components/effects/CursorTrail.astro";
+import VideoScroll from "@/components/ui/VideoScroll.astro";
 
 export interface Props {
   title?: string;
@@ -41,6 +42,7 @@ const { title, description, image, type } = Astro.props;
       <slot />
       <Footer />
     </main>
+    <VideoScroll aria-hidden="true" />
     <CursorTrail />
   </body>
 </html>

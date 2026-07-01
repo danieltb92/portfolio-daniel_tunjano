@@ -45,10 +45,12 @@ n2m.setCustomTransformer("video", async (block) => {
   }`;
   const localUrl = await downloadImage(url, filename);
 
-  return `<video preload:auto autoplay loop class="w-full rounded-lg">
+  return `<video-scroll>
+  <video class="w-full rounded-lg" preload="auto">
     <source src="${localUrl}" type="video/mp4">
     Tu navegador no soporta el tag de video.
-  </video>`;
+  </video>
+</video-scroll>`;
 });
 
 n2m.setCustomTransformer("code", async (block) => {
