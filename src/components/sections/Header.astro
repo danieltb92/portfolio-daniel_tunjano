@@ -14,7 +14,7 @@ const translateLabels = useTranslations(
 );
 ---
 
-<header class="fixed top-0 left-0 w-full z-50 px-2 animate-header">
+<header class="fixed top-0 left-0 w-full z-50 px-2">
   <nav
     class="max-w-lg md:max-w-4xl mx-auto mt-2 mb-10 flex justify-center items-center flex-col lg:flex-row"
   >
@@ -162,9 +162,18 @@ const translateLabels = useTranslations(
       });
     }
 
+    const header = document.querySelector("header");
+
+    // Entry animation (applied from JS to control lifecycle)
+    if (header) {
+      header.classList.add("animate-header");
+      header.addEventListener("animationend", () => {
+        header.classList.remove("animate-header");
+      }, { once: true, signal });
+    }
+
     // Ocultar/mostrar header al hacer scroll
     let lastScroll = 0;
-    const header = document.querySelector("header");
 
     window.addEventListener("scroll", () => {
       if (!header) return;
@@ -172,14 +181,15 @@ const translateLabels = useTranslations(
       const currentScroll = window.pageYOffset;
 
       if (currentScroll <= 0) {
-        header.classList.remove("-translate-y-full");
+        header.classList.remove("header-hidden");
+        lastScroll = 0;
         return;
       }
 
       if (currentScroll > lastScroll && !isMenuOpen) {
-        header.classList.add("-translate-y-full");
+        header.classList.add("header-hidden");
       } else {
-        header.classList.remove("-translate-y-full");
+        header.classList.remove("header-hidden");
       }
 
       lastScroll = currentScroll;
@@ -199,7 +209,11 @@ const translateLabels = useTranslations(
 
 <style>
   header {
-    transition: transform 0.3s ease;
+    transition: translate 0.3s ease;
+  }
+
+  header.header-hidden {
+    translate: 0 -100%;
   }
 
   .mobile-menu-enter {
