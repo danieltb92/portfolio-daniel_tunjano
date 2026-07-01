@@ -64,7 +64,7 @@ n2m.setCustomTransformer("embed", async (block) => {
   const embed = embedBlock.embed;
   return `<iframe 
     src="${embed.url}"
-    class="w-full min-h-[400px] rounded-lg border-0" 
+    class="w-full min-h-[90dvh] rounded-lg border-0" 
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
     allowfullscreen>
   </iframe>`;
