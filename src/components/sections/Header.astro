@@ -15,8 +15,9 @@ const translateLabels = useTranslations(
 ---
 
 <header class="fixed top-0 left-0 w-full z-50 px-2">
+  <div class="header-scroll-wrap pt-2 pb-10">
   <nav
-    class="max-w-lg md:max-w-4xl mx-auto mt-2 mb-10 flex justify-center items-center flex-col lg:flex-row"
+    class="max-w-lg md:max-w-4xl mx-auto flex justify-center items-center flex-col lg:flex-row"
   >
     <div
       class="w-full md:max-w-lg flex items-center justify-between lg:justify-center h-13 gap-18 px-6 bg-[var(--color-bg)]/80 backdrop-blur-md rounded-4xl shadow-md dark:shadow-white/10"
@@ -120,6 +121,7 @@ const translateLabels = useTranslations(
       </div>
     </div>
   </nav>
+  </div>
 </header>
 
 <script>
@@ -174,22 +176,23 @@ const translateLabels = useTranslations(
 
     // Ocultar/mostrar header al hacer scroll
     let lastScroll = 0;
+    const wrap = header?.querySelector(".header-scroll-wrap");
 
     window.addEventListener("scroll", () => {
-      if (!header) return;
+      if (!header || !wrap) return;
 
       const currentScroll = window.pageYOffset;
 
       if (currentScroll <= 0) {
-        header.classList.remove("header-hidden");
+        wrap.classList.remove("header-hidden");
         lastScroll = 0;
         return;
       }
 
       if (currentScroll > lastScroll && !isMenuOpen) {
-        header.classList.add("header-hidden");
+        wrap.classList.add("header-hidden");
       } else {
-        header.classList.remove("header-hidden");
+        wrap.classList.remove("header-hidden");
       }
 
       lastScroll = currentScroll;
@@ -208,12 +211,12 @@ const translateLabels = useTranslations(
 </script>
 
 <style>
-  header {
-    transition: translate 0.3s ease;
+  .header-scroll-wrap {
+    transition: transform 0.3s ease;
   }
 
-  header.header-hidden {
-    translate: 0 -100%;
+  .header-scroll-wrap.header-hidden {
+    transform: translateY(-100%);
   }
 
   .mobile-menu-enter {
