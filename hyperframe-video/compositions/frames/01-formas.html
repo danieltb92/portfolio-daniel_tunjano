@@ -1,0 +1,115 @@
+<template>
+  <style>
+    @font-face {
+      font-family: Kufam;
+      src: url("assets/site/fonts/Kufam-VariableFont_wght.ttf") format("truetype");
+      font-weight: bold, 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    #root {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      container-type: size;
+    }
+
+    .f01-bg {
+      position: absolute;
+      inset: 0;
+      background-color: #eff9ff;
+      background-image:
+        linear-gradient(to right, rgba(0, 138, 212, 0.1) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 138, 212, 0.1) 1px, transparent 1px);
+      background-size: 2cqw 2cqw;
+    }
+
+    .f01-hl {
+      position: absolute;
+      left: 4cqw;
+      right: 4cqw;
+      border-top: 0.12cqw solid #000000;
+    }
+
+    .f01-hl-t {
+      top: 3cqw;
+    }
+
+    .f01-hl-b {
+      bottom: 3cqw;
+    }
+
+    .f01-stage {
+      position: absolute;
+      inset: 0;
+    }
+
+    .f01-w {
+      position: absolute;
+      left: 45%;
+      top: 48%;
+      margin: 0;
+      font-family: Kufam, serif;
+      font-weight: 700;
+      font-size: 10.4cqw;
+      line-height: 0.9;
+      letter-spacing: -0.008em;
+      color: #000000;
+      white-space: nowrap;
+      opacity: 0;
+    }
+
+    .f01-w-3 {
+      font-size: 12.2cqw;
+    }
+  </style>
+
+  <div data-hf-id="hf-vdh6" id="root" data-composition-id="01-formas" data-width="1920" data-height="1080" data-duration="3">
+    <div data-hf-id="hf-ycfg" class="clip f01-bg" data-start="0" data-duration="3" data-track-index="0">
+      <div data-hf-id="hf-l1m3" class="f01-hl f01-hl-t"></div>
+      <div data-hf-id="hf-fgl9" class="f01-hl f01-hl-b"></div>
+    </div>
+
+    <div data-hf-id="hf-rql2" class="clip f01-stage" data-start="0" data-duration="3" data-track-index="1">
+      <div data-hf-id="hf-y27v" class="f01-w" id="f01-w1">FORMAS</div>
+      <div data-hf-id="hf-fhaq" class="f01-w" id="f01-w2">INTERFACES</div>
+      <div data-hf-id="hf-z97e" class="f01-w f01-w-3" id="f01-w3">EMOCIONES</div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <script>
+    window.__timelines = window.__timelines || {};
+    var tl = gsap.timeline({ paused: true });
+    var w1 = document.getElementById("f01-w1");
+    var w2 = document.getElementById("f01-w2");
+    var w3 = document.getElementById("f01-w3");
+
+    // Scene 1 (0.0-0.9): FORMAS hard flash-cut, dead-center at 45% anchor
+    tl.fromTo(
+      w1,
+      { opacity: 0, xPercent: -50, yPercent: -50 },
+      { opacity: 1, duration: 0.02, ease: "none" },
+      0
+    );
+    tl.set(w2, { xPercent: -50, yPercent: -50 }, 0);
+    tl.set(w3, { xPercent: -50, yPercent: -50 }, 0);
+
+    // Scene 2 (0.9-1.7): instant in-place cut to INTERFACES
+    tl.set(w1, { opacity: 0 }, 0.9);
+    tl.set(w2, { opacity: 1 }, 0.9);
+
+    // Scene 3 (1.7-2.6): EMOCIONES kinetic beat-slam, size escalation, holds still
+    tl.set(w2, { opacity: 0 }, 1.7);
+    tl.fromTo(
+      w3,
+      { scale: 1.45, filter: "blur(18px)", opacity: 0 },
+      { scale: 1, filter: "blur(0px)", opacity: 1, duration: 0.4, ease: "power4.out" },
+      1.7
+    );
+
+    window.__timelines["01-formas"] = tl;
+  </script>
+</template>

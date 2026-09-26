@@ -1,0 +1,62 @@
+{
+  "files": [
+    {
+      "file": "font-737795b11d233fa4.ttf",
+      "family": "Inter",
+      "rawFamily": "Inter",
+      "subfamily": "Regular",
+      "postscript": "Inter-Regular",
+      "weight": 400,
+      "style": "normal",
+      "variationAxes": [
+        "opsz",
+        "wght"
+      ],
+      "identified": true,
+      "isIcon": false
+    },
+    {
+      "file": "Kufam-VariableFont_wght.ttf",
+      "family": "Kufam",
+      "rawFamily": "Kufam",
+      "subfamily": "Regular",
+      "postscript": "Kufam-Regular",
+      "weight": 400,
+      "style": "normal",
+      "variationAxes": [
+        "wght"
+      ],
+      "identified": true,
+      "isIcon": false
+    }
+  ],
+  "families": [
+    {
+      "family": "Inter",
+      "weights": [
+        400
+      ],
+      "variable": true,
+      "fileCount": 1,
+      "files": [
+        "font-737795b11d233fa4.ttf"
+      ]
+    },
+    {
+      "family": "Kufam",
+      "weights": [
+        400
+      ],
+      "variable": true,
+      "fileCount": 1,
+      "files": [
+        "Kufam-VariableFont_wght.ttf"
+      ]
+    }
+  ],
+  "unidentified": [],
+  "meta": {
+    "generatedAt": "2026-09-24T03:12:35.733Z",
+    "tool": "fontkit"
+  }
+}

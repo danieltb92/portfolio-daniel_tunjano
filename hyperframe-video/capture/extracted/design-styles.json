@@ -1,0 +1,129 @@
+{
+  "typography": [
+    {
+      "role": "display",
+      "fontFamily": "Kufam",
+      "fontSize": "268.8px",
+      "fontWeight": "700",
+      "lineHeight": "normal",
+      "letterSpacing": "-2px",
+      "color": "#000000",
+      "sampleText": "Diseñador DANIELTB"
+    },
+    {
+      "role": "heading",
+      "fontFamily": "Inter",
+      "fontSize": "24px",
+      "fontWeight": "700",
+      "lineHeight": "28.8px",
+      "letterSpacing": "-1px",
+      "color": "#000000",
+      "sampleText": "WT Ingelec sas"
+    },
+    {
+      "role": "body",
+      "fontFamily": "Inter",
+      "fontSize": "24px",
+      "fontWeight": "300",
+      "lineHeight": "39px",
+      "letterSpacing": "normal",
+      "color": "#000000",
+      "sampleText": "Trabajemos Juntos 👋"
+    },
+    {
+      "role": "heading-4",
+      "fontFamily": "Inter",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "lineHeight": "24px",
+      "letterSpacing": "normal",
+      "color": "#000000",
+      "sampleText": "Herramientas y tecnologías que uso:"
+    }
+  ],
+  "spacing": {
+    "observed": [
+      8,
+      12,
+      16,
+      24,
+      32,
+      40,
+      48,
+      64,
+      72
+    ],
+    "baseUnit": 8
+  },
+  "radius": [
+    "8px"
+  ],
+  "shadows": [
+    {
+      "value": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.1) 0px 2px 4px -2px",
+      "count": 2
+    }
+  ],
+  "buttons": [
+    {
+      "label": "danieltb92@hotmail.com",
+      "background": "transparent",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "#000000",
+      "padding": "8px 16px",
+      "borderRadius": "8px",
+      "border": "2px solid oklch(0.872 0.01 258.338)",
+      "boxShadow": "none",
+      "fontSize": "16px",
+      "fontWeight": "500",
+      "height": "40px"
+    }
+  ],
+  "cards": [],
+  "nav": {
+    "label": "navigation",
+    "background": "transparent",
+    "backgroundImage": "",
+    "backdropFilter": "",
+    "color": "#000000",
+    "padding": "0px 8px",
+    "borderRadius": "0px",
+    "border": "0px solid oklch(0.922 0 0)",
+    "boxShadow": "none",
+    "fontSize": "16px",
+    "fontWeight": "400",
+    "height": "100px"
+  },
+  "chips": [],
+  "statCells": [],
+  "tabs": [],
+  "backgrounds": [
+    {
+      "value": "linear-gradient(rgb(67, 119, 239), rgb(123, 239, 208))",
+      "area": 835750
+    },
+    {
+      "value": "repeating-linear-gradient(45deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0) 5px, rgba(120, 120, 120, 0.1) 5px, rgba(120, 120, 120, 0.1) 6px)",
+      "area": 79872
+    }
+  ],
+  "glass": [
+    {
+      "backdropFilter": "blur(12px)",
+      "background": "oklab(0.97637 -0.00782821 -0.0107129 / 0.8)",
+      "border": "0px solid oklch(0.922 0 0)",
+      "borderRadius": "26px",
+      "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.1) 0px 2px 4px -2px",
+      "area": 26624
+    },
+    {
+      "backdropFilter": "blur(24px)",
+      "background": "linear-gradient(to right top, oklab(0.999994 0.0000455678 0.0000200868 / 0.9) 0%, oklab(0.984 -0.00113071 -0.00277876 / 0.6) 50%, oklab(0.999994 0.0000455678 0.0000200868 / 0.3) 100%)",
+      "border": "2px solid oklab(0.999994 0.0000455677 0.0000200868 / 0.6)",
+      "borderRadius": "14px",
+      "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.1) 0px 2px 4px -2px",
+      "area": 10943
+    }
+  ]
+}

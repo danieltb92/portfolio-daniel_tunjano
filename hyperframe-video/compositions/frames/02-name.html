@@ -1,0 +1,190 @@
+<template>
+<style>
+@font-face{font-family:Kufam;src:url("assets/site/fonts/Kufam-VariableFont_wght.ttf")format("truetype");font-weight:bold,100 900;font-style:normal;font-display:swap}
+@font-face{font-family:Inter;src:url("assets/site/fonts/Inter-VariableFont_opsz,wght.ttf")format("truetype");font-weight:bold,100 900;font-style:normal;font-display:swap}
+
+#root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  container-type: size;
+  font-family: Inter, sans-serif;
+}
+
+[id="02-name-bg"] {
+  position: absolute;
+  inset: 0;
+  container-type: size;
+  background-color: #EFF9FF;
+  background-image:
+    linear-gradient(to right, rgba(0, 138, 212, 0.1) 1.5px, transparent 1.5px),
+    linear-gradient(to bottom, rgba(0, 138, 212, 0.1) 1.5px, transparent 1.5px);
+  background-size: 2cqw 2cqw;
+}
+[id="02-name-bg"]::before,
+[id="02-name-bg"]::after {
+  content: "";
+  position: absolute;
+  left: 4cqw;
+  right: 4cqw;
+  height: 0.12cqw;
+  background: #000000;
+}
+[id="02-name-bg"]::before { top: 3cqw; }
+[id="02-name-bg"]::after { bottom: 3cqw; }
+
+[id="02-name-stage"] {
+  position: absolute;
+  inset: 0;
+}
+
+[id="02-name-lockup"] {
+  position: absolute;
+  left: 384px;
+  top: 303px;
+  width: 1152px;
+  height: 302px;
+}
+
+[id="02-name-mark"] {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 320px;
+  height: 302px;
+  z-index: 2;
+}
+[id="02-name-mark"] svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+[id="02-name-mark"] img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+[id="02-name-word"] img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+[id="02-name-word"] svg,
+[id="02-name-mark"] svg {
+  display: none;
+}
+
+[id="02-name-word"] {
+  position: absolute;
+  left: 368px;
+  top: 89px;
+  width: 784px;
+  height: 124px;
+  z-index: 1;
+  clip-path: inset(0% 100% 0% 0%);
+}
+[id="02-name-word"] svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  color: #000000;
+}
+
+[id="02-name-sub"] {
+  position: absolute;
+  left: 0;
+  top: 653px;
+  width: 100%;
+  text-align: center;
+  font-family: Inter, sans-serif;
+  font-size: 27px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  color: #008AD4;
+}
+[id="02-name-w0"],
+[id="02-name-w1"] {
+  display: inline-block;
+  opacity: 0;
+}
+</style>
+
+<div data-hf-id="hf-n626" id="root" data-composition-id="02-name" data-start="0" data-duration="4.1" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-wi29" id="02-name-bg" class="clip" data-start="0" data-duration="4.1" data-track-index="0"></div>
+
+  <div data-hf-id="hf-1d45" id="02-name-stage" class="clip" data-start="0" data-duration="4.1" data-track-index="1">
+    <div data-hf-id="hf-4nt4" id="02-name-lockup">
+      <div data-hf-id="hf-1v96" id="02-name-word">
+        <img data-hf-id="hf-site-wordmark" src="assets/site/Danieltb.svg" alt="DanielTB">
+        <svg data-hf-id="hf-kk2r" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 151" fill="none">
+          <path data-hf-id="hf-n16t" fill="currentColor" d="M53.4337 150.733H4.61778e-05V-7.1076e-05H53.8753C69.0369 -7.1076e-05 82.0887 3.01753 93.0306 9.05274C103.972 15.0389 112.387 23.6501 118.275 34.8864C124.212 46.1227 127.181 59.5669 127.181 75.2192C127.181 90.9206 124.212 104.414 118.275 115.699C112.387 126.985 103.923 135.645 92.8834 141.68C81.8924 147.715 68.7425 150.733 53.4337 150.733ZM31.8689 123.427H52.1089C61.5297 123.427 69.454 121.759 75.8817 118.422C82.3585 115.037 87.2162 109.811 90.4546 102.746C93.742 95.631 95.3858 86.4555 95.3858 75.2192C95.3858 64.0811 93.742 54.9792 90.4546 47.9136C87.2162 40.848 82.3831 35.6469 75.9553 32.3104C69.5276 28.9738 61.6033 27.3056 52.1825 27.3056H31.8689V123.427ZM164.123 150.733H129.973L182.008 -7.1076e-05H223.077L275.038 150.733H240.888L203.131 34.4448H201.954L164.123 150.733ZM161.989 91.4848H242.654V116.362H161.989V91.4848ZM415.113 -7.1076e-05V150.733H387.586L322.009 55.8624H320.905V150.733H289.036V-7.1076e-05H317.004L382.066 94.7968H383.391V-7.1076e-05H415.113ZM469.167 -7.1076e-05V150.733H437.298V-7.1076e-05H469.167ZM491.242 150.733V-7.1076e-05H592.81V26.2752H523.11V62.192H587.584V88.4672H523.11V124.458H593.104V150.733H491.242ZM614.001 150.733V-7.1076e-05H645.87V124.458H710.491V150.733H614.001ZM702.887 26.2752V-7.1076e-05H826.682V26.2752H780.535V150.733H749.034V26.2752H702.887ZM842.924 150.733V-7.1076e-05H903.276C914.365 -7.1076e-05 923.614 1.64366 931.023 4.93114C938.433 8.21861 944.002 12.7818 947.731 18.6208C951.46 24.4106 953.324 31.0837 953.324 38.64C953.324 44.528 952.147 49.7045 949.792 54.1696C947.436 58.5856 944.198 62.2165 940.076 65.0624C936.004 67.8592 931.342 69.8464 926.092 71.024V72.496C931.833 72.7413 937.206 74.3605 942.211 77.3536C947.265 80.3467 951.362 84.5419 954.502 89.9392C957.642 95.2875 959.212 101.666 959.212 109.075C959.212 117.073 957.225 124.212 953.251 130.493C949.325 136.724 943.511 141.656 935.807 145.287C928.104 148.917 918.61 150.733 907.324 150.733H842.924ZM874.793 124.678H900.774C909.655 124.678 916.132 122.986 920.204 119.6C924.277 116.165 926.313 111.602 926.313 105.91C926.313 101.74 925.307 98.0598 923.295 94.8704C921.284 91.6811 918.413 89.1787 914.684 87.3632C911.004 85.5478 906.613 84.64 901.51 84.64H874.793V124.678ZM874.793 63.0752H898.419C902.786 63.0752 906.662 62.3147 910.047 60.7936C913.482 59.2235 916.181 57.0155 918.143 54.1696C920.155 51.3237 921.161 47.9136 921.161 43.9392C921.161 38.4928 919.223 34.1013 915.347 30.7648C911.519 27.4282 906.073 25.76 899.007 25.76H874.793V63.0752Z" />
+        </svg>
+      </div>
+      <div data-hf-id="hf-bpup" id="02-name-mark">
+        <img data-hf-id="hf-site-mark" src="assets/site/favicon.svg" alt="DanielTB">
+        <svg data-hf-id="hf-b5vy" viewBox="0 0 127 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path data-hf-id="hf-305p" id="02-name-ring" d="M107.5 63C107.5 87.3005 87.8005 107 63.5 107C39.1995 107 19.5 87.3005 19.5 63C19.5 38.6995 39.1995 19 63.5 19C87.8005 19 107.5 38.6995 107.5 63Z" fill="#FFFFFF" stroke="black" stroke-width="8" />
+          <path data-hf-id="hf-62n6" id="02-name-blob" d="M69.1312 90.476C64.791 100.701 52.9836 105.471 42.7587 101.131C32.5339 96.791 27.7634 84.9836 32.1036 74.7587C36.4438 64.5339 48.2511 59.7634 58.476 64.1036C68.7009 68.4438 73.4714 80.2511 69.1312 90.476Z" stroke="black" stroke-width="8" />
+          <path data-hf-id="hf-6pks" id="02-name-line" d="M68 92.8495L94 33" stroke="black" stroke-width="8" />
+          <path data-hf-id="hf-uyf6" id="02-name-dot" d="M67 82.5C67 91.6127 59.6127 99 50.5 99C41.3873 99 34 91.6127 34 82.5C34 73.3873 41.3873 66 50.5 66C59.6127 66 67 73.3873 67 82.5Z" fill="#00B2FF" />
+        </svg>
+      </div>
+    </div>
+    <div data-hf-id="hf-sty0" id="02-name-sub"><span data-hf-id="hf-i1zr" id="02-name-w0">Daniel</span> <span data-hf-id="hf-ver6" id="02-name-w1">Tunjano</span></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var ring = document.getElementById("02-name-ring");
+  var blob = document.getElementById("02-name-blob");
+  var line = document.getElementById("02-name-line");
+  var dot = document.getElementById("02-name-dot");
+  var lockup = document.getElementById("02-name-lockup");
+  var word = document.getElementById("02-name-word");
+
+  [ring, blob, line].forEach(function (p) {
+    var len = p.getTotalLength();
+    p.style.strokeDasharray = String(len);
+    p.style.strokeDashoffset = String(len);
+  });
+
+  window.__timelines = window.__timelines || {};
+  var tl = gsap.timeline({ paused: true });
+
+  tl.to(ring, { strokeDashoffset: 0, duration: 0.6, ease: "power2.out" }, 0.08);
+  tl.fromTo(ring, { fillOpacity: 0 }, { fillOpacity: 1, duration: 0.27, ease: "power1.out" }, 0.68);
+  tl.to(blob, { strokeDashoffset: 0, duration: 0.45, ease: "power2.out" }, 0.53);
+  tl.to(line, { strokeDashoffset: 0, duration: 0.35, ease: "power2.out" }, 0.87);
+  tl.fromTo(dot, { scale: 0 }, { scale: 1, duration: 0.3, ease: "back.out(1.7)", transformOrigin: "50% 50%" }, 1.0);
+
+  tl.fromTo(word, { clipPath: "inset(0% 100% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.65, ease: "power2.out" }, 1.28);
+  tl.fromTo(lockup, { x: 416 }, { x: 0, duration: 0.82, ease: "power2.inOut" }, 1.28);
+  tl.fromTo(lockup, { scale: 1.012 }, { scale: 1, duration: 0.5, ease: "power2.out" }, 2.1);
+
+  var WORDS = [
+    { id: "02-name-w0", text: "Daniel" },
+    { id: "02-name-w1", text: "Tunjano" },
+  ];
+  var BASE_DURATION = 0.14;
+  var SEC_PER_CHAR = 0.028;
+  var STAGGER = 0.55;
+  var cumulative = 1.98;
+  var SCHEDULE = WORDS.map(function (w) {
+    var dur = BASE_DURATION + w.text.length * SEC_PER_CHAR;
+    var start = cumulative;
+    cumulative += dur * STAGGER;
+    return { el: document.getElementById(w.id), start: start, dur: dur };
+  });
+  SCHEDULE.forEach(function (s) {
+    tl.fromTo(s.el, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: s.dur, ease: "power2.out" }, s.start);
+  });
+
+  window.__timelines["02-name"] = tl;
+  tl.seek(0);
+})();
+</script>
+</template>

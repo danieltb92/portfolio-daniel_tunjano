@@ -1,0 +1,174 @@
+<template>
+  <style>
+    @font-face{font-family:Kufam;src:url("assets/site/fonts/Kufam-VariableFont_wght.ttf")format("truetype");font-weight:bold,100 900;font-style:normal;font-display:swap}
+    @font-face{font-family:Inter;src:url("assets/site/fonts/Inter-VariableFont_opsz,wght.ttf")format("truetype");font-weight:bold,100 900;font-style:normal;font-display:swap}
+
+    #root{
+      position:relative;
+      width:100%;
+      height:100%;
+      overflow:hidden;
+      container-type:size;
+    }
+
+    .clip{position:absolute;inset:0;}
+
+    [id="04-cierre-bg"]{
+      background-color:#EFF9FF;
+      background-image:
+        linear-gradient(rgba(0,0,0,0.10) 0.0625cqw, transparent 0.0625cqw),
+        linear-gradient(90deg, rgba(0,0,0,0.10) 0.0625cqw, transparent 0.0625cqw);
+      background-size:2cqw 2cqw;
+    }
+
+    [id="04-cierre-hair-top"],
+    [id="04-cierre-hair-bot"]{
+      position:absolute;
+      left:4cqw;
+      right:4cqw;
+      height:0;
+      border-top:0.12cqw solid #000000;
+    }
+    [id="04-cierre-hair-top"]{top:3cqw}
+    [id="04-cierre-hair-bot"]{bottom:3cqw}
+
+    [id="04-cierre-glitch"]{
+      position:absolute;
+      left:0;
+      top:0;
+      bottom:0;
+      width:14cqw;
+      background:
+        repeating-linear-gradient(90deg,
+          rgba(0,138,212,0.16) 0 0.104cqw,
+          transparent 0.104cqw 0.416cqw);
+      clip-path:polygon(
+        0 0, 70% 0, 70% 8%, 100% 8%, 100% 14%, 55% 14%,
+        55% 28%, 85% 28%, 85% 36%, 40% 36%, 40% 52%,
+        90% 52%, 90% 60%, 60% 60%, 60% 74%, 100% 74%,
+        100% 82%, 50% 82%, 50% 100%, 0 100%);
+      opacity:0.55;
+      z-index:1;
+    }
+
+    [id="04-cierre-stage"]{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      z-index:2;
+    }
+
+    [id="04-cierre-card"]{
+      width:55%;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      text-align:center;
+      margin-top:-4cqh;
+    }
+
+    [id="04-cierre-mark"]{
+      width:5.2cqw;
+      height:auto;
+      display:block;
+      margin-bottom:2.2cqw;
+    }
+
+    [id="04-cierre-url"]{
+      font-family:Kufam, serif;
+      font-weight:700;
+      font-size:5.4cqw;
+      line-height:0.96;
+      letter-spacing:-0.005em;
+      color:#000000;
+      white-space:nowrap;
+    }
+
+    [id="04-cierre-chip"]{
+      margin-top:2.4cqw;
+      font-family:Inter, sans-serif;
+      font-weight:700;
+      font-size:1.25cqw;
+      letter-spacing:0.16em;
+      text-transform:uppercase;
+      padding:0.85cqw 1.6cqw;
+      background:#9F9F9F;
+      color:#EFF9FF;
+      border-radius:0;
+      white-space:nowrap;
+      opacity:0;
+    }
+  </style>
+
+  <div data-hf-id="hf-nah8" id="root" data-composition-id="04-cierre" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-bh2o" class="clip" id="04-cierre-bg" data-start="0" data-duration="1.6" data-track-index="0">
+      <div data-hf-id="hf-q46q" id="04-cierre-glitch"></div>
+      <div data-hf-id="hf-52sv" id="04-cierre-hair-top"></div>
+      <div data-hf-id="hf-xg21" id="04-cierre-hair-bot"></div>
+    </div>
+
+    <div data-hf-id="hf-vnne" class="clip" id="04-cierre-stage" data-start="0" data-duration="1.6" data-track-index="1">
+      <div data-hf-id="hf-iqtb" id="04-cierre-card">
+        <img data-hf-id="hf-0jxi" id="04-cierre-mark" src="assets/site/favicon.svg" alt="DanielTB">
+        <div data-hf-id="hf-mpyh" id="04-cierre-url">danieltunjano.online</div>
+        <div data-hf-id="hf-1d6g" id="04-cierre-chip">Disponible para nuevos proyectos</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <script>
+    (function () {
+      var DUR = 1.6;
+      var CHIP_TEXT = "Disponible para nuevos proyectos \u2192";
+      var CHIP_GREY = "Disponible para nuevos proyectos";
+
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+      window.__timelines["04-cierre"] = tl;
+
+      var cardEl = document.getElementById("04-cierre-card");
+      var chipEl = document.getElementById("04-cierre-chip");
+
+      // Scene 1 (0.0–0.7s) — the ONE move: restrained slide-up crossfade of mark + URL together
+      tl.fromTo(
+        cardEl,
+        { opacity: 0, y: 56, scale: 0.96 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "power3.out" },
+        0
+      );
+
+      // Scene 2 (0.7–1.1s) — chip grey→bright append (discrete-text-sequence: instant state swaps)
+      var STATES = [
+        { t: 0.0, visible: false, bright: false, text: "" },
+        { t: 0.7, visible: true, bright: false, text: CHIP_GREY },
+        { t: 0.95, visible: true, bright: true, text: CHIP_TEXT }
+      ];
+      function stateAt(time) {
+        for (var i = STATES.length - 1; i >= 0; i--) {
+          if (time >= STATES[i].t) return STATES[i];
+        }
+        return STATES[0];
+      }
+      var driver = { t: 0 };
+      tl.to(
+        driver,
+        {
+          t: DUR,
+          duration: DUR,
+          ease: "none",
+          onUpdate: function () {
+            var s = stateAt(driver.t);
+            chipEl.textContent = s.text;
+            chipEl.style.opacity = s.visible ? "1" : "0";
+            chipEl.style.background = s.bright ? "#008AD4" : "#9F9F9F";
+            chipEl.style.color = "#EFF9FF";
+          }
+        },
+        0
+      );
+
+      // Scene 3 (1.1–1.6s) — allocated stillness: hold dead static, no exit (end of film)
+    })();
+  </script>
+</template>

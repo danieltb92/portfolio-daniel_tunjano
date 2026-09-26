@@ -29,24 +29,23 @@ const translateLabels = useTranslations(
         <li>
           <a
             href={getRelativeLocaleUrl(currentLang, "about")}
-            class="text-md hover:border-b transition-colors"
+            class="nav-link"
             >{translateLabels("nav.about")}</a
           >
         </li>
         <li>
           <a
             href={`${getRelativeLocaleUrl(currentLang, "")}#projects`}
-            class="text-md hover:border-b transition-colors"
+            class="nav-link"
             >{translateLabels("nav.projects")}</a
           >
         </li>
         <li>
-          <a href="#contact" class="text-md hover:border-b transition-colors"
+          <a href="#contact" class="nav-link"
             >{translateLabels("nav.contact")}</a
           >
         </li>
       </ul>
-
       <!-- Botón Menú Móvil -->
       <button
         id="menu-toggle"
@@ -241,4 +240,29 @@ const translateLabels = useTranslations(
       opacity 0.3s ease,
       transform 0.3s ease;
   }
+
+  .nav-link {
+    position: relative;
+    text-decoration: none;
+  }
+
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    transform: scaleX(0);
+    transform-origin: left;
+    background-color: currentColor;
+    transition: transform 0.3s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+
+  .nav-link:hover::after {
+    transform: scaleX(1);
+  }
 </style>
+
+
+

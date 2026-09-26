@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "preferences": {
+    "destination": {
+      "value": "youtube-embed",
+      "confirmed_in": [
+        "danieltunjano-intro"
+      ],
+      "updated_at": "2026-09-24T03:09:30.518Z"
+    },
+    "aspect": {
+      "value": "1920x1080",
+      "confirmed_in": [
+        "danieltunjano-intro"
+      ],
+      "updated_at": "2026-09-24T03:09:30.823Z"
+    },
+    "language": {
+      "value": "es",
+      "confirmed_in": [
+        "danieltunjano-intro"
+      ],
+      "updated_at": "2026-09-24T03:09:31.107Z"
+    },
+    "flow": {
+      "value": "automation",
+      "confirmed_in": [
+        "danieltunjano-intro"
+      ],
+      "updated_at": "2026-09-24T03:09:31.378Z"
+    },
+    "storyboard": {
+      "value": "no",
+      "confirmed_in": [
+        "danieltunjano-intro"
+      ],
+      "updated_at": "2026-09-24T03:09:31.648Z"
+    },
+    "style_preset.product-launch-video": {
+      "value": "cobalt-grid",
+      "confirmed_in": [
+        "danieltunjano-intro"
+      ],
+      "updated_at": "2026-09-24T03:13:41.547Z"
+    }
+  },
+  "sightings": {}
+}
