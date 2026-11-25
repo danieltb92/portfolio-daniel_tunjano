@@ -18,13 +18,13 @@ export default defineConfig({
     },
   },
 
-  site: "https://danieltunjano.online",
+  site: "https://danieltunjano.site",
   integrations: [
     sitemap({
       changefreq: "weekly",
       priority: 0.7,
       serialize: (item) => {
-        if (item.url === "https://danieltunjano.online/" || item.url === "https://danieltunjano.online") {
+        if (item.url === "https://danieltunjano.site/" || item.url === "https://danieltunjano.site") {
           return {
             ...item,
             priority: 1.0,
