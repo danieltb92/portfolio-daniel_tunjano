@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://danieltunjano.online/sitemap-index.xml
+Sitemap: https://danieltunjano.site/sitemap-index.xml

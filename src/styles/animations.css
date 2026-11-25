@@ -127,6 +127,45 @@
   transform: translateY(0);
 }
 
+/* Scroll-animate left variant */
+.scroll-animate-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  will-change: opacity, transform;
+}
+
+.scroll-animate-left.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Scroll-animate right variant */
+.scroll-animate-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  will-change: opacity, transform;
+}
+
+.scroll-animate-right.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Scroll-animate scale variant */
+.scroll-animate-scale {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  will-change: opacity, transform;
+}
+
+.scroll-animate-scale.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
 /* Stagger delays para grid children */
 .scroll-animate-stagger > *:nth-child(1) { transition-delay: 0ms; }
 .scroll-animate-stagger > *:nth-child(2) { transition-delay: 100ms; }
@@ -141,7 +180,10 @@
 
 /* Reducir motion para usuarios que lo prefieren */
 @media (prefers-reduced-motion: reduce) {
-  .scroll-animate {
+  .scroll-animate,
+  .scroll-animate-left,
+  .scroll-animate-right,
+  .scroll-animate-scale {
     opacity: 1;
     transform: none;
     transition: none;

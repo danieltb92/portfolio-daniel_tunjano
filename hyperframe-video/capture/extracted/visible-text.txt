@@ -1,0 +1,35 @@
+[a] Sobre mi
+[a] Proyectos
+[a] Contacto
+[span] Cambiar idioma
+[a] Sobre mi
+[a] Proyectos
+[a] Contacto
+[span] Cambiar idioma
+[span] Disponible para nuevos proyectos →
+[span] Creador
+[span] DANIELTB
+[p] Daniel Tunjano | Diseñador industrial & UX/UI | Desarrollador web.
+[a] LinkedIn
+[a] Github
+[h4] Herramientas y tecnologías que uso:
+[h3] WT Ingelec sas
+[span] HTML
+[span] CSS
+[span] JavaScript
+[span] Tailwind
+[span] Astro
+[h3] RockTicket app
+[span] UX/UI
+[span] Case Study
+[h3] Mercado Pago POS
+[span] Case Study
+[span] UX/UI
+[p] Trabajemos Juntos 👋
+[span] danieltb92@hotmail.com
+[a] Contactar
+[a] WhatsApp
+[a] LinkedIn
+[div] © 2026 Creado por
+[a] Daniel Tunjano
+[div] . Todos los derechos reservados.
